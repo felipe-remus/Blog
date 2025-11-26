@@ -1,0 +1,52 @@
+@font-face {
+    font-family: TerminalVelocity;
+    src: url("util/TerminalVelocity.ttf");
+  }
+
+header {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-radius: 30px;
+    background-color: #26011C;
+}
+
+#table-carro {
+    width: 100%;
+    border-radius: 30px;
+    background-color: #40012f
+}
+
+#table-moto {
+    width: 100%;
+    border-radius: 30px;
+    background-color: #40012f
+}
+
+#logo-cabecalho {
+    width: 100%;
+}
+
+#titulo-cabecalho {
+    text-align: left;
+    font-size: 3.5rem;
+    font-family: TerminalVelocity;
+    padding: 1rem;
+    color: white;
+}
+
+#navegacao-cabecalho {
+    width: 70%;
+    text-align: right;
+    font-size: 3rem;
+    font-family: TerminalVelocity;
+    padding: 1rem;
+
+    a {
+        color: white;
+        text-decoration: none;
+        padding: 2px;
+    }
+}
