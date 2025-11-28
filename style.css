@@ -66,10 +66,7 @@ footer > table {
     color: #40012f;    
 }
 
-#rodape-esquerda {
-    display: flex;
-    justify-content: left;
-}
+
 
 #rodape-direita {
     display: flex;
