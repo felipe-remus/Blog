@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Tech F1 - Pilotos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="cabecalho">
+        <div id="logo-cabecalho">
+            <img src="img/Marca-F1.svg" alt="Logo">
+        </div>
+        <nav id="menu-principal">
+            <a href="index.html">Home</a>
+            <a href="pilotos.html">Pilotos</a>
+            <a href="equipes.html">Equipes</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <main>
+        <h1>Notícias dos Pilotos</h1>
+    
+        <!-- Filtro: só pilotos -->
+        <div class="filtro-container">
+            <label for="filtro-piloto">Filtrar por piloto:</label>
+            <select id="filtro-piloto" class="filtro-select">
+                <option value="">Todos os pilotos</option>
+                <option value="alex-albon">Alex Albon</option>
+                <option value="arvid-lindblad">Arvid Lindblad</option>
+                <option value="carlos-sainz">Carlos Sainz</option>
+                <option value="charles-leclerc">Charles Leclerc</option>
+                <option value="esteban-ocon">Esteban Ocon</option>
+                <option value="fernando-alonso">Fernando Alonso</option>
+                <option value="franco-colapinto">Franco Colapinto</option>
+                <option value="george-russell">George Russell</option>
+                <option value="gabriel-bortoleto">Gabriel Bortoleto</option>
+                <option value="isaac-hadjar">Isaac Hadjar</option>
+                <option value="kimi-antonelli">Kimi Antonelli</option>
+                <option value="lando-norris">Lando Norris</option>
+                <option value="lewis-hamilton">Lewis Hamilton</option>
+                <option value="liam-lawson">Liam Lawson</option>
+                <option value="lance-stroll">Lance Stroll</option>
+                <option value="max-verstappen">Max Verstappen</option>
+                <option value="nico-hulkenberg">Nico Hülkenberg</option>
+                <option value="oliver-bearman">Oliver Bearman</option>
+                <option value="oscar-piastri">Oscar Piastri</option>
+                <option value="pierre-gasly">Pierre Gasly</option>
+                <option value="sergio-perez">Sergio Pérez</option>
+                <option value="valtteri-bottas">Valtteri Bottas</option>
+            </select>
+        </div>
+    
+        <!-- Cards de notícias -->
+        <div class="noticias-container">
+            <article class="card-noticia" data-piloto="norris">
+                <h2>Lando Norris comemora primeiro titulo da Formula 1</h2>
+                <p class="meta">Publicado em 10/12/2025</p>
+                <p>O britânico terminou no podio, garantindo o titulo mundial de 2025</p>
+                <span class="tag equipe-mclaren">McLaren</span>
+            </article>
+    
+            <article class="card-noticia" data-piloto="hamilton">
+                <h2>Hamilton fala sobre futuro pós-Mercedes</h2>
+                <p class="meta">Publicado em 08/12/2025</p>
+                <p>"Estou aberto a novos desafios", disse o heptacampeão...</p>
+                <span class="tag equipe-mercedes">Mercedes</span>
+            </article>
+        </div>
+    </main>
+
+    <hr>
+
+    <footer>
+        <table>
+            <tr id="rodape">
+                <td id="rodape-esquerda">
+                    © 2025 Company, Inc
+                </td>
+                <td id="rodape-direita">
+                    <img class="icon" src="img/Icones-Insta.svg" alt="">
+                    @felipe_remus
+
+                    <img class="icon" src="img/Icones-Linkedin.svg">
+                    Felipe Remus
+
+                    <img class="icon" src="img/Icones-Github.svg">
+                    felipe-remus
+                </td>
+            </tr>
+        </table>
+    </footer>
+</body>
+</html>

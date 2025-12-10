@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login – Blog Tech F1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="cabecalho">
+        <div id="logo-cabecalho">
+            <img src="img/Marca-F1.svg" alt="Logo">
+        </div>
+        <nav id="menu-principal">
+            <a href="index.html">Home</a>
+            <a href="pilotos.html">Pilotos</a>
+            <a href="equipes.html">Equipes</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <main class="pagina-login">
+        <div class="login-container">
+            <!-- Abas -->
+            <div class="abas-login">
+                <button type="button" class="aba ativa" data-aba="login">Entrar</button>
+                <button type="button" class="aba" data-aba="registro">Criar Conta</button>
+            </div>
+    
+            <!-- Formulário de Login -->
+            <form id="form-login" class="formulario ativo">
+                <div class="campo">
+                    <label for="email-login">E-mail</label>
+                    <input type="email" id="email-login" required>
+                </div>
+                <div class="campo">
+                    <label for="senha-login">Senha</label>
+                    <input type="password" id="senha-login" required>
+                </div>
+                <button type="submit" class="botao-login">Entrar</button>
+            </form>
+    
+            <!-- Formulário de Registro -->
+            <form id="form-registro" class="formulario">
+                <div class="campo">
+                    <label for="nome-registro">Nome Completo</label>
+                    <input type="text" id="nome-registro" required>
+                </div>
+                <div class="campo">
+                    <label for="email-registro">E-mail</label>
+                    <input type="email" id="email-registro" required>
+                </div>
+                <div class="campo">
+                    <label for="senha-registro">Senha</label>
+                    <input type="password" id="senha-registro" required>
+                </div>
+                <div class="campo">
+                    <label for="confirmar-senha">Confirmar Senha</label>
+                    <input type="password" id="confirmar-senha" required>
+                </div>
+                <button type="submit" class="botao-login">Criar Conta</button>
+            </form>
+    
+            <p class="link-voltar">
+                <a href="index.html">← Voltar para o blog</a>
+            </p>
+        </div>
+    </main>
+
+    <hr>
+
+    <footer>
+        <table>
+            <tr id="rodape">
+                <td id="rodape-esquerda">
+                    © 2025 Company, Inc
+                </td>
+                <td id="rodape-direita">
+                    <img class="icon" src="img/Icones-Insta.svg" alt="">
+                    @felipe_remus
+
+                    <img class="icon" src="img/Icones-Linkedin.svg">
+                    Felipe Remus
+
+                    <img class="icon" src="img/Icones-Github.svg">
+                    felipe-remus
+                </td>
+            </tr>
+        </table>
+    </footer>
+    <script>
+        document.querySelectorAll('.aba').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove a classe "ativa" de todas as abas
+                document.querySelectorAll('.aba').forEach(b => b.classList.remove('ativa'));
+                // Adiciona "ativa" à aba clicada
+                this.classList.add('ativa');
+    
+                // Esconde todos os formulários
+                document.querySelectorAll('.formulario').forEach(f => f.classList.remove('ativo'));
+    
+                // Mostra o formulário correspondente
+                const aba = this.getAttribute('data-aba');
+                document.getElementById(`form-${aba}`).classList.add('ativo');
+            });
+        });
+        
+    </script>
+</body>
+</html>

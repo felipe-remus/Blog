@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Tech F1 – Equipes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="cabecalho">
+        <div id="logo-cabecalho">
+            <img src="img/Marca-F1.svg" alt="Logo">
+        </div>
+        <nav id="menu-principal">
+            <a href="index.html">Home</a>
+            <a href="pilotos.html">Pilotos</a>
+            <a href="equipes.html">Equipes</a>
+        </nav>
+    </header>
+    
+    <hr>
+
+    <main>
+        <h1>Notícias das Equipes</h1>
+    
+        <!-- Filtro: só equipes -->
+        <div class="filtro-container">
+            <label for="filtro-equipe">Filtrar por equipe:</label>
+            <select id="filtro-equipe" class="filtro-select">
+                <option value="">Todas as equipes</option>
+                <option value="alpine">Alpine</option>
+                <option value="astonmartin">Aston Martin</option>
+                <option value="audi">Audi</option>
+                <option value="cadillac">Cadillac</option>
+                <option value="ferrari">Ferrari</option>
+                <option value="haas">Haas</option>
+                <option value="mclaren">McLaren</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="redbull">Red Bull</option>
+                <option value="visa">Visa Cash App RB</option>
+                <option value="williams">Williams</option>
+            </select>
+        </div>
+    
+        <!-- Cards de notícias -->
+        <div class="noticias-container">
+            <!-- Alpine -->
+            <article class="card-noticia" data-equipe="alpine">
+                <h2>Alpine confirma Franco Colapinto como titular para 2026</h2>
+                <p class="meta">Publicado em 05/12/2025</p>
+                <p>O jovem argentino impressionou nos testes e herda a vaga ao lado de Pierre Gasly...</p>
+                <span class="tag equipe-alpine">Alpine</span>
+            </article>
+        
+            <!-- Aston Martin -->
+            <article class="card-noticia" data-equipe="astonmartin">
+                <h2>Alonso renova com Aston Martin até 2027</h2>
+                <p class="meta">Publicado em 06/12/2025</p>
+                <p>O bicampeão afirma: "Acredito que podemos vencer juntos antes que eu me aposente"...</p>
+                <span class="tag equipe-astonmartin">Aston Martin</span>
+            </article>
+        
+            <!-- Audi -->
+            <article class="card-noticia" data-equipe="audi">
+                <h2>Audi revela primeiras imagens do carro 2026</h2>
+                <p class="meta">Publicado em 07/12/2025</p>
+                <p>Design inovador com foco em eficiência energética impressiona nos túneis de vento...</p>
+                <span class="tag equipe-audi">Audi</span>
+            </article>
+        
+            <!-- Cadillac -->
+            <article class="card-noticia" data-equipe="cadillac">
+                <h2>Cadillac surpreende com ritmo nos testes de pré-temporada</h2>
+                <p class="meta">Publicado em 08/12/2025</p>
+                <p>Bottas e Pérez colocam o carro entre os cinco primeiros em simulações de corrida...</p>
+                <span class="tag equipe-cadillac">Cadillac</span>
+            </article>
+        
+            <!-- Ferrari -->
+            <article class="card-noticia" data-equipe="ferrari">
+                <h2>Hamilton se adapta rapidamente à Ferrari em testes privados</h2>
+                <p class="meta">Publicado em 09/12/2025</p>
+                <p>O heptacampeão já mostra sinergia com Leclerc e elogia a nova unidade de potência...</p>
+                <span class="tag equipe-ferrari">Ferrari</span>
+            </article>
+        
+            <!-- Haas -->
+            <article class="card-noticia" data-equipe="haas">
+                <h2>Haas aposta em jovens talentos para temporada 2026</h2>
+                <p class="meta">Publicado em 10/12/2025</p>
+                <p>Bearman e Ocon formam a dupla mais jovem do grid em termos de experiência combinada...</p>
+                <span class="tag equipe-haas">Haas</span>
+            </article>
+        
+            <!-- McLaren -->
+            <article class="card-noticia" data-equipe="mclaren">
+                <h2>McLaren anuncia upgrade aerodinâmico para Mônaco</h2>
+                <p class="meta">Publicado em 10/12/2025</p>
+                <p>A equipe britânica traz as maiores modificações do ano para o circuito de rua...</p>
+                <span class="tag equipe-mclaren">McLaren</span>
+            </article>
+        
+            <!-- Mercedes -->
+            <article class="card-noticia" data-equipe="mercedes">
+                <h2>Antonelli impressiona Hamilton em sessão de treinos compartilhados</h2>
+                <p class="meta">Publicado em 04/12/2025</p>
+                <p>O "novo Schumacher" recebe elogios do ídolo após simulações no W17...</p>
+                <span class="tag equipe-mercedes">Mercedes</span>
+            </article>
+        
+            <!-- Racing Bulls -->
+            <article class="card-noticia" data-equipe="racingbulls">
+                <h2>Racing Bulls confirma patrocínio com marca sueca</h2>
+                <p class="meta">Publicado em 03/12/2025</p>
+                <p>Lindblad e Lawson ganham novo suporte financeiro para desenvolvimento do RB22...</p>
+                <span class="tag equipe-racingbulls">Racing Bulls</span>
+            </article>
+        
+            <!-- Red Bull -->
+            <article class="card-noticia" data-equipe="redbull">
+                <h2>Verstappen elogia novo companheiro Isaac Hadjar</h2>
+                <p class="meta">Publicado em 08/12/2025</p>
+                <p>"Ele tem talento de outro nível", disse o tetracampeão sobre o jovem francês...</p>
+                <span class="tag equipe-redbull">Red Bull</span>
+            </article>
+        
+            <!-- Williams -->
+            <article class="card-noticia" data-equipe="williams">
+                <h2>Williams traz Sainz para liderar renovação técnica</h2>
+                <p class="meta">Publicado em 02/12/2025</p>
+                <p>Ao lado de Albon, o espanhol será peça-chave no desenvolvimento do FW48...</p>
+                <span class="tag equipe-williams">Williams</span>
+            </article>
+        </div>
+    </main>
+
+    <hr>
+
+    <footer>
+        <table>
+            <tr id="rodape">
+                <td id="rodape-esquerda">
+                    © 2025 Company, Inc
+                </td>
+                <td id="rodape-direita">
+                    <img class="icon" src="img/Icones-Insta.svg" alt="">
+                    @felipe_remus
+
+                    <img class="icon" src="img/Icones-Linkedin.svg">
+                    Felipe Remus
+
+                    <img class="icon" src="img/Icones-Github.svg">
+                    felipe-remus
+                </td>
+            </tr>
+        </table>
+    </footer>
+</body>
+</html>
