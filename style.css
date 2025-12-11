@@ -1,60 +1,104 @@
-@font-face {
+/* ========================================
+   1. FONTE PERSONALIZADA
+   ======================================== */
+   @font-face {
     font-family: TerminalVelocity;
     src: url("util/TerminalVelocity.ttf");
 }
 
+
+/* ========================================
+   2. ESTILOS BASE E RESET LEVE
+   ======================================== */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     color: #333;
-}
-
-#logo-cabecalho {
-    width: 100%;
-}
-
-#logo-cabecalho img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    height: auto;
-}
-
-#cabecalho {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-#menu-principal {
-    display: flex;
-    gap: 1rem;
-}
-
-#menu-principal a {
-    font-family: TerminalVelocity;
-    font-size: 1.5rem;
-    color: #26011C;
-    text-decoration: none;
+    margin: 0;
+    padding: 0;
 }
 
 hr {
     margin: 0;
     border-color: #26011C;
+    border-style: solid;
 }
 
-main {
-    padding: 2rem;
-    max-width: 900px;
-    margin: 2rem auto;
+
+/* ========================================
+   3. CABEÇALHO (HEADER) – VERSÃO HORIZONTAL
+   ======================================== */
+#cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    background-color: #ffffff;
+    border-bottom: 2px solid #26011C;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-/* Responsividade básica */
-@media (max-width: 600px) {
-    header {
+#logo-cabecalho {
+    flex: 1;
+    max-width: 35rem; /* ajuste conforme sua logo */
+}
+
+#logo-cabecalho img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#menu-principal {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#menu-principal a {
+    font-family: TerminalVelocity;
+    font-size: 1.5rem; /* um pouco menor para caber melhor */
+    color: #26011C;
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+#menu-principal a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Botão "Voltar para o blog" no topo direito */
+.voltar-topo {
+    text-align: left;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding: 1rem;
+}
+
+.voltar-topo a {
+    color: #26011C;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Responsivo: em telas pequenas, empilha logo e menu */
+@media (max-width: 768px) {
+    #cabecalho {
         flex-direction: column;
-        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    #logo-cabecalho {
+        max-width: 35rem;
     }
 
     #menu-principal {
@@ -62,16 +106,24 @@ main {
     }
 
     #menu-principal a {
-        font-size: 1.5rem;
-    }
-
-    #rodape {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
+        font-size: 1.3rem;
     }
 }
 
+
+/* ========================================
+   4. LAYOUT PRINCIPAL (MAIN)
+   ======================================== */
+main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+
+/* ========================================
+   5. RODAPÉ (FOOTER)
+   ======================================== */
 footer {
     display: flex;
     width: 100%;
@@ -80,7 +132,6 @@ footer {
 
 footer > table {
     width: 100%;
-    
 }
 
 #rodape {
@@ -107,7 +158,10 @@ footer > table {
     margin-right: 0.05rem;
 }
 
-/* Container dos cards */
+
+/* ========================================
+   6. CARDS DE NOTÍCIAS
+   ======================================== */
 .noticias-container {
     display: flex;
     flex-direction: column;
@@ -116,7 +170,6 @@ footer > table {
     padding: 0 1rem;
 }
 
-/* Estilo do card */
 .card-noticia {
     background: white;
     border: 2px solid #26011C;
@@ -124,7 +177,7 @@ footer > table {
     padding: 1.6rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s, box-shadow 0.2s;
-    font-family: Arial, sans-serif; /* Garante que todo o card use fonte padrão */
+    font-family: Arial, sans-serif;
 }
 
 .card-noticia:hover {
@@ -132,7 +185,6 @@ footer > table {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
-/* Título do card */
 .card-noticia h2 {
     color: #26011C;
     font-size: 1.6rem;
@@ -140,7 +192,6 @@ footer > table {
     line-height: 1.3;
 }
 
-/* Linha de metadados */
 .card-noticia .meta {
     font-size: 0.85rem;
     color: #555;
@@ -148,21 +199,24 @@ footer > table {
     font-style: italic;
 }
 
-/* Texto do resumo */
 .card-noticia p {
     line-height: 1.6;
     color: #333;
     margin-bottom: 1.2rem;
 }
 
-/* Container das tags */
 .card-tags {
     display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
     justify-content: flex-end;
-    gap: 0.6rem;
 }
 
-/* Estilo das tags de equipe */
+
+/* ========================================
+   7. TAGS (EQUIPES, PILOTOS, GERAL)
+   ======================================== */
 .tag {
     display: inline-block;
     padding: 0.25rem 0.7rem;
@@ -171,6 +225,7 @@ footer > table {
     font-weight: bold;
     color: white;
     font-family: Arial, sans-serif;
+    white-space: nowrap;
 }
 
 /* Cores por equipe */
@@ -186,28 +241,22 @@ footer > table {
 .tag.equipe-audi         { background-color: #333333; color: white; }
 .tag.equipe-cadillac     { background-color: #000000; color: white; }
 
+/* Tags de piloto e geral */
+.tag.piloto {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
 .tag.geral {
     background-color: #26011C;
     color: white;
 }
 
-/* Responsividade */
-@media (max-width: 600px) {
-    .card-noticia {
-        padding: 1.2rem;
-    }
 
-    .card-noticia h2 {
-        font-size: 1.4rem;
-    }
-
-    .card-noticia .meta,
-    .card-noticia p {
-        font-size: 0.9rem;
-    }
-}
-
-/* Área de colaboradores (só na Home) */
+/* ========================================
+   8. ÁREA DE COLABORADORES (HOME)
+   ======================================== */
 .area-colaboradores {
     text-align: center;
     margin: 2rem 0;
@@ -226,7 +275,16 @@ footer > table {
     font-family: Arial, sans-serif;
 }
 
-.botao-login {
+.botoes-colaborador {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.botao-login,
+.botao-escrever {
     display: inline-block;
     padding: 0.6rem 1.4rem;
     background-color: #26011C;
@@ -237,11 +295,15 @@ footer > table {
     transition: background-color 0.2s;
 }
 
-.botao-login:hover {
+.botao-login:hover,
+.botao-escrever:hover {
     background-color: #1a0013;
 }
 
-/* Estilo específico para a página de login */
+
+/* ========================================
+   9. PÁGINA DE LOGIN / REGISTRO
+   ======================================== */
 .pagina-login {
     display: flex;
     justify-content: center;
@@ -279,7 +341,8 @@ footer > table {
     font-weight: bold;
 }
 
-.campo input {
+.campo input,
+.campo-linha input {
     width: 100%;
     padding: 0.6rem;
     border: 1px solid #26011C;
@@ -287,6 +350,16 @@ footer > table {
     font-family: Arial, sans-serif;
     font-size: 1rem;
     box-sizing: border-box;
+}
+
+.campo-linha {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.subcampo {
+    flex: 1;
 }
 
 .botao-login {
@@ -301,15 +374,11 @@ footer > table {
     transition: background 0.2s;
 }
 
-.botao-login:hover {
-    background-color: #1a0013;
-}
-
 .link-voltar {
     text-align: center;
     margin-top: 1.2rem;
     font-size: 0.95rem;
-}S
+}
 
 .link-voltar a {
     color: #26011C;
@@ -317,7 +386,6 @@ footer > table {
     font-family: Arial, sans-serif;
 }
 
-/* Abas de login/registro */
 .abas-login {
     display: flex;
     justify-content: center;
@@ -339,11 +407,304 @@ footer > table {
     border-bottom: 2px solid #26011C;
 }
 
-/* Formulários */
 .formulario {
     display: none;
 }
 
 .formulario.ativo {
     display: block;
+}
+
+
+/* ========================================
+   10. PÁGINA DE ESCREVER NOTÍCIA
+   ======================================== */
+.pagina-escrita {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.pagina-escrita h1 {
+    color: #26011C;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+#form-noticia .campo {
+    margin-bottom: 1.8rem;
+}
+
+#form-noticia label {
+    display: block;
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.5rem;
+    color: #26011C;
+    font-weight: bold;
+}
+
+#titulo-noticia {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1.2rem;
+    border: 1px solid #26011C;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+#texto-noticia {
+    width: 100%;
+    padding: 0.8rem;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    border: 1px solid #26011C;
+    border-radius: 8px;
+    min-height: 200px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.botao-enviar {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 1rem auto;
+    padding: 0.8rem;
+    background-color: #26011C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botao-enviar:hover {
+    background-color: #1a0013;
+}
+
+/* Campo de seleção de tags */
+.tag-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+    border: 1px solid #26011C;
+    border-radius: 8px;
+    padding: 0.6rem;
+    background-color: white;
+    min-height: 60px;
+}
+
+.tags-selecionadas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-right: 0.5rem;
+    flex: 1;
+}
+
+.tag-selecionado {
+    position: relative;
+    padding-right: 1.4rem;
+    cursor: default;
+}
+
+.tag-selecionado .remove-tag {
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 0.8rem;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.tag-selecionado .remove-tag:hover {
+    color: #ff0000;
+}
+
+.input-tag {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.4rem 0.6rem;
+    border: none;
+    outline: none;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.input-tag:focus {
+    box-shadow: none;
+}
+
+
+/* ========================================
+   11. BUSCA E FILTROS
+   ======================================== */
+.busca-container {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.busca-container label {
+    color: #26011C;
+    font-size: 1.1rem;
+}
+
+#busca-texto {
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+    border: 2px solid #26011C;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#busca-texto:focus {
+    outline: none;
+    border-color: #bf0413;
+}
+
+
+/* ========================================
+   12. COMENTÁRIOS NAS NOTÍCIAS
+   ======================================== */
+.secao-comentarios {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed #ccc;
+}
+
+.secao-comentarios h3 {
+    font-size: 1.1rem;
+    color: #26011C;
+    margin-bottom: 1rem;
+    font-family: Arial, sans-serif;
+}
+
+.lista-comentarios {
+    margin-bottom: 1rem;
+}
+
+.comentario {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    border-left: 3px solid #26011C;
+}
+
+.comentario-autor {
+    font-weight: bold;
+    color: #26011C;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.comentario-texto {
+    line-height: 1.5;
+    color: #333;
+}
+
+.formulario-comentario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.formulario-comentario textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #26011C;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 60px;
+    max-height: 120px;
+}
+
+.botao-comentar {
+    align-self: flex-end;
+    padding: 0.4rem 1rem;
+    background-color: #26011C;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botao-comentar:hover {
+    background-color: #1a0013;
+}
+
+
+/* ========================================
+   13. RESPONSIVIDADE (MEDIA QUERIES)
+   ======================================== */
+@media (max-width: 600px) {
+    /* Cabeçalho */
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    #menu-principal {
+        gap: 1rem;
+    }
+
+    #menu-principal a {
+        font-size: 1.5rem;
+    }
+
+    /* Rodapé */
+    #rodape {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Cards */
+    .card-noticia {
+        padding: 1.2rem;
+    }
+
+    .card-noticia h2 {
+        font-size: 1.4rem;
+    }
+
+    .card-noticia .meta,
+    .card-noticia p {
+        font-size: 0.9rem;
+    }
+
+    /* Área de colaboradores */
+    .botoes-colaborador {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Login - CPF e Telefone */
+    .campo-linha {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
 }

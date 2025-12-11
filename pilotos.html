@@ -15,13 +15,26 @@
             <a href="index.html">Home</a>
             <a href="pilotos.html">Pilotos</a>
             <a href="equipes.html">Equipes</a>
+            <a href="login.html">Login</a>
+            <a href="escrever-noticia.html">Escrever</a>
         </nav>
     </header>
 
     <hr>
 
+    <!-- Botão "Voltar para o blog" -->
+    <div class="voltar-topo">
+        <a href="index.html">← Voltar para o blog</a>
+    </div>
+
     <main>
         <h1>Notícias dos Pilotos</h1>
+
+        <!-- ✅ Campo de busca -->
+        <div class="busca-container">
+            <label for="busca-texto">Pesquisar notícias:</label>
+            <input type="text" id="busca-texto">
+        </div>
     
         <!-- Filtro: só pilotos -->
         <div class="filtro-container">
@@ -55,18 +68,14 @@
     
         <!-- Cards de notícias -->
         <div class="noticias-container">
-            <article class="card-noticia" data-piloto="norris">
-                <h2>Lando Norris comemora primeiro titulo da Formula 1</h2>
-                <p class="meta">Publicado em 10/12/2025</p>
-                <p>O britânico terminou no podio, garantindo o titulo mundial de 2025</p>
-                <span class="tag equipe-mclaren">McLaren</span>
-            </article>
-    
-            <article class="card-noticia" data-piloto="hamilton">
-                <h2>Hamilton fala sobre futuro pós-Mercedes</h2>
-                <p class="meta">Publicado em 08/12/2025</p>
-                <p>"Estou aberto a novos desafios", disse o heptacampeão...</p>
-                <span class="tag equipe-mercedes">Mercedes</span>
+            <article class="card-noticia" data-piloto="lando-norris">
+                <h2>Lando Norris assina renovação histórica com a McLaren</h2>
+                <p class="meta">12/12/2025 • McLaren</p>
+                <p>O britânico de 25 anos ampliou seu vínculo com a equipe de Woking até 2028, em um dos maiores contratos da história da F1...</p>
+                <div class="card-tags">
+                    <span class="tag piloto">Lando Norris</span>
+                    <span class="tag equipe-mclaren">McLaren</span>
+                </div>
             </article>
         </div>
     </main>
