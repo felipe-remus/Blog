@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login – Blog Tech F1</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header id="cabecalho">
@@ -12,7 +13,7 @@
             <img src="img/Marca-F1.svg" alt="Logo">
         </div>
         <nav id="menu-principal">
-            <a href="index.html">Home</a>
+            <a href="pagina-principal.html">Home</a>
             <a href="pilotos.html">Pilotos</a>
             <a href="equipes.html">Equipes</a>
             <a href="login.html">Login</a>
@@ -20,11 +21,9 @@
         </nav>
     </header>
 
-    <hr>
-
     <!-- Botão "Voltar para o blog" -->
     <div class="voltar-topo">
-        <a href="index.html">← Voltar para o blog</a>
+        <a href="pagina-principal.html">← Voltar para o blog</a>
     </div>
 
     <main class="pagina-login">
@@ -85,6 +84,17 @@
                 </div>
                 <button type="submit" class="botao-login">Criar Conta</button>
             </form>
+
+            <!-- Opção "Entrar com Google" -->
+            <div class="login-com-opcoes">
+                <p class="texto-opcao">ou use uma dessas opções</p>
+                <div class="botoes-sociais">
+                    <button type="button" class="botao-social google">
+                        <img src="img/Icones-Google.svg">
+                        Entrar com Google
+                    </button>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -109,23 +119,5 @@
             </tr>
         </table>
     </footer>
-    <script>
-        document.querySelectorAll('.aba').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove a classe "ativa" de todas as abas
-                document.querySelectorAll('.aba').forEach(b => b.classList.remove('ativa'));
-                // Adiciona "ativa" à aba clicada
-                this.classList.add('ativa');
-    
-                // Esconde todos os formulários
-                document.querySelectorAll('.formulario').forEach(f => f.classList.remove('ativo'));
-    
-                // Mostra o formulário correspondente
-                const aba = this.getAttribute('data-aba');
-                document.getElementById(`form-${aba}`).classList.add('ativo');
-            });
-        });
-        
-    </script>
 </body>
 </html>

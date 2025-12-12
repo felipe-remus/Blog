@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escrever Notícia – Blog Tech F1</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header id="cabecalho">
@@ -12,7 +13,7 @@
             <img src="img/Marca-F1.svg" alt="Logo">
         </div>
         <nav id="menu-principal">
-            <a href="index.html">Home</a>
+            <a href="pagina-principal.html">Home</a>
             <a href="pilotos.html">Pilotos</a>
             <a href="equipes.html">Equipes</a>
             <a href="login.html">Login</a>
@@ -24,7 +25,7 @@
 
     <!-- Botão "Voltar para o blog" -->
     <div class="voltar-topo">
-        <a href="index.html">← Voltar para o blog</a>
+        <a href="pagina-principal.html">← Voltar para o blog</a>
     </div>
 
     <main class="pagina-escrita">
@@ -45,17 +46,11 @@
 
             <!-- Seleção de Tags -->
             <div class="campo">
-                <label for="tags-input">Tags (digite ou selecione)</label>
+                <label for="tags-input">Tags (selecione uma ou mais)</label>
                 <div class="tag-selector">
-                    <!-- Tags selecionadas aparecerão aqui -->
                     <div class="tags-selecionadas">
-                        <!-- Exemplo de tag já selecionada (você pode remover ou adicionar via JS depois) -->
-                        <span class="tag tag-selecionado equipe-mclaren">McLaren <button type="button" class="remove-tag">×</button></span>
-                        <span class="tag tag-selecionado geral">Fórmula 1 <button type="button" class="remove-tag">×</button></span>
+                        <!-- Tags aparecerão aqui via JS -->
                     </div>
-
-                    <!-- Campo para digitar nova tag -->
-                    <input type="text" id="tags-input" class="input-tag">
                 </div>
             </div>
                 
@@ -209,7 +204,6 @@
                         <span class="tag tag-preview piloto">Valtteri Bottas</span>
                     </label>
                 </div>
-            </div>
 
             <!-- Botão de enviar -->
             <button type="submit" class="botao-enviar">Publicar Notícia</button>
@@ -217,6 +211,7 @@
     </main>
 
     <hr>
+    
     <footer>
         <table>
             <tr id="rodape">
