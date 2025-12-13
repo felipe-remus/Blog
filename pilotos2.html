@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Pilotos</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script2.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <template
+        hx-get="/componentes/header2.html"
+        hx-target="#xcabecalho"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="xcabecalho"></div>
+
+    <!-- Botão "Voltar para o blog" -->
+    <div class="voltar-topo">
+        <a href="/pagina-principal2.html">← Voltar para o blog</a>
+    </div>
+
+    <main>
+        <h1>Notícias dos Pilotos 1</h1>
+
+        <!-- Barra de Pesquisa -->
+        <template
+            hx-get="componentes/pesquisa.html"
+            hx-target="#pesquisa"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="pesquisa"></div>
+
+        <!-- Combo Box -->
+        <template
+            hx-get="/componentes/CB-pilotos.html"
+            hx-target="#filtro"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="filtro"></div>
+
+        <!-- Card de Notícia -->
+        <template
+            hx-get="/componentes/card-noticia.html"
+            hx-target="#noticia"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="noticia"></div>
+    </main>
+
+    <hr>
+
+    <!-- Rodapé -->
+    <template
+        hx-get="/componentes/footer.html"
+        hx-target="#footer"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="footer"></div>
+
+</body>
+</html>

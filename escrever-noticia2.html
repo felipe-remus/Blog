@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Escrever Noticia</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script2.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <template
+        hx-get="/componentes/header2.html"
+        hx-target="#xcabecalho"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="xcabecalho"></div>
+
+    <!-- Botão "Voltar para o blog" -->
+    <div class="voltar-topo">
+        <a href="/pagina-principal2.html">← Voltar para o blog</a>
+    </div>
+
+    <main>
+        <h1>Escrever Nova Notícia</h1>
+
+        <!-- Pagina de escrevr -->
+        <template
+            hx-get="/componentes/pag-escrever-noticia.html"
+            hx-target="#pesquisa"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="pesquisa"></div>
+    </main>
+
+    <hr>
+
+    <!-- Rodapé -->
+    <template
+        hx-get="/componentes/footer.html"
+        hx-target="#footer"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="footer"></div>
+
+</body>
+</html>
