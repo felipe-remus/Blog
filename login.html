@@ -3,121 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login – Blog Tech F1</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>Blog - Login</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header id="cabecalho">
-        <div id="logo-cabecalho">
-            <img src="img/Marca-F1.svg" alt="Logo">
-        </div>
-        <nav id="menu-principal">
-            <a href="pagina-principal.html">Home</a>
-            <a href="pilotos.html">Pilotos</a>
-            <a href="equipes.html">Equipes</a>
-            <a href="login.html">Login</a>
-            <a href="escrever-noticia.html">Escrever</a>
-        </nav>
-    </header>
+
+    <!-- Cabeçalho -->
+    <template
+        hx-get="/componentes/header2.html"
+        hx-target="#xcabecalho"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="xcabecalho"></div>
 
     <!-- Botão "Voltar para o blog" -->
     <div class="voltar-topo">
-        <a href="pagina-principal.html">← Voltar para o blog</a>
+        <a href="/pagina-principal.html">← Voltar para o blog</a>
     </div>
 
-    <main class="pagina-login">
-        <div class="login-container">
-            <!-- Abas -->
-            <div class="abas-login">
-                <button type="button" class="aba ativa" data-aba="login">Entrar</button>
-                <button type="button" class="aba" data-aba="registro">Criar Conta</button>
-            </div>
-    
-            <!-- Formulário de Login -->
-            <form id="form-login" class="formulario ativo">
-                <div class="campo">
-                    <label for="email-login">E-mail</label>
-                    <input type="email" id="email-login" required>
-                </div>
-                <div class="campo">
-                    <label for="senha-login">Senha</label>
-                    <input type="password" id="senha-login" required>
-                </div>
-                <button type="submit" class="botao-login">Entrar</button>
-            </form>
-    
-            <!-- Formulário de Registro -->
-            <form id="form-registro" class="formulario">
-                <div class="campo">
-                    <label for="nome-registro">Nome Completo</label>
-                    <input type="text" id="nome-registro" required>
-                </div>
-                <div class="campo">
-                    <label for="usuario-registro">Nome de Usuário</label>
-                    <input type="text" id="usuario-registro" required>
-                </div>
-                <div class="campo">
-                    <label for="email-registro">E-mail</label>
-                    <input type="email" id="email-registro" required>
-                </div>
-
-                <!-- Linha com CPF e Telefone -->
-                <div class="campo-linha">
-                    <div class="subcampo">
-                        <label for="cpf-registro">CPF</label>
-                        <input type="text" id="cpf-registro" placeholder="000.000.000-00" required>
-                    </div>
-                    <div class="subcampo">
-                        <label for="telefone-registro">Telefone</label>
-                        <input type="tel" id="telefone-registro" placeholder="(00) 00000-0000" required>
-                    </div>
-                </div>
-
-                <div class="campo">
-                    <label for="senha-registro">Senha</label>
-                    <input type="password" id="senha-registro" required>
-                </div>
-                <div class="campo">
-                    <label for="confirmar-senha">Confirmar Senha</label>
-                    <input type="password" id="confirmar-senha" required>
-                </div>
-                <button type="submit" class="botao-login">Criar Conta</button>
-            </form>
-
-            <!-- Opção "Entrar com Google" -->
-            <div class="login-com-opcoes">
-                <p class="texto-opcao">ou use uma dessas opções</p>
-                <div class="botoes-sociais">
-                    <button type="button" class="botao-social google">
-                        <img src="img/Icones-Google.svg">
-                        Entrar com Google
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
+    <main>
+        <!-- Pagina Login -->
+    <template
+        hx-get="/componentes/pag-login.html"
+        hx-target="#login"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="login"></div>
 
     <hr>
 
-    <footer>
-        <table>
-            <tr id="rodape">
-                <td id="rodape-esquerda">
-                    © 2025 Company, Inc
-                </td>
-                <td id="rodape-direita">
-                    <img class="icon" src="img/Icones-Insta.svg" alt="">
-                    @felipe_remus
+    <!-- Rodapé -->
+    <template
+        hx-get="/componentes/footer.html"
+        hx-target="#footer"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="footer"></div>
 
-                    <img class="icon" src="img/Icones-Linkedin.svg">
-                    Felipe Remus
-
-                    <img class="icon" src="img/Icones-Github.svg">
-                    felipe-remus
-                </td>
-            </tr>
-        </table>
-    </footer>
 </body>
 </html>

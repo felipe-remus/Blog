@@ -586,6 +586,15 @@ footer > table {
     margin: 1.2rem 0;
 }
 
+.aviso-tags {
+    display: none;
+    margin-top: 0.5rem;
+    color: #d32f2f;
+    font-size: 0.9rem;
+    font-weight: bold;
+    min-height: 1.2rem;
+}
+
 /* ========================================
    11. BUSCA E FILTROS
    ======================================== */

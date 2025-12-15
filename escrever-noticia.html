@@ -3,233 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escrever Notícia – Blog Tech F1</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>Blog - Escrever Noticia</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header id="cabecalho">
-        <div id="logo-cabecalho">
-            <img src="img/Marca-F1.svg" alt="Logo">
-        </div>
-        <nav id="menu-principal">
-            <a href="pagina-principal.html">Home</a>
-            <a href="pilotos.html">Pilotos</a>
-            <a href="equipes.html">Equipes</a>
-            <a href="login.html">Login</a>
-            <a href="escrever-noticia.html">Escrever</a>
-        </nav>
-    </header>
-    
-    <hr>
+
+    <!-- Cabeçalho -->
+    <template
+        hx-get="/componentes/header2.html"
+        hx-target="#xcabecalho"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="xcabecalho"></div>
 
     <!-- Botão "Voltar para o blog" -->
     <div class="voltar-topo">
-        <a href="pagina-principal.html">← Voltar para o blog</a>
+        <a href="/pagina-principal.html">← Voltar para o blog</a>
     </div>
 
-    <main class="pagina-escrita">
+    <main>
         <h1>Escrever Nova Notícia</h1>
 
-        <form id="form-noticia">
-            <!-- Título -->
-            <div class="campo">
-                <label for="titulo-noticia">Título: </label>
-                <input type="text" id="titulo-noticia" required>
-            </div>
+        <!-- Pagina de escrevr -->
+        <template
+            hx-get="/componentes/publicar.html"
+            hx-target="#publicar"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="publicar"></div>
 
-            <!-- Texto da notícia -->
-            <div class="campo">
-                <label for="texto-noticia">Texto: </label>
-                <textarea id="texto-noticia" required></textarea>
-            </div>
-
-            <!-- Seleção de Tags -->
-            <div class="campo">
-                <label for="tags-input">Tags (selecione uma ou mais)</label>
-                <div class="tag-selector">
-                    <div class="tags-selecionadas">
-                        <!-- Tags aparecerão aqui via JS -->
-                    </div>
-                </div>
-            </div>
-                
-                <!-- Tag geral -->
-                <div class="grupo-tags">
-                    <span class="subtitulo-tag">Geral: </span>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="geral">
-                        <span class="tag tag-preview geral">Fórmula 1</span>
-                    </label>
-                </div>
-
-                <!-- Tags de Equipe -->
-                <div class="grupo-tags">
-                    <span class="subtitulo-tag">Equipes: </span>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="alpine">
-                        <span class="tag tag-preview equipe-alpine">Alpine</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="astonmartin">
-                        <span class="tag tag-preview equipe-astonmartin">Aston Martin</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="audi">
-                        <span class="tag tag-preview equipe-audi">Audi</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="cadillac">
-                        <span class="tag tag-preview equipe-cadillac">Cadillac</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="ferrari">
-                        <span class="tag tag-preview equipe-ferrari">Ferrari</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="haas">
-                        <span class="tag tag-preview equipe-haas">Haas</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="mclaren">
-                        <span class="tag tag-preview equipe-mclaren">McLaren</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="mercedes">
-                        <span class="tag tag-preview equipe-mercedes">Mercedes</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="racingbulls">
-                        <span class="tag tag-preview equipe-racingbulls">Racing Bulls</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="redbull">
-                        <span class="tag tag-preview equipe-redbull">Red Bull</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="williams">
-                        <span class="tag tag-preview equipe-williams">Williams</span>
-                    </label>
-                </div>
-
-                <!-- Tags de Piloto -->
-                <div class="grupo-tags">
-                    <span class="subtitulo-tag">Pilotos: </span>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="alex-albon">
-                        <span class="tag tag-preview piloto">Alex Albon</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="arvid-lindblad">
-                        <span class="tag tag-preview piloto">Arvid Lindblad</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="carlos-sainz">
-                        <span class="tag tag-preview piloto">Carlos Sainz</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="charles-leclerc">
-                        <span class="tag tag-preview piloto">Charles Leclerc</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="esteban-ocon">
-                        <span class="tag tag-preview piloto">Esteban Ocon</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="fernando-alonso">
-                        <span class="tag tag-preview piloto">Fernando Alonso</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="franco-colapinto">
-                        <span class="tag tag-preview piloto">Franco Colapinto</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="george-russell">
-                        <span class="tag tag-preview piloto">George Russell</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="gabriel-bortoleto">
-                        <span class="tag tag-preview piloto">Gabriel Bortoleto</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="isaac-hadjar">
-                        <span class="tag tag-preview piloto">Isaac Hadjar</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="kimi-antonelli">
-                        <span class="tag tag-preview piloto">Kimi Antonelli</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="lando-norris">
-                        <span class="tag tag-preview piloto">Lando Norris</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="lewis-hamilton">
-                        <span class="tag tag-preview piloto">Lewis Hamilton</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="liam-lawson">
-                        <span class="tag tag-preview piloto">Liam Lawson</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="lance-stroll">
-                        <span class="tag tag-preview piloto">Lance Stroll</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="max-verstappen">
-                        <span class="tag tag-preview piloto">Max Verstappen</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="nico-hulkenberg">
-                        <span class="tag tag-preview piloto">Nico Hülkenberg</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="oliver-bearman">
-                        <span class="tag tag-preview piloto">Oliver Bearman</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="oscar-piastri">
-                        <span class="tag tag-preview piloto">Oscar Piastri</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="pierre-gasly">
-                        <span class="tag tag-preview piloto">Pierre Gasly</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="sergio-perez">
-                        <span class="tag tag-preview piloto">Sergio Pérez</span>
-                    </label>
-                    <label class="checkbox-tag">
-                        <input type="checkbox" value="valtteri-bottas">
-                        <span class="tag tag-preview piloto">Valtteri Bottas</span>
-                    </label>
-                </div>
-
-            <!-- Botão de enviar -->
-            <button type="submit" class="botao-enviar">Publicar Notícia</button>
-        </form>
     </main>
 
     <hr>
-    
-    <footer>
-        <table>
-            <tr id="rodape">
-                <td id="rodape-esquerda">
-                    © 2025 Company, Inc
-                </td>
-                <td id="rodape-direita">
-                    <img class="icon" src="img/Icones-Insta.svg" alt="">
-                    @felipe_remus
 
-                    <img class="icon" src="img/Icones-Linkedin.svg">
-                    Felipe Remus
-
-                    <img class="icon" src="img/Icones-Github.svg">
-                    felipe-remus
-                </td>
-            </tr>
-        </table>
-    </footer>
+    <!-- Rodapé -->
+    <template
+        hx-get="/componentes/footer.html"
+        hx-target="#footer"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="footer"></div>
 </body>
 </html>

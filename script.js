@@ -1,200 +1,208 @@
 // ========================================
-// TROCA DE ABAS: LOGIN / REGISTRO
+// UTILITÁRIOS GLOBAIS
 // ========================================
-document.addEventListener('DOMContentLoaded', function () {
-    const abas = document.querySelectorAll('.aba');
-    
-    // Só executa se estiver na página de login
-    if (abas.length === 0) return;
+const tagsSelecionadasAtivas = new Set(); // Mantido para compatibilidade futura
 
-    abas.forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
+// ========================================
+// INICIALIZAÇÃO PRINCIPAL
+// ========================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializa filtros caso já estejam na página
+    if (document.querySelector('.card-noticia')) inicializarFiltros();
+});
 
-            // Remove classe "ativa" de todas as abas
-            document.querySelectorAll('.aba').forEach(b => b.classList.remove('ativa'));
-            
-            // Adiciona "ativa" à aba clicada
-            this.classList.add('ativa');
+// HTMX: re-inicializa componentes após carregamento dinâmico
+document.body.addEventListener('htmx:afterOnLoad', (event) => {
+    const container = event.detail.elt;
 
-            // Esconde todos os formulários
-            document.querySelectorAll('.formulario').forEach(f => f.classList.remove('ativo'));
-
-            // Mostra o formulário correspondente
-            const aba = this.getAttribute('data-aba');
-            const formulario = document.getElementById(`form-${aba}`);
-            if (formulario) {
-                formulario.classList.add('ativo');
-            }
-        });
-    });
+    if (container.querySelector('.aba')) inicializarAbas(container);
+    if (container.querySelector('.card-noticia') || container.querySelector('#busca-texto')) inicializarFiltros();
+    if (container.querySelector('#form-noticia')) inicializarFormNoticia(container.querySelector('#form-noticia'));
 });
 
 // ========================================
-// FILTRO COMBINADO: TEXTO + EQUIPE/PILOTO
+// ABAS (LOGIN / REGISTRO)
 // ========================================
-document.addEventListener('DOMContentLoaded', function () {
-    const inputBusca = document.getElementById('busca-texto');
-    const selectEquipe = document.getElementById('filtro-equipe');
-    const selectPiloto = document.getElementById('filtro-piloto');
+document.addEventListener('click', (e) => {
+    if (!e.target.matches('.aba')) return;
+    e.preventDefault();
+
+    const aba = e.target;
+    const container = aba.closest('[hx-get], body') || document.body;
+
+    // Atualiza estado da aba
+    container.querySelectorAll('.aba').forEach(b => b.classList.remove('ativa'));
+    aba.classList.add('ativa');
+
+    // Mostra formulário correspondente
+    const alvo = aba.getAttribute('data-aba');
+    container.querySelectorAll('.formulario').forEach(f => f.classList.remove('ativo'));
+    container.querySelector(`#form-${alvo}`)?.classList.add('ativo');
+});
+
+function inicializarAbas() {
+    // Nada a fazer aqui — evento delegado globalmente
+}
+
+// ========================================
+// FILTROS (BUSCA + EQUIPE + PILOTO)
+// ========================================
+let timeoutBusca;
+
+function aplicarFiltros() {
+    const termo = (document.getElementById('busca-texto')?.value || '').trim().toLowerCase();
+    const equipe = document.getElementById('filtro-equipe')?.value || '';
+    const piloto = document.getElementById('filtro-piloto')?.value || '';
     const cards = document.querySelectorAll('.card-noticia');
 
     if (cards.length === 0) return;
 
-    function aplicarFiltros() {
-        const termoBusca = (inputBusca?.value || '').trim().toLowerCase();
-        const equipeSelecionada = selectEquipe?.value || '';
-        const pilotoSelecionado = selectPiloto?.value || '';
+    cards.forEach(card => {
+        const texto = card.textContent.toLowerCase();
+        const equipes = (card.getAttribute('data-equipe') || '').split(' ');
+        const pilotos = (card.getAttribute('data-piloto') || '').split(' ');
 
-        cards.forEach(card => {
-            // 1. Verifica busca por texto
-            const textoCard = card.textContent.toLowerCase();
-            const passaBusca = termoBusca === '' || textoCard.includes(termoBusca);
+        const passaBusca = !termo || texto.includes(termo);
+        const passaEquipe = !equipe || equipes.includes(equipe);
+        const passaPiloto = !piloto || pilotos.includes(piloto);
 
-            // 2. Verifica filtro de equipe
-            const equipesCard = card.getAttribute('data-equipe') || '';
-            const passaEquipe = !equipeSelecionada || 
-                equipesCard.split(' ').includes(equipeSelecionada);
+        card.style.display = (passaBusca && passaEquipe && passaPiloto) ? 'block' : 'none';
+    });
+}
 
-            // 3. Verifica filtro de piloto
-            const pilotosCard = card.getAttribute('data-piloto') || '';
-            const passaPiloto = !pilotoSelecionado || 
-                pilotosCard.split(' ').includes(pilotoSelecionado);
-
-            // 4. Mostra só se passar por todos
-            if (passaBusca && passaEquipe && passaPiloto) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+document.addEventListener('input', (e) => {
+    if (e.target.id === 'busca-texto') {
+        clearTimeout(timeoutBusca);
+        timeoutBusca = setTimeout(aplicarFiltros, 200);
     }
-
-    // Aplica filtros quando algo muda
-    if (inputBusca) {
-        let timeout;
-        inputBusca.addEventListener('input', () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(aplicarFiltros, 200);
-        });
-    }
-
-    if (selectEquipe) {
-        selectEquipe.addEventListener('change', aplicarFiltros);
-    }
-
-    if (selectPiloto) {
-        selectPiloto.addEventListener('change', aplicarFiltros);
-    }
-
-    // Aplica no carregamento
-    aplicarFiltros();
 });
 
-/// ========================================
-// PÁGINA DE ESCREVER NOTÍCIA – GESTÃO DE TAGS E SIMULAÇÃO DE PUBLICAÇÃO
+document.addEventListener('change', (e) => {
+    if (e.target.id === 'filtro-equipe' || e.target.id === 'filtro-piloto') {
+        aplicarFiltros();
+    }
+});
+
+function inicializarFiltros() {
+    // Garante que os filtros sejam aplicados após renderização
+    setTimeout(aplicarFiltros, 10);
+}
+
 // ========================================
-document.addEventListener('DOMContentLoaded', function () {
-    const formNoticia = document.getElementById('form-noticia');
-    if (!formNoticia) return;
+// SELEÇÃO DE TAGS – APENAS VISUAL (SEM ENVIO)
+// ========================================
 
-    // Armazena as tags selecionadas (evita duplicação)
-    let tagsSelecionadasAtivas = new Set();
+let tagsNoticiaInicializadas = false;
 
-    const tagsContainer = document.querySelector('.tags-selecionadas');
-    const checkboxes = formNoticia.querySelectorAll('input[type="checkbox"]');
+function inicializarTagsNoticia() {
+    if (tagsNoticiaInicializadas) return;
 
-    // Limpa tags de exemplo iniciais
-    if (tagsContainer) {
-        tagsContainer.innerHTML = '';
+    const form = document.getElementById('form-noticia');
+    const tagsDisplay = document.querySelector('.tags-selecionadas');
+    if (!form || !tagsDisplay) return;
+
+    // Verifica se os blocos dinâmicos foram carregados
+    const equipesProntas = document.getElementById('equipes')?.children?.length > 0;
+    const pilotosProntos = document.getElementById('pilotos')?.children?.length > 0;
+
+    if (!equipesProntas || !pilotosProntos) {
+        setTimeout(inicializarTagsNoticia, 100);
+        return;
     }
 
-    // Atualiza a exibição visual das tags
-    function atualizarVisualTags() {
-        tagsContainer.innerHTML = '';
-        tagsSelecionadasAtivas.forEach(tagObj => {
-            const tagElement = document.createElement('span');
-            tagElement.className = `tag tag-selecionado ${tagObj.classe}`;
-            tagElement.innerHTML = `${tagObj.nome} <button type="button" class="remove-tag">×</button>`;
-            tagsContainer.appendChild(tagElement);
+    // ✅ Pronto!
+    tagsNoticiaInicializadas = true;
+    console.log('✅ Sistema de tags inicializado.');
 
-            // Evento de remoção
-            const botaoRemover = tagElement.querySelector('.remove-tag');
-            botaoRemover.addEventListener('click', () => {
-                tagsSelecionadasAtivas.delete(tagObj);
-                atualizarVisualTags();
-                // Desmarca checkbox correspondente
-                const checkbox = formNoticia.querySelector(`input[value="${tagObj.value}"]`);
-                if (checkbox) checkbox.checked = false;
-            });
+    // Atualiza as tags exibidas
+    function atualizarTagsExibidas() {
+        const geralCheckbox = form.querySelector('input[type="checkbox"][value="geral"]');
+        const equipePilotoCheckboxes = form.querySelectorAll(
+            'input[type="checkbox"]:not([value="geral"])'
+        );
+    
+        const geralMarcada = geralCheckbox?.checked;
+        const equipePilotoMarcadas = Array.from(equipePilotoCheckboxes).filter(cb => cb.checked);
+    
+        // Elemento de aviso
+        const aviso = form.querySelector('#aviso-tags');
+        const mostrarAviso = (mensagem) => {
+            if (aviso) {
+                aviso.textContent = mensagem;
+                aviso.style.display = 'block';
+                // Remove o aviso após 3 segundos
+                setTimeout(() => {
+                    if (aviso) aviso.style.display = 'none';
+                }, 3000);
+            }
+        };
+    
+        // 🔒 Regra 1: Se "Geral" está marcada, desmarca todas as outras
+        if (geralMarcada && equipePilotoMarcadas.length > 0) {
+            equipePilotoCheckboxes.forEach(cb => cb.checked = false);
+            mostrarAviso('⚠️ A tag "Geral" não pode ser combinada com equipes ou pilotos.');
+        }
+        // 🔒 Regra 2: Se alguma equipe/piloto está marcada, desmarca "Geral"
+        else if (!geralMarcada && equipePilotoMarcadas.length > 0 && geralCheckbox?.checked) {
+            if (geralCheckbox) geralCheckbox.checked = false;
+            mostrarAviso('⚠️ Equipes ou pilotos não podem ser combinados com a tag "Geral".');
+        }
+    
+        // --- Renderiza as tags ---
+        const tagsDisplay = form.querySelector('.tags-selecionadas');
+        if (!tagsDisplay) return;
+    
+        tagsDisplay.innerHTML = '';
+        const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+    
+        if (checkboxes.length === 0) {
+            tagsDisplay.innerHTML = '<span style="color:#999;font-style:italic"></span>';
+            return;
+        }
+    
+        checkboxes.forEach(checkbox => {
+            const label = checkbox.closest('label');
+            const tagPreview = label?.querySelector('.tag-preview');
+    
+            if (tagPreview) {
+                const tagClone = tagPreview.cloneNode(true);
+                tagClone.classList.add('tag-selecionado-visual');
+    
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'remove-tag';
+                btn.textContent = '×';
+                btn.addEventListener('click', () => {
+                    checkbox.checked = false;
+                    atualizarTagsExibidas();
+                });
+    
+                tagClone.appendChild(btn);
+                tagsDisplay.appendChild(tagClone);
+            }
         });
     }
 
-    // Adiciona evento aos checkboxes
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            const value = this.value;
-            const label = this.nextElementSibling;
-            const nome = label.textContent.trim();
-
-            let classe = 'geral';
-            if (value === 'geral') {
-                classe = 'geral';
-            } else if (['alpine','astonmartin','audi','cadillac','ferrari','haas','mclaren','mercedes','racingbulls','redbull','williams'].includes(value)) {
-                classe = `equipe-${value}`;
-            } else {
-                classe = 'piloto';
-            }
-
-            if (this.checked) {
-                // Evita duplicação com Set
-                tagsSelecionadasAtivas.add({ value, nome, classe });
-            } else {
-                // Remove se desmarcado
-                tagsSelecionadasAtivas = new Set([...tagsSelecionadasAtivas].filter(t => t.value !== value));
-            }
-            atualizarVisualTags();
-        });
+    // Escuta mudanças nos checkboxes (mesmo os carregados depois)
+    form.addEventListener('change', (e) => {
+        if (e.target.matches('input[type="checkbox"]')) {
+            atualizarTagsExibidas();
+        }
     });
 
-    // --- ENVIAR NOTÍCIA ---
-    formNoticia.addEventListener('submit', function (e) {
-        e.preventDefault();
+    // Inicializa
+    atualizarTagsExibidas();
+}
 
-        const titulo = document.getElementById('titulo-noticia').value.trim();
-        const texto = document.getElementById('texto-noticia').value.trim();
+// Escuta HTMX
+document.body.addEventListener('htmx:afterOnLoad', (e) => {
+    const id = e.detail.target.id;
+    if (id === 'publicar' || id === 'equipes' || id === 'pilotos') {
+        inicializarTagsNoticia();
+    }
+});
 
-        if (!titulo || !texto) {
-            alert('⚠️ Preencha título e texto.');
-            return;
-        }
-
-        if (tagsSelecionadasAtivas.size === 0) {
-            alert('⚠️ Selecione pelo menos uma tag.');
-            return;
-        }
-
-        // Classifica onde a notícia aparecerá
-        const tags = Array.from(tagsSelecionadasAtivas);
-        const equipes = tags.filter(t => t.classe.startsWith('equipe')).map(t => t.value);
-        const pilotos = tags.filter(t => t.classe === 'piloto').map(t => t.value);
-        const temGeral = tags.some(t => t.value === 'geral');
-
-        let locais = [];
-
-        if (temGeral) {
-            locais.push('Home (Fórmula 1)');
-        }
-
-        if (equipes.length > 0) {
-            locais.push(`Equipes: ${equipes.join(', ')}`);
-        }
-
-        if (pilotos.length > 0) {
-            locais.push(`Pilotos: ${pilotos.join(', ')}`);
-        }
-
-        // Mensagem de simulação
-        alert(`✅ Notícia pronta!\n\nTítulo: ${titulo}\n\nAparecerá em:\n${locais.join('\n')}\n\n(Este recurso será ativado com o backend.)`);
-    });
+// Tenta ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(inicializarTagsNoticia, 150);
 });

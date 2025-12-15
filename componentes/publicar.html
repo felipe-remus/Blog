@@ -1,0 +1,54 @@
+<form id="form-noticia">
+    <!-- Título -->
+    <div class="campo">
+        <label for="titulo-noticia">Título: </label>
+        <input type="text" id="titulo-noticia" required>
+    </div>
+
+    <!-- Texto da notícia -->
+    <div class="campo">
+        <label for="texto-noticia">Texto: </label>
+        <textarea id="texto-noticia" required></textarea>
+    </div>
+
+    <!-- Seleção de Tags -->
+    <div class="campo">
+        <label for="tags-input">Tags (selecione uma ou mais)</label>
+        <div class="tag-selector">
+            <div class="tags-selecionadas">
+                <!-- Tags aparecerão aqui via JS -->
+            </div>
+            <div id="aviso-tags" class="aviso-tags"></div>
+        </div>
+    </div>
+
+    <!-- Tag geral -->
+    <div class="grupo-tags">
+        <span class="subtitulo-tag">Geral: </span>
+        <label class="checkbox-tag">
+            <input type="checkbox" value="geral">
+            <span class="tag tag-preview geral">Fórmula 1</span>
+        </label>
+    </div>
+
+    <!-- Tags Equipes -->
+    <template
+        hx-get="/componentes/tags-equipes.html"
+        hx-target="#equipes"
+        hx-trigger="load"
+    >
+    </template>
+    <div id="equipes"></div>
+
+    <!-- Tags Pilotos -->
+    <template
+        hx-get="/componentes/tags-pilotos.html"
+        hx-target="#pilotos"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="pilotos"></div>
+
+    <!-- Botão de enviar -->
+    <button type="submit" class="botao-enviar">Publicar Notícia</button>
+</form>

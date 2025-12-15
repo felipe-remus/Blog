@@ -3,102 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Tech F1 - Pilotos</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>Blog - Pilotos</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header id="cabecalho">
-        <div id="logo-cabecalho">
-            <img src="img/Marca-F1.svg" alt="Logo">
-        </div>
-        <nav id="menu-principal">
-            <a href="pagina-principal.html">Home</a>
-            <a href="pilotos.html">Pilotos</a>
-            <a href="equipes.html">Equipes</a>
-            <a href="login.html">Login</a>
-            <a href="escrever-noticia.html">Escrever</a>
-        </nav>
-    </header>
-    
+
+    <!-- Cabeçalho -->
+    <template
+        hx-get="/componentes/header2.html"
+        hx-target="#xcabecalho"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="xcabecalho"></div>
+
     <!-- Botão "Voltar para o blog" -->
     <div class="voltar-topo">
-        <a href="pagina-principal.html">← Voltar para o blog</a>
+        <a href="/pagina-principal.html">← Voltar para o blog</a>
     </div>
 
     <main>
         <h1>Notícias dos Pilotos</h1>
 
-        <!-- ✅ Campo de busca -->
-        <div class="busca-container">
-            <label for="busca-texto">Pesquisar notícias:</label>
-            <input type="text" id="busca-texto">
-        </div>
-    
-        <!-- Filtro: só pilotos -->
-        <div class="filtro-container">
-            <label for="filtro-piloto">Filtrar por piloto:</label>
-            <select id="filtro-piloto" class="filtro-select">
-                <option value="">Todos os pilotos</option>
-                <option value="alex-albon">Alex Albon</option>
-                <option value="arvid-lindblad">Arvid Lindblad</option>
-                <option value="carlos-sainz">Carlos Sainz</option>
-                <option value="charles-leclerc">Charles Leclerc</option>
-                <option value="esteban-ocon">Esteban Ocon</option>
-                <option value="fernando-alonso">Fernando Alonso</option>
-                <option value="franco-colapinto">Franco Colapinto</option>
-                <option value="george-russell">George Russell</option>
-                <option value="gabriel-bortoleto">Gabriel Bortoleto</option>
-                <option value="isaac-hadjar">Isaac Hadjar</option>
-                <option value="kimi-antonelli">Kimi Antonelli</option>
-                <option value="lando-norris">Lando Norris</option>
-                <option value="lewis-hamilton">Lewis Hamilton</option>
-                <option value="liam-lawson">Liam Lawson</option>
-                <option value="lance-stroll">Lance Stroll</option>
-                <option value="max-verstappen">Max Verstappen</option>
-                <option value="nico-hulkenberg">Nico Hülkenberg</option>
-                <option value="oliver-bearman">Oliver Bearman</option>
-                <option value="oscar-piastri">Oscar Piastri</option>
-                <option value="pierre-gasly">Pierre Gasly</option>
-                <option value="sergio-perez">Sergio Pérez</option>
-                <option value="valtteri-bottas">Valtteri Bottas</option>
-            </select>
-        </div>
-    
-        <!-- Cards de notícias -->
-        <div class="noticias-container">
-            <article class="card-noticia" data-piloto="lando-norris">
-                <h2>Lando Norris assina renovação histórica com a McLaren</h2>
-                <p class="meta">12/12/2025</p>
-                <p>O britânico de 25 anos ampliou seu vínculo com a equipe de Woking até 2028, em um dos maiores contratos da história da F1...</p>
-                <div class="card-tags">
-                    <span class="tag piloto">Lando Norris</span>
-                    <span class="tag equipe-mclaren">McLaren</span>
-                </div>
-            </article>
-        </div>
+        <!-- Pesquisa e Filtro -->
+        <template
+        hx-get="/componentes/filtro-pilotos.html"
+        hx-target="#filtro-pilotos"
+        hx-trigger="load"
+        >
+        </template>
+        <div id="filtro-pilotos"></div>
+
+        <!-- Card de Notícia -->
+        <template
+            hx-get="/componentes/card-noticia.html"
+            hx-target="#noticia"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="noticia"></div>
     </main>
 
     <hr>
 
-    <footer>
-        <table>
-            <tr id="rodape">
-                <td id="rodape-esquerda">
-                    © 2025 Company, Inc
-                </td>
-                <td id="rodape-direita">
-                    <img class="icon" src="img/Icones-Insta.svg" alt="">
-                    @felipe_remus
+    <!-- Rodapé -->
+    <template
+        hx-get="/componentes/footer.html"
+        hx-target="#footer"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="footer"></div>
 
-                    <img class="icon" src="img/Icones-Linkedin.svg">
-                    Felipe Remus
-
-                    <img class="icon" src="img/Icones-Github.svg">
-                    felipe-remus
-                </td>
-            </tr>
-        </table>
-    </footer>
 </body>
 </html>

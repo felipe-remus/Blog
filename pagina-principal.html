@@ -3,74 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Tech - Formula 1</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>Blog - Formula 1</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header id="cabecalho">
-        <div id="logo-cabecalho">
-            <img src="img/Marca-Principal.svg" alt="Logo">
-        </div>
-        <nav id="menu-principal">
-            <a href="pagina-principal.html">Home</a>
-            <a href="pilotos.html">Pilotos</a>
-            <a href="equipes.html">Equipes</a>
-            <a href="login.html">Login</a>
-            <a href="escrever-noticia.html">Escrever</a>
-        </nav>
-    </header>
+
+    <!-- Cabeçalho -->
+    <template
+        hx-get="/componentes/header.html"
+        hx-target="#xcabecalho"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="xcabecalho"></div>
 
     <main>
         <h1>Últimas Notícias da Fórmula 1</h1>
 
-        <div class="area-colaboradores">
-            <p>Quer escrever para o Blog Tech F1?</p>
-            <div class="botoes-colaborador">
-                <a href="login.html" class="botao-login">Área de Login/Criar Conta</a>
-                <a href="escrever-noticia.html" class="botao-escrever">Escrever Notícia</a>
-            </div>
-        </div>
+        <!-- Área de Colaborador -->
+        <template
+            hx-get="/componentes/colaborador.html"
+            hx-target="#colaborador"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="colaborador"></div>
 
-        <!-- ✅ Campo de busca -->
-        <div class="busca-container">
-            <label for="busca-texto">Pesquisar notícias:</label>
-            <input type="text" id="busca-texto">
-        </div>
-    
-        <div class="noticias-container">
-            <article class="card-noticia">
-                <h2>Calendário 2026 terá 24 etapas</h2>
-                <p class="meta">10/12/2025</p>
-                <p>Nova corrida nas ruas de Madrid e saída do GP de Imola...</p>
-                <div class="card-tags">
-                    <span class="tag geral">Formula 1</span>
-                </div>
-            </article>
-        </div>
+        <!-- Barra de Pesquisa -->
+        <template
+            hx-get="/componentes/pesquisa.html"
+            hx-target="#pesquisa"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="pesquisa"></div>
+
+        <!-- Card de Notícia -->
+        <template
+            hx-get="/componentes/card-noticia.html"
+            hx-target="#noticia"
+            hx-trigger="load"
+            >
+        </template>
+        <div id="noticia"></div>
     </main>
 
     <hr>
 
-    <footer>
-        <table>
-            <tr id="rodape">
-                <td id="rodape-esquerda">
-                    © 2025 Company, Inc
-                </td>
-                <td id="rodape-direita">
-                    <img class="icon" src="img/Icones-Insta.svg" alt="">
-                    @felipe_remus
+    <!-- Rodapé -->
+    <template
+        hx-get="/componentes/footer.html"
+        hx-target="#footer"
+        hx-trigger="load"
+        >
+    </template>
+    <div id="footer"></div>
 
-                    <img class="icon" src="img/Icones-Linkedin.svg">
-                    Felipe Remus
-
-                    <img class="icon" src="img/Icones-Github.svg">
-                    felipe-remus
-                </td>
-            </tr>
-        </table>
-    </footer>
 </body>
 </html>
