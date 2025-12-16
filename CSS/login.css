@@ -1,0 +1,183 @@
+/* ========================================
+   FONTE PERSONALIZADA
+   ======================================== */
+@font-face {
+    font-family: TerminalVelocity;
+    src: url("/util/TerminalVelocity.ttf");
+}
+
+/* ========================================
+   PÁGINA DE LOGIN / REGISTRO
+   ======================================== */
+.pagina-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 2rem;
+}
+
+.login-container {
+    background: white;
+    border: 2px solid #26011C;
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.login-container h1 {
+    color: #26011C;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.campo {
+    margin-bottom: 1.2rem;
+}
+
+.campo label {
+    display: block;
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.4rem;
+    color: #26011C;
+    font-weight: bold;
+}
+
+.campo input,
+.campo-linha input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #26011C;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.campo-linha {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.subcampo {
+    flex: 1;
+}
+
+.botao-login {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #26011C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.link-voltar {
+    text-align: center;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+}
+
+.link-voltar a {
+    color: #26011C;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+
+.abas-login {
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #26011C;
+}
+
+.abas-login .aba {
+    background-color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    font-size: 1.1rem;
+    color: #26011C;
+    cursor: pointer;
+}
+
+.abas-login .aba.ativa {
+    border-bottom: 2px solid #26011C;
+}
+
+.formulario {
+    display: none;
+}
+
+.formulario.ativo {
+    display: block;
+}
+
+/* ========================================
+   LOGIN COM GOOGLE / REDES SOCIAIS
+   ======================================== */
+
+.login-com-opcoes {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.texto-opcao {
+    font-size: 1rem;
+    color: black;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.botoes-sociais {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.botao-social {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    width: 200px;
+    max-width: 100%;
+}
+
+.botao-social:hover {
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.botao-social img {
+    width: 1.4rem;
+    height: auto;
+}
+
+/* Estilo específico para Google */
+.botao-social.google {
+    border-color: #ddd;
+}
+
+.botao-social.google:hover {
+    background-color: #f0f0f0;
+}
+
+.botao-social.google img {
+    width: 1rem;
+}

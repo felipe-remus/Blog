@@ -1,0 +1,47 @@
+/* ========================================
+   FONTE PERSONALIZADA
+   ======================================== */
+@font-face {
+    font-family: TerminalVelocity;
+    src: url("/util/TerminalVelocity.ttf");
+}
+
+/* ========================================
+   BUSCA E FILTROS
+   ======================================== */
+.busca-container {
+    margin: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.busca-container label {
+    color: #26011C;
+    font-size: 1.1rem;
+}
+
+.filtro-container label {
+    color: #26011C;
+    font-size: 1.1rem;
+}
+
+#busca-texto {
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+    border: 2px solid #26011C;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#filtro-equipe {
+    font-size: 1rem;
+}
+
+#filtro-piloto {
+    font-size: 1rem;
+}

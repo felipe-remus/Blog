@@ -114,41 +114,7 @@ function inicializarTagsNoticia() {
     tagsNoticiaInicializadas = true;
     console.log('✅ Sistema de tags inicializado.');
 
-    // Atualiza as tags exibidas
     function atualizarTagsExibidas() {
-        const geralCheckbox = form.querySelector('input[type="checkbox"][value="geral"]');
-        const equipePilotoCheckboxes = form.querySelectorAll(
-            'input[type="checkbox"]:not([value="geral"])'
-        );
-    
-        const geralMarcada = geralCheckbox?.checked;
-        const equipePilotoMarcadas = Array.from(equipePilotoCheckboxes).filter(cb => cb.checked);
-    
-        // Elemento de aviso
-        const aviso = form.querySelector('#aviso-tags');
-        const mostrarAviso = (mensagem) => {
-            if (aviso) {
-                aviso.textContent = mensagem;
-                aviso.style.display = 'block';
-                // Remove o aviso após 3 segundos
-                setTimeout(() => {
-                    if (aviso) aviso.style.display = 'none';
-                }, 3000);
-            }
-        };
-    
-        // 🔒 Regra 1: Se "Geral" está marcada, desmarca todas as outras
-        if (geralMarcada && equipePilotoMarcadas.length > 0) {
-            equipePilotoCheckboxes.forEach(cb => cb.checked = false);
-            mostrarAviso('⚠️ A tag "Geral" não pode ser combinada com equipes ou pilotos.');
-        }
-        // 🔒 Regra 2: Se alguma equipe/piloto está marcada, desmarca "Geral"
-        else if (!geralMarcada && equipePilotoMarcadas.length > 0 && geralCheckbox?.checked) {
-            if (geralCheckbox) geralCheckbox.checked = false;
-            mostrarAviso('⚠️ Equipes ou pilotos não podem ser combinados com a tag "Geral".');
-        }
-    
-        // --- Renderiza as tags ---
         const tagsDisplay = form.querySelector('.tags-selecionadas');
         if (!tagsDisplay) return;
     
@@ -167,27 +133,58 @@ function inicializarTagsNoticia() {
             if (tagPreview) {
                 const tagClone = tagPreview.cloneNode(true);
                 tagClone.classList.add('tag-selecionado-visual');
+                tagClone.style.cursor = 'pointer';
     
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'remove-tag';
-                btn.textContent = '×';
-                btn.addEventListener('click', () => {
+                tagClone.addEventListener('click', () => {
                     checkbox.checked = false;
                     atualizarTagsExibidas();
                 });
     
-                tagClone.appendChild(btn);
                 tagsDisplay.appendChild(tagClone);
             }
         });
     }
 
-    // Escuta mudanças nos checkboxes (mesmo os carregados depois)
+    // Escuta mudanças nos checkboxes
     form.addEventListener('change', (e) => {
-        if (e.target.matches('input[type="checkbox"]')) {
-            atualizarTagsExibidas();
+        if (!e.target.matches('input[type="checkbox"]')) return;
+    
+        const checkboxClicado = e.target;
+        const valorClicado = checkboxClicado.value;
+        const estaMarcado = checkboxClicado.checked;
+    
+        const geralCheckbox = form.querySelector('input[type="checkbox"][value="geral"]');
+        const demaisCheckboxes = form.querySelectorAll('input[type="checkbox"]:not([value="geral"])');
+    
+        const aviso = form.querySelector('#aviso-tags');
+        const mostrarAviso = (mensagem) => {
+            if (aviso) {
+                aviso.textContent = mensagem;
+                aviso.style.display = 'block';
+                setTimeout(() => {
+                    if (aviso) aviso.style.display = 'none';
+                }, 1500);
+            }
+        };
+    
+        if (valorClicado === 'geral') {
+            if (estaMarcado) {
+                // ✅ Só mostra aviso se havia outras tags marcadas
+                const outrasMarcadas = Array.from(demaisCheckboxes).some(cb => cb.checked);
+                demaisCheckboxes.forEach(cb => cb.checked = false);
+                
+                if (outrasMarcadas) {
+                    mostrarAviso('⚠️ A tag "Geral" não pode ser combinada com equipes ou pilotos.');
+                }
+            }
+        } else {
+            if (estaMarcado && geralCheckbox?.checked) {
+                geralCheckbox.checked = false;
+                mostrarAviso('⚠️ A tag "Geral" não pode ser combinada com equipes ou pilotos.');
+            }
         }
+    
+        atualizarTagsExibidas();
     });
 
     // Inicializa

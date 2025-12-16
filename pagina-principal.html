@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Formula 1</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="CSS/base.css">
+    <link rel="stylesheet" href="CSS/colaboradores.css">
+    <link rel="stylesheet" href="CSS/filtros.css">
+    <link rel="stylesheet" href="CSS/login.css">
+    <link rel="stylesheet" href="CSS/noticias.css">
+    <link rel="stylesheet" href="CSS/publicar.css">
+    <link rel="stylesheet" href="CSS/responsividade.css"> 
+    <link rel="stylesheet" href="CSS/tags.css">
     <script src="/script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
@@ -12,7 +19,7 @@
 
     <!-- Cabeçalho -->
     <template
-        hx-get="/componentes/header.html"
+        hx-get="/html/header.html"
         hx-target="#xcabecalho"
         hx-trigger="load"
         >
@@ -24,7 +31,7 @@
 
         <!-- Área de Colaborador -->
         <template
-            hx-get="/componentes/colaborador.html"
+            hx-get="/html/colaborador.html"
             hx-target="#colaborador"
             hx-trigger="load"
             >
@@ -33,7 +40,7 @@
 
         <!-- Barra de Pesquisa -->
         <template
-            hx-get="/componentes/pesquisa.html"
+            hx-get="/html/pesquisa.html"
             hx-target="#pesquisa"
             hx-trigger="load"
             >
@@ -42,7 +49,7 @@
 
         <!-- Card de Notícia -->
         <template
-            hx-get="/componentes/card-noticia.html"
+            hx-get="/html/card-noticia.html"
             hx-target="#noticia"
             hx-trigger="load"
             >
@@ -54,7 +61,7 @@
 
     <!-- Rodapé -->
     <template
-        hx-get="/componentes/footer.html"
+        hx-get="/html/footer.html"
         hx-target="#footer"
         hx-trigger="load"
         >

@@ -1,0 +1,140 @@
+/* ========================================
+   FONTE PERSONALIZADA
+   ======================================== */
+@font-face {
+    font-family: TerminalVelocity;
+    src: url("/util/TerminalVelocity.ttf");
+}
+
+/* ========================================
+   CARDS DE NOTÍCIAS
+   ======================================== */
+.noticias-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin: 1.5rem 0;
+    padding: 0 1rem;
+}
+
+.card-noticia {
+    background: white;
+    border: 2px solid #26011C;
+    border-radius: 14px;
+    padding: 1.6rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: Arial, sans-serif;
+}
+
+.card-noticia:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.card-noticia h2 {
+    color: #26011C;
+    font-size: 1.6rem;
+    margin-bottom: 0.7rem;
+    line-height: 1.3;
+}
+
+.card-noticia .meta {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.card-noticia p {
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 1.2rem;
+}
+
+.card-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+    justify-content: flex-end;
+}
+
+/* ========================================
+   COMENTÁRIOS NAS NOTÍCIAS
+   ======================================== */
+.secao-comentarios {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed #ccc;
+}
+
+.secao-comentarios h3 {
+    font-size: 1.1rem;
+    color: #26011C;
+    margin-bottom: 1rem;
+    font-family: Arial, sans-serif;
+}
+
+.lista-comentarios {
+    margin-bottom: 1rem;
+}
+
+.comentario {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    border-left: 3px solid #26011C;
+}
+
+.comentario-autor {
+    font-weight: bold;
+    color: #26011C;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.comentario-texto {
+    line-height: 1.5;
+    color: #333;
+}
+
+.formulario-comentario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.formulario-comentario textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #26011C;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 60px;
+    max-height: 120px;
+    box-sizing: border-box;
+}
+
+.botao-comentar {
+    align-self: flex-end;
+    padding: 0.4rem 1rem;
+    background-color: #26011C;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botao-comentar:hover {
+    background-color: #1a0013;
+}

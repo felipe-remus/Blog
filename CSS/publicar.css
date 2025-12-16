@@ -1,0 +1,143 @@
+/* ========================================
+   FONTE PERSONALIZADA
+   ======================================== */
+@font-face {
+    font-family: TerminalVelocity;
+    src: url("/util/TerminalVelocity.ttf");
+}
+
+/* ========================================
+   PÁGINA DE ESCREVER NOTÍCIA
+   ======================================== */
+.pagina-escrita {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.pagina-escrita h1 {
+    color: #26011C;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+#form-noticia .campo {
+    margin-bottom: 1.8rem;
+}
+
+#form-noticia label {
+    display: block;
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.5rem;
+    color: #26011C;
+    font-weight: bold;
+}
+
+#titulo-noticia {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1.2rem;
+    border: 1px solid #26011C;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+#texto-noticia {
+    width: 100%;
+    padding: 0.8rem;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    border: 1px solid #26011C;
+    border-radius: 8px;
+    min-height: 200px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.botao-enviar {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 1rem auto;
+    padding: 0.8rem;
+    background-color: #26011C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botao-enviar:hover {
+    background-color: #1a0013;
+}
+
+/* Campo de seleção de tags */
+.tag-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+    border: 1px solid #26011C;
+    border-radius: 8px;
+    padding: 0.6rem;
+    background-color: white;
+    min-height: 60px;
+}
+
+.tags-selecionadas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-right: 0.5rem;
+    flex: 1;
+}
+
+.tag-selecionado {
+    position: relative;
+    padding-right: 1.4rem;
+    cursor: default;
+}
+
+.tag-selecionado .remove-tag {
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 0.8rem;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.tag-selecionado .remove-tag:hover {
+    color: #ff0000;
+}
+
+.subtitulo-tag {
+    display: block;
+    font-weight: bold;
+    margin: 0 0 0.5rem 0;
+    color: #26011C;
+    font-size: 0.95rem;
+}
+
+.grupo-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.2rem 0;
+}
+
+.aviso-tags {
+    display: none;
+    margin-top: 0.5rem;
+    color: #d32f2f;
+    font-size: 1rem;
+}

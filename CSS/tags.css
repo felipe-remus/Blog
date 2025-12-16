@@ -1,0 +1,47 @@
+/* ========================================
+   TAGS (EQUIPES, PILOTOS, GERAL)
+   ======================================== */
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    font-family: Arial, sans-serif;
+    white-space: nowrap;
+}
+
+/* Cores por equipe */
+.tag.equipe-mclaren      { background-color: #FF8700; }
+.tag.equipe-ferrari      { background-color: #DC0000; }
+.tag.equipe-redbull      { background-color: #1E253D; color: white; }
+.tag.equipe-mercedes     { background-color: #00D9C4; }
+.tag.equipe-astonmartin  { background-color: #006F62; }
+.tag.equipe-alpine       { background-color: #0090FF; }
+.tag.equipe-haas         { background-color: #FFFFFF; color: #000; border: 1px solid #000; }
+.tag.equipe-racingbulls  { background-color: #3d6aff; }
+.tag.equipe-williams     { background-color: #005AFF; } 
+.tag.equipe-audi         { background-color: #333333; color: white; }
+.tag.equipe-cadillac     { background-color: #000000; color: white; }
+
+/* Tags de piloto e geral */
+.tag.piloto {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
+.tag.geral {
+    background-color: #26011C;
+    color: white;
+}
+
+.tag-selecionado-visual {
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.tag-selecionado-visual:hover {
+    opacity: 0.7;
+}

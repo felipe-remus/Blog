@@ -1,0 +1,138 @@
+/* ========================================
+   FONTE PERSONALIZADA
+   ======================================== */
+@font-face {
+    font-family: TerminalVelocity;
+    src: url("/util/TerminalVelocity.ttf");
+}
+
+
+/* ========================================
+   ESTILOS BASE E RESET LEVE
+   ======================================== */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    margin: 0;
+    border-color: #26011C;
+    border-style: solid;
+}
+
+
+/* ========================================
+   CABEÇALHO (HEADER) – VERSÃO HORIZONTAL
+   ======================================== */
+#cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    background-color: #ffffff;
+    border-bottom: 2px solid #26011C;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#logo-cabecalho {
+    flex: 1;
+    max-width: 35rem; /* ajuste conforme sua logo */
+}
+
+#logo-cabecalho img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#menu-principal {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#menu-principal a {
+    font-family: TerminalVelocity;
+    font-size: 1.5rem; /* um pouco menor para caber melhor */
+    color: #26011C;
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+#menu-principal a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Botão "Voltar para o blog" no topo direito */
+.voltar-topo {
+    text-align: left;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding: 1rem;
+}
+
+.voltar-topo a {
+    color: #26011C;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+
+/* ========================================
+   LAYOUT PRINCIPAL (MAIN)
+   ======================================== */
+main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+
+/* ========================================
+   RODAPÉ (FOOTER)
+   ======================================== */
+footer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+footer > table {
+    width: 100%;
+}
+
+#rodape {
+    font-size: 0.7rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #26011C;
+    width: 100%;
+}
+
+#rodape-esquerda {
+    text-align: left;
+}
+
+#rodape-direita {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.icon {
+    width: 0.7rem;
+    margin-left: 0.45rem;
+    margin-right: 0.05rem;
+}

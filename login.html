@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Login</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="CSS/base.css">
+    <link rel="stylesheet" href="CSS/colaboradores.css">
+    <link rel="stylesheet" href="CSS/filtros.css">
+    <link rel="stylesheet" href="CSS/login.css">
+    <link rel="stylesheet" href="CSS/noticias.css">
+    <link rel="stylesheet" href="CSS/publicar.css">
+    <link rel="stylesheet" href="CSS/responsividade.css">    
+    <link rel="stylesheet" href="CSS/tags.css">
     <script src="/script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
@@ -12,7 +19,7 @@
 
     <!-- Cabeçalho -->
     <template
-        hx-get="/componentes/header2.html"
+        hx-get="/html/header2.html"
         hx-target="#xcabecalho"
         hx-trigger="load"
         >
@@ -27,7 +34,7 @@
     <main>
         <!-- Pagina Login -->
     <template
-        hx-get="/componentes/pag-login.html"
+        hx-get="/html/pag-login.html"
         hx-target="#login"
         hx-trigger="load"
         >
@@ -38,7 +45,7 @@
 
     <!-- Rodapé -->
     <template
-        hx-get="/componentes/footer.html"
+        hx-get="/html/footer.html"
         hx-target="#footer"
         hx-trigger="load"
         >
