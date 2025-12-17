@@ -1,6 +1,6 @@
 <!-- Card de notícias -->
 <div class="noticias-container">
-    <article class="card-noticia" data-piloto="lando-norris" data-equipe="mclaren ferrari">
+    <article class="card-noticia" data-piloto="gabriel-bortoleto" data-equipe="audi">
         <h2>Título da notícia</h2>
         <p class="meta">Data de publicação • Nome do usuário</p>
         <p>Texto da notícia</p>
@@ -9,12 +9,53 @@
             <span class="tag piloto">Gabriel Bortoleto</span>
         </div>
         
-        <!-- Comentários -->
-        <div
-            hx-get="/html/comentarios.html"
-            hx-target="#comentarios"
-            hx-trigger="load"
-        ></div>
-        <div id="comentarios"></div>
+        <!-- ✅ Seção de comentários -->
+        <div class="secao-comentarios">
+            <h3>Comentários (<span class="qtd-comentarios">Número de comentários</span>)</h3>
+            
+            <!-- Lista de comentários existentes -->
+            <div class="lista-comentarios">
+                <div class="comentario">
+                    <div class="comentario-autor">Nome do usuário • Data do comentário</div>
+                    <div class="comentario-texto">Comentário do usuário</div>
+                </div>
+            </div>
+
+            <!-- Formulário para novo comentário -->
+            <div class="formulario-comentario">
+                <textarea placeholder="Escreva seu comentário..."></textarea>
+                <button type="button" class="botao-comentar">Comentar</button>
+            </div>
+        </div>
+    </article>
+</div>
+
+<div class="noticias-container">
+    <article class="card-noticia" data-piloto="gabriel-bortoleto" data-equipe="audi">
+        <h2>Título da notícia</h2>
+        <p class="meta">Data de publicação • Nome do usuário</p>
+        <p>Texto da notícia</p>
+        <div class="card-tags">
+            <span class="tag equipe-audi">Audi</span>
+            <span class="tag piloto">Gabriel Bortoleto</span>
+        </div>
+        
+        <div class="secao-comentarios">
+            <h3>Comentários (<span class="qtd-comentarios">Número de comentários</span>)</h3>
+            
+            <!-- Lista de comentários existentes -->
+            <div class="lista-comentarios">
+                <div class="comentario">
+                    <div class="comentario-autor">Nome do usuário • Data do comentário</div>
+                    <div class="comentario-texto">Comentário do usuário</div>
+                </div>
+            </div>
+
+            <!-- Formulário para novo comentário -->
+            <div class="formulario-comentario">
+                <textarea placeholder="Escreva seu comentário..."></textarea>
+                <button type="button" class="botao-comentar">Comentar</button>
+            </div>
+        </div>
     </article>
 </div>

@@ -40,10 +40,6 @@ document.addEventListener('click', (e) => {
     container.querySelector(`#form-${alvo}`)?.classList.add('ativo');
 });
 
-function inicializarAbas() {
-    // Nada a fazer aqui — evento delegado globalmente
-}
-
 // ========================================
 // FILTROS (BUSCA + EQUIPE + PILOTO)
 // ========================================

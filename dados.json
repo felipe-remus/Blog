@@ -1,0 +1,36 @@
+{
+    "noticias": {
+        "titulo": "Brasil é o futuro da Formula 1",
+        "dataPublicacao": "17/12/2025",
+        "nomeUsuario": "felipe_remus",
+        "textoNoticia": "Gabriel Bortoleto é a grande esperança para o futuro da equipe Audi",
+        "piloto": "gabriel-bortoleto",
+        "equipes": ["audi"],
+        "tags": [
+            {
+            "tipo": "equipe",
+            "classe": "equipe-audi",
+            "nome": "Audi"
+            },
+            {
+            "tipo": "piloto",
+            "classe": "piloto",
+            "nome": "Gabriel Bortoleto"
+            }
+        ]
+        },
+        "comentarios": {
+        "quantidade": "1",
+        "lista": [
+            {
+            "autor": "williandrf",
+            "data": "17/12/2025",
+            "textoComentario": "Tutuduru Max Verstappen"
+            }
+        ],
+        "novoComentario": {
+            "placeholder": "Escreva seu comentário...",
+            "botaoComentario": "Comentar"
+        }
+    }
+}
