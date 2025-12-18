@@ -115,7 +115,7 @@ footer > table {
 
 #rodape {
     font-size: 1rem;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif !important;
     color: #26011C;
     width: 100%;
 }
