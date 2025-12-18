@@ -14,14 +14,13 @@
     <link rel="stylesheet" href="CSS/responsividade.css"> 
     <link rel="stylesheet" href="CSS/tags.css">
 
-    <script src="/script.js" defer></script>
+    <script src="script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-
     <!-- Cabeçalho -->
     <template
-        hx-get="/html/header.html"
+        hx-get="html/header.html"
         hx-target="#xcabecalho"
         hx-trigger="load"
         >
@@ -33,7 +32,7 @@
 
         <!-- Área de Colaborador -->
         <template
-            hx-get="/html/colaborador.html"
+            hx-get="html/colaborador.html"
             hx-target="#colaborador"
             hx-trigger="load"
             >
@@ -42,7 +41,7 @@
 
         <!-- Barra de Pesquisa -->
         <template
-            hx-get="/html/pesquisa.html"
+            hx-get="html/pesquisa.html"
             hx-target="#pesquisa"
             hx-trigger="load"
             >
@@ -51,7 +50,7 @@
 
         <!-- Card de Notícia -->
         <template
-            hx-get="/html/card-noticia.html"
+            hx-get="html/card-noticia.html"
             hx-target="#noticia"
             hx-trigger="load"
             >
@@ -63,12 +62,13 @@
 
     <!-- Rodapé -->
     <template
-        hx-get="/html/footer.html"
+        hx-get="html/footer.html"
         hx-target="#footer"
         hx-trigger="load"
         >
     </template>
     <div id="footer"></div>
 
+    aaaaaaaaaa
 </body>
 </html>
