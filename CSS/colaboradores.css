@@ -3,13 +3,13 @@
    ======================================== */
 @font-face {
     font-family: TerminalVelocity;
-    src: url("util/TerminalVelocity.ttf");
+    src: url("../util/TerminalVelocity.ttf") format("truetype");
 }
 
 /* ========================================
    ÁREA DE COLABORADORES (HOME)
    ======================================== */
-   .area-colaboradores {
+.area-colaboradores {
     text-align: center;
     margin: 2rem 0;
     padding: 1.2rem;

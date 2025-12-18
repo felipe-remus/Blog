@@ -3,7 +3,7 @@
    ======================================== */
 @font-face {
     font-family: TerminalVelocity;
-    src: url("util/TerminalVelocity.ttf")
+    src: url("../util/TerminalVelocity.ttf") format("truetype");
 }
 
 
