@@ -1,12 +1,4 @@
 /* ========================================
-   FONTE PERSONALIZADA
-   ======================================== */
-@font-face {
-    font-family: TerminalVelocity;
-    src: url("../util/TerminalVelocity.ttf") format("truetype");
-}
-
-/* ========================================
    BUSCA E FILTROS
    ======================================== */
 .busca-container {
