@@ -1,4 +1,12 @@
 /* ========================================
+   FONTE PERSONALIZADA
+   ======================================== */
+@font-face {
+    font-family: TerminalVelocity;
+    src: url("util/TerminalVelocity.ttf");
+}
+
+/* ========================================
    TAGS (EQUIPES, PILOTOS, GERAL)
    ======================================== */
 .tag {
