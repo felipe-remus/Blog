@@ -114,7 +114,7 @@ footer > table {
 }
 
 #rodape {
-    font-size: 0.7rem;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     color: #26011C;
     width: 100%;
@@ -132,7 +132,12 @@ footer > table {
 }
 
 .icon {
-    width: 0.7rem;
+    width: 0.8rem;
     margin-left: 0.45rem;
     margin-right: 0.05rem;
+}
+
+a {
+    text-decoration: none;
+    color: #26011C;
 }
