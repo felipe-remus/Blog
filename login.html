@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="CSS/responsividade.css">    
     <link rel="stylesheet" href="CSS/tags.css">
     
-    <script src="/script.js" defer></script>
+    <script src="script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
 
     <!-- Cabeçalho -->
     <template
-        hx-get="/html/header2.html"
+        hx-get="html/header2.html"
         hx-target="#xcabecalho"
         hx-trigger="load"
         >
@@ -30,13 +30,13 @@
 
     <!-- Botão "Voltar para o blog" -->
     <div class="voltar-topo">
-        <a href="/pagina-principal.html">← Voltar para o blog</a>
+        <a href="pagina-principal.html">← Voltar para o blog</a>
     </div>
 
     <main>
         <!-- Pagina Login -->
     <template
-        hx-get="/html/pag-login.html"
+        hx-get="html/pag-login.html"
         hx-target="#login"
         hx-trigger="load"
         >
@@ -47,7 +47,7 @@
 
     <!-- Rodapé -->
     <template
-        hx-get="/html/footer.html"
+        hx-get="html/footer.html"
         hx-target="#footer"
         hx-trigger="load"
         >
