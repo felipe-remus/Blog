@@ -27,6 +27,34 @@
   </select>
 </div>
 
+<!-- Filtro por equipe -->
+<div class="filtro-container">
+  <label for="filtro-equipe">Filtro por Equipes:</label>
+  <select 
+      id="filtro-equipe" 
+      name="equipe"
+      class="filtro-select"
+      hx-get="/noticias"
+      hx-trigger="change"
+      hx-include="#busca-texto, #filtro-piloto"
+      hx-target="#noticias-container"
+      hx-swap="innerHTML"
+  >
+      <option value="">Todas as Equipes</option>
+      <option value="alpine">Alpine</option>
+      <option value="astonmartin">Aston Martin</option>
+      <option value="audi">Audi</option>
+      <option value="cadillac">Cadillac</option>
+      <option value="ferrari">Ferrari</option>
+      <option value="haas">Haas</option>
+      <option value="mclaren">McLaren</option>
+      <option value="mercedes">Mercedes</option>
+      <option value="redbull">Red Bull</option>
+      <option value="visa">Visa Cash App RB</option>
+      <option value="williams">Williams</option>
+  </select>
+</div>
+
 <!-- Filtro por piloto -->
 <div class="filtro-container">
   <label for="filtro-piloto">Filtro por Pilotos:</label>
@@ -66,30 +94,43 @@
   </select>
 </div>
 
-<!-- Filtro por equipe -->
+<!-- Filtro por pista -->
 <div class="filtro-container">
-  <label for="filtro-equipe">Filtro por Equipes:</label>
+  <label for="filtro-pista">Filtro por Pistas:</label>
   <select 
-      id="filtro-equipe" 
-      name="equipe"
-      class="filtro-select"
-      hx-get="/noticias"
-      hx-trigger="change"
-      hx-include="#busca-texto, #filtro-piloto"
-      hx-target="#noticias-container"
-      hx-swap="innerHTML"
+    id="filtro-pista" 
+    name="pista"
+    class="filtro-select"
+    hx-get="/noticias"
+    hx-trigger="change"
+    hx-include="#busca-texto, #filtro-equipe, #filtro-piloto"
+    hx-target="#noticias-container"
+    hx-swap="innerHTML"
   >
-      <option value="">Todas as Equipes</option>
-      <option value="alpine">Alpine</option>
-      <option value="astonmartin">Aston Martin</option>
-      <option value="audi">Audi</option>
-      <option value="cadillac">Cadillac</option>
-      <option value="ferrari">Ferrari</option>
-      <option value="haas">Haas</option>
-      <option value="mclaren">McLaren</option>
-      <option value="mercedes">Mercedes</option>
-      <option value="redbull">Red Bull</option>
-      <option value="visa">Visa Cash App RB</option>
-      <option value="williams">Williams</option>
+    <option value="">Todas as Pistas</option>
+    <option value="australia">Austrália</option>
+    <option value="china">China</option>
+    <option value="japao">Japão</option>
+    <option value="barein">Barein</option>
+    <option value="arabia-saudita">Arábia Saudita</option>
+    <option value="miami">Miami</option>
+    <option value="canada">Canadá</option>
+    <option value="monaco">Mônaco</option>
+    <option value="barcelona">Barcelona</option>
+    <option value="austria">Áustria</option>
+    <option value="inglaterra">Inglaterra</option>
+    <option value="belgica">Bélgica</option>
+    <option value="hungria">Hungria</option>
+    <option value="holanda">Holanda</option>
+    <option value="monza">Monza</option>
+    <option value="madrid">Madri</option>
+    <option value="azerbaijao">Azerbaijão</option>
+    <option value="singapura">Singapura</option>
+    <option value="austin">Austin</option>
+    <option value="mexico">México</option>
+    <option value="brasil">Brasil</option>
+    <option value="las-vegas">Las Vegas</option>
+    <option value="qatar">Catar</option>
+    <option value="abu-dhabi">Abu Dhabi</option>
   </select>
 </div>

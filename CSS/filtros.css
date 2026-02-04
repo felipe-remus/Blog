@@ -32,15 +32,23 @@
 #filtro-categoria {
     font-size: 1.5rem;
     width: 16rem;
-}
-#filtro-piloto {
-    font-size: 1.5rem;
-    width: 16rem;
-    margin-top: 0.8rem;
+    margin-bottom: 1rem;
 }
 
 #filtro-equipe {
     font-size: 1.5rem;
     width: 16rem;
-    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+#filtro-piloto {
+    font-size: 1.5rem;
+    width: 16rem;
+    margin-bottom: 1rem;
+}
+
+#filtro-pista {
+    font-size: 1.5rem;
+    width: 16rem;
+    margin-bottom: 1rem;
 }

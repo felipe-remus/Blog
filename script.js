@@ -41,7 +41,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ========================================
-// FILTROS
+// FILTROS (com suporte a PISTA)
 // ========================================
 let timeoutBusca;
 
@@ -49,20 +49,23 @@ function aplicarFiltros() {
     const termo = (document.getElementById('busca-texto')?.value || '').trim().toLowerCase();
     const equipe = document.getElementById('filtro-equipe')?.value || '';
     const piloto = document.getElementById('filtro-piloto')?.value || '';
+    const pista = document.getElementById('filtro-pista')?.value || '';
     const cards = document.querySelectorAll('.card-noticia');
 
     if (cards.length === 0) return;
 
     cards.forEach(card => {
         const texto = card.textContent.toLowerCase();
-        const equipes = (card.getAttribute('data-equipe') || '').split(' ');
-        const pilotos = (card.getAttribute('data-piloto') || '').split(' ');
+        const equipes = (card.getAttribute('data-equipe') || '').split(' ').filter(Boolean);
+        const pilotos = (card.getAttribute('data-piloto') || '').split(' ').filter(Boolean);
+        const pistas = (card.getAttribute('data-pista') || '').split(' ').filter(Boolean);
 
         const passaBusca = !termo || texto.includes(termo);
         const passaEquipe = !equipe || equipes.includes(equipe);
         const passaPiloto = !piloto || pilotos.includes(piloto);
+        const passaPista = !pista || pistas.includes(pista);
 
-        card.style.display = (passaBusca && passaEquipe && passaPiloto) ? 'block' : 'none';
+        card.style.display = (passaBusca && passaEquipe && passaPiloto && passaPista) ? 'block' : 'none';
     });
 }
 
@@ -74,15 +77,41 @@ document.addEventListener('input', (e) => {
 });
 
 document.addEventListener('change', (e) => {
-    if (e.target.id === 'filtro-equipe' || e.target.id === 'filtro-piloto') {
+    if (
+        e.target.id === 'filtro-equipe' ||
+        e.target.id === 'filtro-piloto' ||
+        e.target.id === 'filtro-pista'
+    ) {
         aplicarFiltros();
     }
 });
 
 function inicializarFiltros() {
-    // Garante que os filtros sejam aplicados após renderização
     setTimeout(aplicarFiltros, 10);
 }
+
+// ========================================
+// Mostrar Tags
+// ========================================
+// Inicializa as seções colapsáveis
+document.addEventListener('DOMContentLoaded', function() {
+  // Garante que os listeners sejam aplicados mesmo após carregamento via HTMX
+  function initCollapsible() {
+    document.querySelectorAll('.collapsible-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+        content.classList.toggle('show');
+      });
+    });
+  }
+
+  // Inicializa imediatamente
+  initCollapsible();
+
+  // Reaplica após carregar conteúdo via HTMX
+  document.addEventListener('htmx:afterRequest', initCollapsible);
+});
 
 // ========================================
 // Selecionar Tags

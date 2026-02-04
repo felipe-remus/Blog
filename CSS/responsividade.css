@@ -51,5 +51,35 @@
     .campo-linha {
         flex-direction: column;
         gap: 1.2rem;
-    }  
+    }
+    
+    .grupo-tags {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+
+    .grupo-tags > span.subtitulo-tag {
+        min-width: auto;
+        margin-bottom: 0.2rem;
+    }
+
+    /* As tags ficam em linha única por grupo, mas cada grupo é vertical */
+    .checkbox-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    /* Filtros: ocupam 100% da largura em mobile */
+    .filtro-container select {
+        width: 100%;
+        max-width: none;
+    }
+
+    /* Opcional: ajuste o label para não quebrar */
+    .filtro-container label {
+        display: block;
+        margin-bottom: 0.4rem;
+    }
 }
