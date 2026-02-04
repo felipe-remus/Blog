@@ -1,0 +1,33 @@
+<!-- Linha com CPF e Telefone -->
+<div class="campo-linha">
+    <div class="subcampo">
+        <label for="cpf-registro">CPF</label>
+        <input type="text" id="cpf-registro" placeholder="000.000.000.00">
+    </div>
+    <div class="subcampo">
+        <label for="telefone-registro">Telefone</label>
+        <input type="tel" id="telefone-registro" placeholder="(00) 00000-0000">
+    </div>
+</div>
+<script>
+    // Formatação CPF
+    document.getElementById('cpf-registro').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+                            .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+                            .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+                            .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono dígito
+                            .replace(/(-\d{2})\d+?$/, '$1'); // Impede entrada de mais de 11 dígitos
+        e.target.value = cpfPattern;
+    });
+
+    //Formatação Numero
+    document.getElementById('telefone-registro').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var telPattern = value.replace(/\D/g, '')
+                               .replace(/(\d{2})(\d)/, '($1) $2')
+                               .replace(/(\(\d{2}\)\s\d{5})(\d)/, '$1-$2')
+                               .replace(/(-\d{4})\d+?$/, '$1');        
+        e.target.value = telPattern;
+        });
+</script>

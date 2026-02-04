@@ -32,8 +32,25 @@
     border: 1px solid #000000;
 }
 
+/* Estilo da tag Geral (já existe, mantido aqui para referência) */
 .tag.geral {
     background-color: #26011C;
+    color: white;
+}
+
+/* Estilos para as outras categorias — você pode ajustar as cores conforme desejar */
+.tag.formula2 {
+    background-color: #0057A3; /* azul F2 */
+    color: white;
+}
+
+.tag.formula3 {
+    background-color: #FF6B00; /* laranja F3 */
+    color: white;
+}
+
+.tag.formula4 {
+    background-color: #009E5D; /* verde F4 */
     color: white;
 }
 
@@ -44,4 +61,14 @@
 
 .tag-selecionado-visual:hover {
     opacity: 0.7;
+}
+
+/* Estilo mínimo para o botão de remover tag */
+.remove-tag {
+    display: inline-block;
+    height: 1rem;
+    text-align: center;
+    margin-left: 0.1rem;
+    cursor: pointer;
+    font-weight: bold;
 }

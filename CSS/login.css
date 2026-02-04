@@ -55,6 +55,14 @@
     margin-bottom: 1.2rem;
 }
 
+.campo-linha label {
+    display: block;
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.4rem;
+    color: #26011C;
+    font-weight: bold;
+}
+
 .subcampo {
     flex: 1;
 }

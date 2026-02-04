@@ -34,16 +34,16 @@
     </div>
 
     <main>
-        <h1>Notícias dos Pilotos</h1>
+        <h1>Notícias das Equipes e Pilotos</h1>
 
         <!-- Pesquisa e Filtro -->
         <template
-        hx-get="html/filtro-pilotos.html"
-        hx-target="#filtro-pilotos"
+        hx-get="html/filtros.html"
+        hx-target="#filtro"
         hx-trigger="load"
         >
         </template>
-        <div id="filtro-pilotos"></div>
+        <div id="filtro"></div>
 
         <!-- Card de Notícia -->
         <template

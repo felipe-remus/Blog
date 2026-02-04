@@ -12,12 +12,12 @@
 
 .busca-container label {
     color: #26011C;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 }
 
 .filtro-container label {
     color: #26011C;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 }
 
 #busca-texto {
@@ -29,11 +29,18 @@
     width: 100%;
     box-sizing: border-box;
 }
-
-#filtro-equipe {
-    font-size: 1rem;
+#filtro-categoria {
+    font-size: 1.5rem;
+    width: 16rem;
+}
+#filtro-piloto {
+    font-size: 1.5rem;
+    width: 16rem;
+    margin-top: 0.8rem;
 }
 
-#filtro-piloto {
-    font-size: 1rem;
+#filtro-equipe {
+    font-size: 1.5rem;
+    width: 16rem;
+    margin-top: 0.8rem;
 }
