@@ -114,140 +114,159 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ========================================
-// Selecionar Tags
+// GERENCIADOR DE TAGS - VERSÃO CORRIGIDA
+// Resolve: duplicação + limite funcional + clique na tag
 // ========================================
-document.addEventListener('DOMContentLoaded', function() {
-    // Função principal que gerencia as regras de tags
-    function initTagManager() {
-        const geralCheckbox = document.getElementById('tag-geral');
-        if (!geralCheckbox) {
-            console.warn("Checkbox 'tag-geral' não encontrado. Verifique o HTML.");
+
+const selecoes = {
+    categoria: new Set(),
+    equipe: new Set(),
+    piloto: new Set(),
+    pista: new Set()
+};
+const limites = { categoria: 1, equipe: 4, piloto: 4, pista: 4 };
+
+function getTipoTag(elemento) {
+    if (elemento.classList.contains('categoria')) return 'categoria';
+    if (elemento.classList.contains('piloto')) return 'piloto';
+    if (elemento.classList.contains('pista')) return 'pista';
+    if ([...elemento.classList].some(c => c.startsWith('equipe-'))) return 'equipe';
+    return null;
+}
+
+// ✅ FUNÇÃO HELPER: Busca checkbox de forma robusta
+function encontrarCheckbox(valor, tipo) {
+    const candidates = document.querySelectorAll('.checkbox-tag input[type="checkbox"]');
+    for (const cb of candidates) {
+        const label = cb.closest('.checkbox-tag');
+        if (!label) continue;
+        
+        const tagPreview = label.querySelector('.tag-preview');
+        if (!tagPreview) continue;
+        
+        const cbTipo = getTipoTag(tagPreview);
+        
+        if (cb.value === valor && cbTipo === tipo) {
+            return cb;
+        }
+    }
+    return null;
+}
+
+document.addEventListener('change', e => {
+    if (e.target.type !== 'checkbox' || !e.target.closest('.checkbox-tag')) return;
+
+    const checkbox = e.target;
+    const label = checkbox.closest('.checkbox-tag');
+    const tagPreview = label.querySelector('.tag-preview');
+    const tipo = getTipoTag(tagPreview);
+    const valor = checkbox.value;
+    
+    if (!tipo) return;
+
+    const tagsSel = document.querySelector('.tags-selecionadas');
+    const aviso = document.getElementById('aviso-tags');
+
+    if (!tagsSel) {
+        console.error('❌ .tags-selecionadas não encontrado!');
+        return;
+    }
+
+    // Verifica estado atual
+    const jaSelecionado = selecoes[tipo].has(valor);
+
+    if (checkbox.checked) {
+        // Impede duplicação
+        if (jaSelecionado) {
+            checkbox.checked = false;
             return;
         }
 
-        const tagsContainer = document.querySelector('.tags-selecionadas');
-        const errorMessage = document.getElementById('aviso-tags');
-
-        // Listener do "X"
-        tagsContainer.addEventListener('click', function(e) {
-            if (e.target.classList.contains('remove-tag')) {
-                const tagSpan = e.target.closest('span[data-value]');
-                if (!tagSpan) return;
-                const value = tagSpan.getAttribute('data-value');
-                const checkbox = document.querySelector(`input[type="checkbox"][value="${value}"]`);
-                if (checkbox) {
-                    checkbox.checked = false;
-                    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
-                }
+        // Verifica limite
+        if (selecoes[tipo].size >= limites[tipo]) {
+            checkbox.checked = false;
+            const msg = tipo === 'categoria' 
+                ? '⚠️ Só 1 categoria permitida.' 
+                : `⚠️ Máximo de ${limites[tipo]} ${tipo === 'equipe' ? 'equipes' : tipo === 'piloto' ? 'pilotos' : 'pistas'} atingido.`;
+            
+            if (aviso) {
+                aviso.textContent = msg;
+                aviso.style.cssText = 'display:block;color:#d32f2f;background:#ffebee;padding:0.5rem;border-radius:4px;border-left:3px solid #d32f2f;font-size:0.9rem';
+                setTimeout(() => { if (aviso.textContent === msg) aviso.style.display = 'none'; }, 5000);
             }
-        });
-
-
-        // Função para atualizar a lista de tags exibidas
-        function updateTagsDisplay() {
-            tagsContainer.innerHTML = '';
-        
-            if (geralCheckbox.checked) {
-                const tagEl = document.createElement('span');
-                tagEl.className = 'tag tag-preview geral';
-                tagEl.textContent = 'Fórmula 1';
-                tagEl.setAttribute('data-value', 'geral');
-                tagEl.innerHTML += ' <span class="remove-tag">X</span>';
-                tagsContainer.appendChild(tagEl);
-            } else {
-                const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
-                checkedBoxes.forEach(cb => {
-                    if (cb.id === 'tag-geral') return;
-                    const label = cb.closest('label');
-                    if (label && label.children[1]) {
-                        const preview = label.children[1];
-                        const tagEl = document.createElement('span');
-                        tagEl.className = preview.className;
-                        tagEl.textContent = preview.textContent;
-                        tagEl.setAttribute('data-value', cb.value);
-                        tagEl.innerHTML += ' <span class="remove-tag">×</span>';
-                        tagsContainer.appendChild(tagEl);
-                    }
-                });
-            }
+            return;
         }
 
-        // Função para validar e aplicar regras
-        function handleCheckboxChange(e) {
-            const cb = e.target;
-            const isGeral = cb.id === 'tag-geral';
+        // Adiciona à seleção
+        selecoes[tipo].add(valor);
 
-            if (isGeral && cb.checked) {
-                // Verifica se há outras tags marcadas (além da Geral)
-                const outrasMarcadas = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
-                    .some(other => other !== cb);
+        // Adiciona tag visual
+        const clone = tagPreview.cloneNode(true);
+        clone.classList.add('tag-selecionada');
+        clone.classList.remove('tag-preview');
 
-                if (outrasMarcadas) {
-                    // Desmarca todas as outras tags
-                    document.querySelectorAll('input[type="checkbox"]').forEach(otherCb => {
-                        if (otherCb !== cb) otherCb.checked = false;
-                    });
-                    // Mostra aviso por 3 segundos
-                    errorMessage.textContent = '⚠️A tag "Fórmula 1" só pode ser usada sozinha. Outras tags foram removidas.';
-                    errorMessage.style.display = 'block';
-                    setTimeout(() => {
-                        errorMessage.style.display = 'none';
-                    }, 4500);
-                } else {
-                    errorMessage.style.display = 'none';
-                }
-            } else if (!isGeral && cb.checked && geralCheckbox.checked) {
-                // Bloqueia seleção de equipe/piloto com Geral ativa
+        // ✅ Armazena o valor e o tipo para busca segura
+        clone.dataset.tagValue = valor;
+        clone.dataset.tagTipo = tipo;
+
+        // ✅ Clique na tag inteira → desmarca
+        clone.style.cursor = 'pointer';
+        clone.onclick = function(e) {
+            // Se clicar no X, deixa o X lidar
+            if (e.target.classList.contains('remove-tag')) return;
+            e.stopPropagation();
+
+            const cb = encontrarCheckbox(valor, tipo);
+            if (cb && cb.checked) {
                 cb.checked = false;
-                errorMessage.textContent = '⚠️A tag "Fórmula 1" só pode ser selecionada sozinha.';
-                errorMessage.style.display = 'block';
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 4500);
-                return;
-            } else {
-                errorMessage.style.display = 'none';
+                cb.dispatchEvent(new Event('change', { bubbles: true }));
             }
+        };
 
-            updateTagsDisplay();
-        }
+        // ✅ Botão ×
+        const btn = document.createElement('span');
+        btn.className = 'remove-tag';
+        btn.innerHTML = '&times;';
+        btn.style.cssText = 'margin-left:0.4rem;font-weight:bold;cursor:pointer;opacity:0.7';
+        btn.onclick = function(e) {
+            e.stopPropagation();
+            const cb = encontrarCheckbox(valor, tipo);
+            if (cb && cb.checked) {
+                cb.checked = false;
+                cb.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        };
+        clone.appendChild(btn);
 
-        // Adiciona evento ao checkbox geral
-        geralCheckbox.addEventListener('change', handleCheckboxChange);
+        tagsSel.appendChild(clone);
+        label.classList.add('tag-selecionado-visual');
 
-        // Adiciona eventos a todos os checkboxes existentes (incluindo os carregados por HTMX)
-        // Usamos delegation para cobrir futuros checkboxes (carregados via HTMX)
-        document.addEventListener('change', function(e) {
-            if (e.target.type === 'checkbox' && e.target.id !== 'tag-geral') {
-                handleCheckboxChange(e);
+    } else {
+        // ✅ Remove da seleção
+        selecoes[tipo].delete(valor);
+
+        // ✅ Remove tag visual usando dataset
+        tagsSel.querySelectorAll('.tag-selecionada').forEach(tag => {
+            if (tag.dataset.tagValue === valor && tag.dataset.tagTipo === tipo) {
+                tag.remove();
             }
         });
-
-        // Inicializa o estado atual
-        updateTagsDisplay();
-
-        // --- HTMX: re-executa após carregar equipes/pilotos ---
-        // HTMX dispara `htmx:afterSettle` após inserir conteúdo via hx-get
-        document.addEventListener('htmx:afterSettle', function() {
-            // Reaplica os listeners aos novos checkboxes (caso ainda não tenham)
-            const newCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-            newCheckboxes.forEach(cb => {
-                // Evita duplicar listeners
-                if (!cb.hasAttribute('data-tag-listener')) {
-                    cb.setAttribute('data-tag-listener', 'true');
-                    // Se for o geral, já tem listener; senão, só precisamos do delegation acima
-                    // Mas garantimos que todos respondam ao change (mesmo se o delegation falhar em algum caso)
-                    if (cb.id !== 'tag-geral') {
-                        cb.addEventListener('change', handleCheckboxChange);
-                    }
-                }
-            });
-        });
+        
+        label.classList.remove('tag-selecionado-visual');
     }
 
-    // Inicia assim que o DOM estiver pronto
-    initTagManager();
-
-    // Caso HTMX ainda não tenha carregado os tags, aguarda um pouco (fallback)
-    setTimeout(initTagManager, 500);
+    // Limpa aviso se tudo estiver ok
+    if (aviso && Object.values(selecoes).every(set => set.size <= limites[set.tipo || 'equipe'])) {
+        aviso.style.display = 'none';
+    }
 });
+
+// Inicializa seleções existentes (ex: ao editar)
+setTimeout(() => {
+    document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked').forEach(checkbox => {
+        const tagPreview = checkbox.closest('.checkbox-tag')?.querySelector('.tag-preview');
+        if (!tagPreview) return;
+        const tipo = getTipoTag(tagPreview);
+        if (tipo) selecoes[tipo].add(checkbox.value);
+    });
+}, 100);

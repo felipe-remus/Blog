@@ -16,7 +16,7 @@
 .checkbox-tag input[type="checkbox"] {
     position: absolute;
     opacity: 0;
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 /* Cores por equipe */
