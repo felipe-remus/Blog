@@ -1,15 +1,124 @@
 /* ========================================
-   TAGS (EQUIPES, PILOTOS, GERAL)
+   TAG SELECTOR - ÁREA DE TAGS SELECIONADAS
    ======================================== */
+
+.tag-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    border: 2px solid #26011C;
+    border-radius: 8px;
+    padding: 0.8rem;
+    background-color: white;
+    min-height: 70px;
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.tag-selector:hover {
+    border-color: #1a0013;
+}
+
+/* Placeholder quando vazio */
+.tag-selector:empty::before {
+    content: 'Selecione as tags abaixo...';
+    color: #999;
+    font-style: italic;
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Se tiver apenas o botão limpar, ainda mostra placeholder */
+.tag-selector:has(.btn-limpar-tags:only-child)::before {
+    content: 'Selecione as tags abaixo...';
+    color: #999;
+    font-style: italic;
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.tags-selecionadas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-right: 0.5rem;
+    flex: 1;
+    min-height: 35px;
+}
+
+/* ========================================
+   TAGS - ESTILOS GERAIS
+   ======================================== */
+
+/* Botão Limpar */
+.btn-limpar-tags {
+    padding: 0.4rem 0.8rem;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    color: #26011C;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.btn-limpar-tags:hover {
+    background: linear-gradient(135deg, #e0e0e0 0%, #d5d5d5 100%);
+    border-color: #26011C;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.btn-limpar-tags:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
 .tag {
-    display: inline-block;
-    padding: 0.25rem 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.8rem;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: bold;
     color: white;
     font-family: Arial, sans-serif;
     white-space: nowrap;
+    transition: all 0.2s ease;
+    gap: 0.3rem;
+}
+
+/* Efeito visual ao passar o mouse sobre qualquer tag no formulário de notícia */
+#form-noticia .tag {
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+.grupo-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.2rem 0;
+}
+
+.aviso-tags {
+    display: flex;
+    color: #d32f2f;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;       
+    padding: 0.3rem 0;  
 }
 
 /* Esconde o checkbox nativo, mas mantém funcional */
@@ -18,6 +127,53 @@
     opacity: 0;
     pointer-events: auto;
 }
+
+/* Tag na área de selecionadas */
+.tag-selecionada {
+    cursor: pointer;
+    animation: tagAppear 0.3s ease;
+}
+
+@keyframes tagAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.tag-selecionada:hover {
+    opacity: 0.85;
+    transform: scale(0.98);
+}
+
+/* Botão de remover (×) */
+.remove-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    margin-left: 0.2rem;
+}
+
+.remove-tag:hover {
+    background: rgba(0,0,0,0.4);
+    transform: scale(1.15);
+}
+
+/* ========================================
+   CORES POR TIPO DE TAG
+   ======================================== */
 
 /* Cores por equipe */
 .tag.equipe-mclaren      { background-color: #FF8700; }
@@ -52,53 +208,25 @@
     color: white;
 }
 
-.tag-selecionado-visual {
-    opacity: 0.9;
-    transition: opacity 0.2s;
+/* ========================================
+   SEÇÃO DE CATEGORIAS
+   ======================================== */
+.categorias-container {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
 
-.tag-selecionado-visual:hover {
-    opacity: 0.7;
+.categorias-container .checkbox-tag {
+    margin: 0;
 }
 
-/* Estilo mínimo para o botão de remover tag */
-.remove-tag {
-    display: inline-block;
-    height: 1rem;
-    text-align: center;
-    margin-left: 0.1rem;
-    cursor: pointer;
+.subtitulo-tag {
+    display: block;
     font-weight: bold;
-}
-
-/* SEÇÕES COLAPSÁVEIS */
-.collapsible-section {
-  margin-bottom: 1.2rem;
-}
-
-.collapsible-header {
-  cursor: pointer;
-  padding: 0.8rem;
-  background: #f5f5f5;
-  border-radius: 6px;
-  font-weight: bold;
-  color: #26011C;
-  transition: background 0.3s;
-}
-
-.collapsible-header:hover {
-  background: #e0e0e0;
-}
-
-.collapsible-content {
-  display: none;
-  margin-top: 0.5rem;
-  padding: 0.8rem;
-  background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.collapsible-content.show {
-  display: block;
+    margin: 0 0 0.8rem 0;
+    color: #26011C;
+    font-size: 0.95rem;
 }

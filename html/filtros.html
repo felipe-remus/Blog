@@ -1,3 +1,5 @@
+<!-- HTML CORRIGIDO -->
+
 <!-- Barra de Pesquisa -->
 <div
   hx-get="html/pesquisa.html"
@@ -13,17 +15,12 @@
     id="filtro-categoria" 
     name="categoria"
     class="filtro-select"
-    hx-get="/noticias"
-    hx-trigger="change"
-    hx-include="#busca-texto, #filtro-piloto, #filtro-equipe"
-    hx-target="#noticias-container"
-    hx-swap="innerHTML"
   >
-    <option value="">Todas as Categorias</option>
+    <option value="">Selecione a Categoria</option>
     <option value="formula1">Fórmula 1</option>
     <option value="f2">Fórmula 2</option>
     <option value="f3">Fórmula 3</option>
-    <option value="indy">Formula 4</option>
+    <option value="formula4">Fórmula 4</option>
   </select>
 </div>
 
@@ -34,13 +31,8 @@
       id="filtro-equipe" 
       name="equipe"
       class="filtro-select"
-      hx-get="/noticias"
-      hx-trigger="change"
-      hx-include="#busca-texto, #filtro-piloto"
-      hx-target="#noticias-container"
-      hx-swap="innerHTML"
   >
-      <option value="">Todas as Equipes</option>
+      <option value="">Selecione a Equipe</option>
       <option value="alpine">Alpine</option>
       <option value="astonmartin">Aston Martin</option>
       <option value="audi">Audi</option>
@@ -62,13 +54,8 @@
     id="filtro-piloto" 
     name="piloto"
     class="filtro-select"
-    hx-get="/noticias"
-    hx-trigger="change"
-    hx-include="#busca-texto, #filtro-equipe"
-    hx-target="#noticias-container"
-    hx-swap="innerHTML"
   >
-    <option value="">Todos os Pilotos</option>
+    <option value="">Selecione o Piloto</option>
     <option value="alex-albon">Alex Albon</option>
     <option value="arvid-lindblad">Arvid Lindblad</option>
     <option value="carlos-sainz">Carlos Sainz</option>
@@ -101,13 +88,8 @@
     id="filtro-pista" 
     name="pista"
     class="filtro-select"
-    hx-get="/noticias"
-    hx-trigger="change"
-    hx-include="#busca-texto, #filtro-equipe, #filtro-piloto"
-    hx-target="#noticias-container"
-    hx-swap="innerHTML"
   >
-    <option value="">Todas as Pistas</option>
+    <option value="">Selecione a Pista</option>
     <option value="australia">Austrália</option>
     <option value="china">China</option>
     <option value="japao">Japão</option>

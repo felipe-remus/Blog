@@ -36,6 +36,12 @@
     box-sizing: border-box;
 }
 
+#titulo-noticia:focus {
+    outline: none;
+    border-color: #26011C;
+    box-shadow: 0 0 0 3px rgba(38, 1, 28, 0.1);
+}
+
 #texto-noticia {
     width: 100%;
     padding: 0.8rem;
@@ -46,6 +52,13 @@
     min-height: 200px;
     resize: vertical;
     box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#texto-noticia:focus {
+    outline: none;
+    border-color: #26011C;
+    box-shadow: 0 0 0 3px rgba(38, 1, 28, 0.1);
 }
 
 .botao-enviar {
@@ -60,65 +73,92 @@
     border-radius: 8px;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
+    font-weight: 600;
 }
 
 .botao-enviar:hover {
     background-color: #1a0013;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(38, 1, 28, 0.3);
 }
 
-.tag-selector {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-items: flex-start;
-    border: 1px solid #26011C;
-    border-radius: 8px;
-    padding: 0.6rem;
-    background-color: white;
-    min-height: 60px;
+.botao-enviar:active {
+    transform: translateY(0);
 }
 
-.tags-selecionadas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-right: 0.5rem;
-    flex: 1;
+/* ========================================
+   SEÇÕES COLAPSÁVEIS
+   ======================================== */
+   .collapsible-section {
+    margin-bottom: 1.2rem;
 }
 
-/* Efeito visual ao passar o mouse sobre qualquer tag no formulário de notícia */
-#form-noticia .tag {
-    opacity: 0.9;
-    transition: opacity 0.2s;
+.collapsible-header {
     cursor: pointer;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: 8px;
+    font-weight: bold;
+    color: #26011C;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-#form-noticia .tag:hover {
+.collapsible-header:hover {
+    background: linear-gradient(135deg, #e0e0e0 0%, #d5d5d5 100%);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.collapsible-header::after {
+    content: '▼';
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
     opacity: 0.7;
 }
 
+.collapsible-header.active::after {
+    transform: rotate(180deg);
+}
 
-.subtitulo-tag {
+.collapsible-content {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.collapsible-content.show {
     display: block;
-    font-weight: bold;
-    margin: 0 0 0.5rem 0;
-    color: #26011C;
-    font-size: 0.95rem;
+    animation: slideDown 0.3s ease;
 }
 
-.grupo-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin: 1.2rem 0;
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.aviso-tags {
-    display: flex;
-    color: #d32f2f;
-    font-size: 1rem;
-    text-align: center;
-    width: 100%;       
-    padding: 0.3rem 0;   
+/* Contador de tags */
+.tag-count {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: normal;
+    background: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }

@@ -53,33 +53,38 @@
         gap: 1.2rem;
     }
     
+    .pagina-escrita {
+        margin: 1rem auto;
+        padding: 0 0.8rem;
+    }
+
+    .pagina-escrita h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+
     .grupo-tags {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.8rem;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 0.6rem;
+    }
+    
+    .tag {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.7rem;
     }
 
-    .grupo-tags > span.subtitulo-tag {
-        min-width: auto;
-        margin-bottom: 0.2rem;
+    .collapsible-header {
+        font-size: 0.95rem;
+        padding: 0.7rem 0.8rem;
     }
 
-    /* As tags ficam em linha única por grupo, mas cada grupo é vertical */
-    .checkbox-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
+    .tag-selector {
+        min-height: 60px;
+        padding: 0.6rem;
     }
 
-    /* Filtros: ocupam 100% da largura em mobile */
-    .filtro-container select {
-        width: 100%;
-        max-width: none;
-    }
-
-    /* Opcional: ajuste o label para não quebrar */
-    .filtro-container label {
-        display: block;
-        margin-bottom: 0.4rem;
+    .btn-limpar-tags {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.6rem;
     }
 }

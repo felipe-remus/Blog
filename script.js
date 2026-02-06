@@ -41,12 +41,13 @@ document.addEventListener('click', (e) => {
 });
 
 // ========================================
-// FILTROS (com suporte a PISTA)
+// Filtros
 // ========================================
 let timeoutBusca;
 
 function aplicarFiltros() {
     const termo = (document.getElementById('busca-texto')?.value || '').trim().toLowerCase();
+    const categoria = document.getElementById('filtro-categoria')?.value || '';
     const equipe = document.getElementById('filtro-equipe')?.value || '';
     const piloto = document.getElementById('filtro-piloto')?.value || '';
     const pista = document.getElementById('filtro-pista')?.value || '';
@@ -56,16 +57,18 @@ function aplicarFiltros() {
 
     cards.forEach(card => {
         const texto = card.textContent.toLowerCase();
+        const categorias = (card.getAttribute('data-categoria') || '').split(' ').filter(Boolean);
         const equipes = (card.getAttribute('data-equipe') || '').split(' ').filter(Boolean);
         const pilotos = (card.getAttribute('data-piloto') || '').split(' ').filter(Boolean);
         const pistas = (card.getAttribute('data-pista') || '').split(' ').filter(Boolean);
 
         const passaBusca = !termo || texto.includes(termo);
+        const passaCategoria = !categoria || categorias.includes(categoria);
         const passaEquipe = !equipe || equipes.includes(equipe);
         const passaPiloto = !piloto || pilotos.includes(piloto);
         const passaPista = !pista || pistas.includes(pista);
 
-        card.style.display = (passaBusca && passaEquipe && passaPiloto && passaPista) ? 'block' : 'none';
+        card.style.display = (passaBusca && passaCategoria && passaEquipe && passaPiloto && passaPista) ? 'block' : 'none';
     });
 }
 
@@ -78,6 +81,7 @@ document.addEventListener('input', (e) => {
 
 document.addEventListener('change', (e) => {
     if (
+        e.target.id === 'filtro-categoria' ||
         e.target.id === 'filtro-equipe' ||
         e.target.id === 'filtro-piloto' ||
         e.target.id === 'filtro-pista'
@@ -90,28 +94,28 @@ function inicializarFiltros() {
     setTimeout(aplicarFiltros, 10);
 }
 
+// Inicializar quando o documento estiver pronto
+document.addEventListener('DOMContentLoaded', inicializarFiltros);
+
 // ========================================
 // Mostrar Tags
 // ========================================
-// Inicializa as seções colapsáveis
 document.addEventListener('DOMContentLoaded', function() {
-  // Garante que os listeners sejam aplicados mesmo após carregamento via HTMX
-  function initCollapsible() {
-    document.querySelectorAll('.collapsible-header').forEach(header => {
-      header.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
+  
+    // Event Delegation - funciona mesmo após recarregar com HTMX
+    document.addEventListener('click', function(e) {
+      // Verifica se clicou em um header colapsável
+      if (e.target.classList.contains('collapsible-header')) {
+        const targetId = e.target.getAttribute('data-target');
         const content = document.getElementById(targetId);
-        content.classList.toggle('show');
-      });
+        
+        if (content) {
+          content.classList.toggle('show');
+        }
+      }
     });
-  }
-
-  // Inicializa imediatamente
-  initCollapsible();
-
-  // Reaplica após carregar conteúdo via HTMX
-  document.addEventListener('htmx:afterRequest', initCollapsible);
-});
+    
+  });
 
 // ========================================
 // GERENCIADOR DE TAGS - VERSÃO CORRIGIDA
@@ -255,6 +259,8 @@ document.addEventListener('change', e => {
         label.classList.remove('tag-selecionado-visual');
     }
 
+    atualizarContadores();
+
     // Limpa aviso se tudo estiver ok
     if (aviso && Object.values(selecoes).every(set => set.size <= limites[set.tipo || 'equipe'])) {
         aviso.style.display = 'none';
@@ -270,3 +276,78 @@ setTimeout(() => {
         if (tipo) selecoes[tipo].add(checkbox.value);
     });
 }, 100);
+
+// ========================================
+// ATUALIZAÇÃO DE CONTADORES (ADICIONAL)
+// Adicione isso ao seu script existente
+// ========================================
+
+// Função para atualizar contadores visuais
+function atualizarContadores() {
+    // Contador de Equipes
+    const countEquipes = document.getElementById('count-equipes');
+    if (countEquipes) {
+        countEquipes.textContent = `(${selecoes.equipe.size}/${limites.equipe})`;
+    }
+    
+    // Contador de Pilotos
+    const countPilotos = document.getElementById('count-pilotos');
+    if (countPilotos) {
+        countPilotos.textContent = `(${selecoes.piloto.size}/${limites.piloto})`;
+    }
+    
+    // Contador de Pistas
+    const countPistas = document.getElementById('count-pistas');
+    if (countPistas) {
+        countPistas.textContent = `(${selecoes.pista.size}/${limites.pista})`;
+    }
+}
+
+// ========================================
+// BOTÃO LIMPAR TUDO (ADICIONAL)
+// ========================================
+
+// Adicione um botão "Limpar Tudo" no HTML:
+// <button type="button" class="btn-limpar-tags" id="btn-limpar-todas">✕ Limpar Tudo</button>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const btnLimparTodas = document.getElementById('btn-limpar-todas');
+    
+    if (btnLimparTodas) {
+        btnLimparTodas.addEventListener('click', function() {
+            // Desmarca todos os checkboxes
+            document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+            
+            // Limpa todas as seleções
+            Object.keys(selecoes).forEach(tipo => {
+                selecoes[tipo].clear();
+            });
+            
+            // Limpa a área visual
+            const tagsSel = document.querySelector('.tags-selecionadas');
+            if (tagsSel) {
+                tagsSel.innerHTML = '';
+            }
+            
+            // Remove classe de selecionado visual
+            document.querySelectorAll('.tag-selecionado-visual').forEach(el => {
+                el.classList.remove('tag-selecionado-visual');
+            });
+            
+            // Atualiza contadores
+            atualizarContadores();
+            
+            // Esconde aviso se estiver visível
+            const aviso = document.getElementById('aviso-tags');
+            if (aviso) {
+                aviso.style.display = 'none';
+            }
+        });
+    }
+    
+    // Inicializa contadores
+    atualizarContadores();
+});
