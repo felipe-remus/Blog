@@ -90,7 +90,7 @@
 /* ========================================
    SEÇÕES COLAPSÁVEIS
    ======================================== */
-   .collapsible-section {
+.collapsible-section {
     margin-bottom: 1.2rem;
 }
 
@@ -150,15 +150,4 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Contador de tags */
-.tag-count {
-    font-size: 0.8rem;
-    color: #666;
-    font-weight: normal;
-    background: white;
-    padding: 0.25rem 0.6rem;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }

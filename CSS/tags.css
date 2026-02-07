@@ -1,12 +1,11 @@
 /* ========================================
    TAG SELECTOR - ÁREA DE TAGS SELECIONADAS
    ======================================== */
-
 .tag-selector {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
     align-items: center;
+    gap: 0.5rem;
     border: 2px solid #26011C;
     border-radius: 8px;
     padding: 0.8rem;
@@ -96,6 +95,17 @@
     white-space: nowrap;
     transition: all 0.2s ease;
     gap: 0.3rem;
+}
+
+/* Contador de tags */
+.tag-count {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: normal;
+    background: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* Efeito visual ao passar o mouse sobre qualquer tag no formulário de notícia */

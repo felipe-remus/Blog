@@ -98,6 +98,11 @@ function inicializarFiltros() {
 document.addEventListener('DOMContentLoaded', inicializarFiltros);
 
 // ========================================
+// VARIÁVEL DE CONTROLE GLOBAL
+// ========================================
+let limpezaEmAndamento = false;
+
+// ========================================
 // Mostrar Tags
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -111,15 +116,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (content) {
           content.classList.toggle('show');
+          e.target.classList.toggle('active');
         }
+      }
+      
+      // ✅ ADICIONA: Detecta clique no botão limpar por EVENT DELEGATION
+      if (e.target.id === 'btn-limpar-todas' || e.target.closest('#btn-limpar-todas')) {
+        limparTodasTags();
       }
     });
     
-  });
+});
 
 // ========================================
 // GERENCIADOR DE TAGS - VERSÃO CORRIGIDA
-// Resolve: duplicação + limite funcional + clique na tag
 // ========================================
 
 const selecoes = {
@@ -157,8 +167,101 @@ function encontrarCheckbox(valor, tipo) {
     return null;
 }
 
+// ========================================
+// ATUALIZAÇÃO DE CONTADORES
+// ========================================
+function atualizarContadores() {
+    // Contador de Equipes
+    const countEquipes = document.getElementById('count-equipes');
+    if (countEquipes) {
+        countEquipes.textContent = `(${selecoes.equipe.size}/${limites.equipe})`;
+    }
+    
+    // Contador de Pilotos
+    const countPilotos = document.getElementById('count-pilotos');
+    if (countPilotos) {
+        countPilotos.textContent = `(${selecoes.piloto.size}/${limites.piloto})`;
+    }
+    
+    // Contador de Pistas
+    const countPistas = document.getElementById('count-pistas');
+    if (countPistas) {
+        countPistas.textContent = `(${selecoes.pista.size}/${limites.pista})`;
+    }
+}
+
+// ========================================
+// CONTROLE DO BOTÃO LIMPAR 
+// ========================================
+function atualizarBotaoLimpar() {
+    const btnLimpar = document.getElementById('btn-limpar-todas');
+    if (!btnLimpar) return;
+    
+    // Verifica se há alguma tag selecionada em qualquer categoria
+    const temTags = Object.values(selecoes).some(set => set.size > 0);
+    
+    if (temTags) {
+        btnLimpar.style.display = 'block';
+    } else {
+        btnLimpar.style.display = 'none';
+    }
+}
+
+// ========================================
+// ✅ FUNÇÃO LIMPAR TODAS AS TAGS (NOVA!)
+// ========================================
+function limparTodasTags() {
+    console.log('🧹 Iniciando limpeza de tags...');
+    
+    // ✅ ATIVA FLAG ANTES DE COMEÇAR
+    limpezaEmAndamento = true;
+    
+    // Desmarca todos os checkboxes
+    document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    // Limpa todas as seleções
+    Object.keys(selecoes).forEach(tipo => {
+        selecoes[tipo].clear();
+    });
+    
+    // Limpa a área visual
+    const tagsSel = document.querySelector('.tags-selecionadas');
+    if (tagsSel) {
+        tagsSel.innerHTML = '';
+    }
+    
+    // Remove classe de selecionado visual
+    document.querySelectorAll('.tag-selecionado-visual').forEach(el => {
+        el.classList.remove('tag-selecionado-visual');
+    });
+    
+    // Atualiza contadores e botão
+    atualizarContadores();
+    atualizarBotaoLimpar();
+    
+    // Esconde aviso
+    const aviso = document.getElementById('aviso-tags');
+    if (aviso) {
+        aviso.style.display = 'none';
+    }
+    
+    // ✅ DESATIVA FLAG APÓS CONCLUSÃO
+    setTimeout(() => { 
+        limpezaEmAndamento = false; 
+        console.log('✅ Limpeza concluída!');
+    }, 50);
+}
+
+// ========================================
+// EVENT LISTENER DE CHANGE (✅ ÚNICO!)
+// ========================================
 document.addEventListener('change', e => {
     if (e.target.type !== 'checkbox' || !e.target.closest('.checkbox-tag')) return;
+    
+    // ✅ IGNORA EVENTOS DURANTE LIMPEZA TOTAL
+    if (limpezaEmAndamento) return;
 
     const checkbox = e.target;
     const label = checkbox.closest('.checkbox-tag');
@@ -259,7 +362,9 @@ document.addEventListener('change', e => {
         label.classList.remove('tag-selecionado-visual');
     }
 
+    // ✅ ATUALIZA CONTADORES E BOTÃO
     atualizarContadores();
+    atualizarBotaoLimpar();
 
     // Limpa aviso se tudo estiver ok
     if (aviso && Object.values(selecoes).every(set => set.size <= limites[set.tipo || 'equipe'])) {
@@ -267,87 +372,25 @@ document.addEventListener('change', e => {
     }
 });
 
-// Inicializa seleções existentes (ex: ao editar)
-setTimeout(() => {
+// ========================================
+// Inicializa ao carregar E após HTMX
+// ========================================
+function inicializarTags() {
     document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked').forEach(checkbox => {
         const tagPreview = checkbox.closest('.checkbox-tag')?.querySelector('.tag-preview');
         if (!tagPreview) return;
         const tipo = getTipoTag(tagPreview);
         if (tipo) selecoes[tipo].add(checkbox.value);
     });
-}, 100);
-
-// ========================================
-// ATUALIZAÇÃO DE CONTADORES (ADICIONAL)
-// Adicione isso ao seu script existente
-// ========================================
-
-// Função para atualizar contadores visuais
-function atualizarContadores() {
-    // Contador de Equipes
-    const countEquipes = document.getElementById('count-equipes');
-    if (countEquipes) {
-        countEquipes.textContent = `(${selecoes.equipe.size}/${limites.equipe})`;
-    }
-    
-    // Contador de Pilotos
-    const countPilotos = document.getElementById('count-pilotos');
-    if (countPilotos) {
-        countPilotos.textContent = `(${selecoes.piloto.size}/${limites.piloto})`;
-    }
-    
-    // Contador de Pistas
-    const countPistas = document.getElementById('count-pistas');
-    if (countPistas) {
-        countPistas.textContent = `(${selecoes.pista.size}/${limites.pista})`;
-    }
+    atualizarContadores();
+    atualizarBotaoLimpar();
 }
 
-// ========================================
-// BOTÃO LIMPAR TUDO (ADICIONAL)
-// ========================================
+// Executa na carga inicial
+document.addEventListener('DOMContentLoaded', inicializarTags);
 
-// Adicione um botão "Limpar Tudo" no HTML:
-// <button type="button" class="btn-limpar-tags" id="btn-limpar-todas">✕ Limpar Tudo</button>
+// ✅ Se usa HTMX, executa após updates
+document.addEventListener('htmx:afterSwap', inicializarTags);
 
-document.addEventListener('DOMContentLoaded', function() {
-    const btnLimparTodas = document.getElementById('btn-limpar-todas');
-    
-    if (btnLimparTodas) {
-        btnLimparTodas.addEventListener('click', function() {
-            // Desmarca todos os checkboxes
-            document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked').forEach(checkbox => {
-                checkbox.checked = false;
-                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
-            });
-            
-            // Limpa todas as seleções
-            Object.keys(selecoes).forEach(tipo => {
-                selecoes[tipo].clear();
-            });
-            
-            // Limpa a área visual
-            const tagsSel = document.querySelector('.tags-selecionadas');
-            if (tagsSel) {
-                tagsSel.innerHTML = '';
-            }
-            
-            // Remove classe de selecionado visual
-            document.querySelectorAll('.tag-selecionado-visual').forEach(el => {
-                el.classList.remove('tag-selecionado-visual');
-            });
-            
-            // Atualiza contadores
-            atualizarContadores();
-            
-            // Esconde aviso se estiver visível
-            const aviso = document.getElementById('aviso-tags');
-            if (aviso) {
-                aviso.style.display = 'none';
-            }
-        });
-    }
-    
-    // Inicializa contadores
-    atualizarContadores();
-});
+// Fallback com timeout
+setTimeout(inicializarTags, 100);
