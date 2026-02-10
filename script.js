@@ -299,7 +299,7 @@ document.addEventListener('change', e => {
             if (aviso) {
                 aviso.textContent = msg;
                 aviso.style.cssText = 'display:block;color:#d32f2f;background:#ffebee;padding:0.5rem;border-radius:4px;border-left:3px solid #d32f2f;font-size:0.9rem';
-                setTimeout(() => { if (aviso.textContent === msg) aviso.style.display = 'none'; }, 5000);
+                setTimeout(() => { if (aviso.textContent === msg) aviso.style.display = 'none'; }, 3500);
             }
             return;
         }

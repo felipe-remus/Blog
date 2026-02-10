@@ -7,21 +7,50 @@
         </div>
 
         <!-- Login -->
-        <template
-        hx-get="html/formulario-login.html"
-        hx-target="#entrar"
-        hx-trigger="load"
-        >
-        </template>
-        <div id="entrar"></div>
+        <form id="form-login" class="formulario ativo">
+            <div class="campo">
+                <label for="email-login">E-mail</label>
+                <input type="email" id="email-login" required>
+            </div>
+            <div class="campo">
+                <label for="senha-login">Senha</label>
+                <input type="password" id="senha-login" required>
+            </div>
+            <button type="submit" class="botao-login">Entrar</button>
+        </form>
 
         <!-- Resgistro -->
-        <template
-        hx-get="html/formulario-registro.html"
-        hx-target="#registro"
-        hx-trigger="load"
-        >
-        </template>
-        <div id="registro"></div>
-    </div>
+        <form id="form-registro" class="formulario">
+            <div class="campo">
+                <label for="nome-registro">Nome Completo</label>
+                <input type="text" id="nome-registro" required>
+            </div>
+            <div class="campo">
+                <label for="usuario-registro">Nome de Usuário</label>
+                <input type="text" id="usuario-registro" required>
+            </div>
+            <div class="campo">
+                <label for="email-registro">E-mail</label>
+                <input type="email" id="email-registro" required>
+            </div>
+
+            <!-- Resgistro -->
+            <template
+            hx-get="html/CPFeTEL.html"
+            hx-target="#formatados"
+            hx-trigger="load"
+            >
+            </template>
+            <div id="formatados"></div>
+
+            <div class="campo">
+                <label for="senha-registro">Senha</label>
+                <input type="password" id="senha-registro" required>
+            </div>
+            <div class="campo">
+                <label for="confirmar-senha">Confirmar Senha</label>
+                <input type="password" id="confirmar-senha" required>
+            </div>
+            <button type="submit" class="botao-login">Criar Conta</button>
+        </form>
 </main>

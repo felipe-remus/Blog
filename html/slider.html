@@ -1,0 +1,71 @@
+<!-- Slider Hero -->
+<div class="slider-hero">
+    <div class="slider-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-background" style="background-image: url('/img/Eua-Rouge.png');"></div>
+            <div class="slide-content">
+                <h1>Últimas Notícias da Fórmula 1</h1>
+                <p class="slide-subtitle">Fique por dentro do que acontece no mundo da F1</p>
+                <div class="area-colaboradores">
+                    <p>Quer escrever para o Blog da F1?</p>
+                    <div class="botoes-colaborador">
+                        <a href="login.html" class="botao-login">Área de Login/Criar Conta</a>
+                        <a href="escrever-noticia.html" class="botao-escrever">Escrever Notícia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-background" style="background-image: url('/img/Piloto.jpg');"></div>
+            <div class="slide-content">
+                <h1>Temporada 2026</h1>
+                <p class="slide-subtitle">Acompanhe todas as noticias da Formula 1</p>
+                <div class="area-colaboradores">
+                    <p>Seja parte da nossa equipe de jornalistas!</p>
+                    <div class="botoes-colaborador">
+                        <a href="login.html" class="botao-login">Fazer Login</a>
+                        <a href="escrever-noticia.html" class="botao-escrever">Publicar Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-background" style="background-image: url('/img/Pit-Stop.png');"></div>
+            <div class="slide-content">
+                <h1>Análises e Bastidores</h1>
+                <p class="slide-subtitle">Conteúdo sobre os pilotos e equipes</p>
+                <div class="area-colaboradores">
+                    <p>Compartilhe sua paixão pela F1</p>
+                    <div class="botoes-colaborador">
+                        <a href="login.html" class="botao-login">Criar Conta</a>
+                        <a href="escrever-noticia.html" class="botao-escrever">Começar a Escrever</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botões de navegação -->
+    <button class="slider-nav slider-prev" onclick="changeSlide(-1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <button class="slider-nav slider-next" onclick="changeSlide(1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- Indicadores (bolinhas) -->
+    <div class="slider-indicators">
+        <span class="indicator active" onclick="goToSlide(0)"></span>
+        <span class="indicator" onclick="goToSlide(1)"></span>
+        <span class="indicator" onclick="goToSlide(2)"></span>
+    </div>
+</div>
