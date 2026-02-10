@@ -211,7 +211,6 @@ function atualizarBotaoLimpar() {
 // ✅ FUNÇÃO LIMPAR TODAS AS TAGS (NOVA!)
 // ========================================
 function limparTodasTags() {
-    console.log('🧹 Iniciando limpeza de tags...');
     
     // ✅ ATIVA FLAG ANTES DE COMEÇAR
     limpezaEmAndamento = true;
@@ -250,7 +249,6 @@ function limparTodasTags() {
     // ✅ DESATIVA FLAG APÓS CONCLUSÃO
     setTimeout(() => { 
         limpezaEmAndamento = false; 
-        console.log('✅ Limpeza concluída!');
     }, 50);
 }
 
@@ -275,7 +273,6 @@ document.addEventListener('change', e => {
     const aviso = document.getElementById('aviso-tags');
 
     if (!tagsSel) {
-        console.error('❌ .tags-selecionadas não encontrado!');
         return;
     }
 
@@ -419,7 +416,6 @@ function initSlider() {
     totalSlides = slides.length;
     
     if (totalSlides === 0) {
-        console.warn('Nenhum slide encontrado. O slider não foi inicializado.');
         return;
     }
 
@@ -460,8 +456,6 @@ function initSlider() {
             }
         }
     }
-
-    console.log('✅ Slider inicializado com sucesso!', totalSlides, 'slides');
 }
 
 // Função para mostrar um slide específico
@@ -553,7 +547,6 @@ document.addEventListener('htmx:afterSwap', function(event) {
     // Verifica se o conteúdo carregado contém o slider
     if (event.detail.target.querySelector('.slider-hero') || 
         event.detail.target.classList.contains('slider-hero')) {
-        console.log('🔄 Slider detectado via HTMX, inicializando...');
         setTimeout(initSlider, 150);
     }
 });

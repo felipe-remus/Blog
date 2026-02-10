@@ -1,5 +1,5 @@
 /* ========================================
-   SLIDER HERO (ESTILO RENNER)
+   SLIDER HERO 
    ======================================== */
 
 .slider-hero {
@@ -84,6 +84,10 @@
 
 /* Área de colaboradores - SÓ TEXTO */
 .slide .area-colaboradores {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: none !important;
     padding: 0;
     border-radius: 0;
@@ -103,6 +107,14 @@
     text-shadow: 0 2px 4px rgba(0,0,0,0.6); /* Sombra para legibilidade */
 }
 
+/* Container dos botões dentro do slider */
+.slide .botoes-colaborador {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 /* Botões sem fundo */
 .botao-login,
 .botao-escrever {
@@ -113,7 +125,8 @@
     border-radius: 30px !important;
     font-size: 1rem !important;
     transition: all 0.3s ease !important;
-    margin: 0.5rem !important;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .botao-login:hover,
@@ -211,20 +224,32 @@
 }
 
 /* ========================================
-   RESPONSIVIDADE DO SLIDER
+   RESPONSIVIDADE DO SLIDER (Media Queries)
    ======================================== */
 
-@media (max-width: 768px) {
+/* Tablets e telas médias */
+@media (max-width: 1024px) {
     .slider-hero {
-        height: 500px;
+        min-height: 50vh;
     }
 
     .slide-content h1 {
-        font-size: 2.5rem;
+        font-size: clamp(1.6rem, 6vw, 3rem);
     }
 
     .slide-subtitle {
-        font-size: 1.2rem;
+        font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+    }
+
+    .botoes-colaborador {
+        gap: 1rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .slider-hero {
+        min-height: 45vh;
     }
 
     .slider-nav {
@@ -240,41 +265,37 @@
         right: 1rem;
     }
 
-    .slide .area-colaboradores {
-        padding: 1.5rem;
-    }
-
-    .slide .area-colaboradores p {
-        font-size: 1rem;
-    }
-
     .botoes-colaborador {
         flex-direction: column;
-    }
-}
-
-@media (max-width: 480px) {
-    .slider-hero {
-        height: 450px;
-    }
-
-    .slide-content h1 {
-        font-size: 2rem;
-    }
-
-    .slide-subtitle {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .slider-nav {
-        width: 35px;
-        height: 35px;
     }
 
     .botao-login,
     .botao-escrever {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
+        width: 100%;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .slider-hero {
+        min-height: 40vh;
+    }
+
+    .slide-content h1 {
+        font-size: clamp(1.4rem, 8vw, 2rem);
+    }
+
+    .slide-subtitle {
+        font-size: clamp(0.9rem, 5vw, 1.1rem);
+    }
+
+    .botao-login,
+    .botao-escrever {
+        font-size: 0.9rem !important;
+        padding: 0.6rem 1rem !important;
+    }
+
+    .slider-indicators {
+        bottom: 1rem;
     }
 }

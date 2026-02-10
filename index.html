@@ -6,13 +6,12 @@
     <title>Blog - Formula 1</title>
     
     <link rel="stylesheet" href="CSS/base.css">
-    <link rel="stylesheet" href="CSS/colaboradores.css">
     <link rel="stylesheet" href="CSS/filtros.css">
     <link rel="stylesheet" href="CSS/login.css">
     <link rel="stylesheet" href="CSS/noticias.css">
     <link rel="stylesheet" href="CSS/publicar.css">
-    <link rel="stylesheet" href="CSS/responsividade.css"> 
-    <link rel="stylesheet" href="CSS/slider.css"> 
+    <link rel="stylesheet" href="CSS/responsividade.css">
+    <link rel="stylesheet" href="CSS/slider.css">
     <link rel="stylesheet" href="CSS/tags.css">
 
     <script src="script.js" defer></script>
@@ -39,13 +38,10 @@
         <div id="slider"></div>
 
         <!-- Barra de Pesquisa -->
-        <template
-            hx-get="html/pesquisa.html"
-            hx-target="#pesquisa"
-            hx-trigger="load"
-            >
-        </template>
-        <div id="pesquisa"></div>
+        <div class="busca-container">
+            <label for="busca-texto">Pesquisar notícias:</label>
+            <input type="text" id="busca-texto">
+        </div>
 
         <!-- Card de Notícia -->
         <template
