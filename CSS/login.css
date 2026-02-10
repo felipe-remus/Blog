@@ -67,7 +67,8 @@
     flex: 1;
 }
 
-.botao-login {
+/* BOTÕES DE LOGIN E CRIAR CONTA - CORRIGIDO */
+.login-container .botao-de-login {
     width: 100%;
     padding: 0.7rem;
     background-color: #26011C;
@@ -76,7 +77,20 @@
     border-radius: 8px;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: background 0.2s;
+    font-family: Arial, sans-serif;
+}
+
+.login-container .botao-de-login:hover,
+.login-container .botao-de-login:active,
+.login-container .botao-de-login:focus {
+    background-color: #26011C;
+    color: white;
+    box-shadow: none;
+}
+
+.login-container .botao-de-login:focus-visible {
+    outline: 2px solid #e0c9ff;
+    outline-offset: 2px;
 }
 
 .link-voltar {
