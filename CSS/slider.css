@@ -8,7 +8,7 @@
     height: 600px;
     overflow: hidden;
     margin-bottom: 2rem;
-    border-radius: 1rem;
+    border-radius: 4rem;
 }
 
 .slider-container {
@@ -69,6 +69,7 @@
 }
 
 .slide-content h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 3.5rem;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
@@ -84,6 +85,7 @@
 
 /* Área de colaboradores - SÓ TEXTO */
 .slide .area-colaboradores {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,16 +110,16 @@
 }
 
 /* Container dos botões dentro do slider */
-.slide .botoes-colaborador {
+.slide .botoes-slider {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
     gap: 1rem;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
 }
 
 /* Botões sem fundo */
-.botao-login,
-.botao-escrever {
+.botao-slider {
     background: transparent !important;
     border: 2px solid white !important;
     color: white !important;
@@ -129,8 +131,7 @@
     display: inline-block;
 }
 
-.botao-login:hover,
-.botao-escrever:hover {
+.botao-slider:hover {
     background: white !important;
     color: #26011C !important;
 }
@@ -265,12 +266,11 @@
         right: 1rem;
     }
 
-    .botoes-colaborador {
+    .botoes-slider {
         flex-direction: column;
     }
 
-    .botao-login,
-    .botao-escrever {
+    .botao-slider {
         width: 100%;
     }
 }
@@ -289,8 +289,7 @@
         font-size: clamp(0.9rem, 5vw, 1.1rem);
     }
 
-    .botao-login,
-    .botao-escrever {
+    .botao-slider {
         font-size: 0.9rem !important;
         padding: 0.6rem 1rem !important;
     }
