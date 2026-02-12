@@ -41,7 +41,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ========================================
-// Filtros
+// FILTROS
 // ========================================
 let timeoutBusca;
 
@@ -70,15 +70,21 @@ function aplicarFiltros() {
 
         card.style.display = (passaBusca && passaCategoria && passaEquipe && passaPiloto && passaPista) ? 'block' : 'none';
     });
+
+    // Integração com paginação
+    paginaAtual = 1; // Volta pra primeira página ao filtrar
+    aplicarPaginacao(); // Reaplica a paginação
 }
 
+// Event listener para busca (com debounce)
 document.addEventListener('input', (e) => {
     if (e.target.id === 'busca-texto') {
         clearTimeout(timeoutBusca);
-        timeoutBusca = setTimeout(aplicarFiltros, 200);
+        timeoutBusca = setTimeout(aplicarFiltros, 300); // Ajustei para 300ms
     }
 });
 
+// Event listener para selects de filtro
 document.addEventListener('change', (e) => {
     if (
         e.target.id === 'filtro-categoria' ||
@@ -90,9 +96,29 @@ document.addEventListener('change', (e) => {
     }
 });
 
+// Inicializa filtros quando a página carregar
 function inicializarFiltros() {
-    setTimeout(aplicarFiltros, 10);
+    // Aguarda um pouco para garantir que o DOM está pronto
+    setTimeout(() => {
+        aplicarFiltros(); // Já chama aplicarPaginacao() internamente
+    }, 100);
 }
+
+// Quando o DOM estiver pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarFiltros);
+} else {
+    inicializarFiltros();
+}
+
+// Para HTMX - reaplica após carregar conteúdo
+document.body.addEventListener('htmx:afterSwap', function(event) {
+    // Se carregou notícias, reaplica os filtros
+    if (event.detail.target.classList?.contains('noticias-container') || 
+        event.detail.target.id === 'noticias-container') {
+        setTimeout(inicializarFiltros, 100);
+    }
+});
 
 // Inicializar quando o documento estiver pronto
 document.addEventListener('DOMContentLoaded', inicializarFiltros);
@@ -568,3 +594,221 @@ if (document.readyState === 'loading') {
         }
     }, 200);
 }
+
+// ========================================
+// Header
+// ========================================
+document.body.addEventListener('htmx:afterSwap', function(event) {
+    // Quando qualquer conteúdo for carregado, atualiza o menu
+    if (event.target.id === 'xcabecalho' || event.detail.target.id === 'xcabecalho') {
+        highlightCurrentPage();
+    }
+});
+
+function highlightCurrentPage() {
+    // Aguarda o DOM estar pronto
+    requestAnimationFrame(() => {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('#menu-principal .nav-link');
+        
+        navLinks.forEach(link => {
+            const linkPage = link.getAttribute('data-page') || link.getAttribute('href');
+            link.classList.toggle('active', linkPage === currentPage);
+        });
+    });
+}
+
+// ========================================
+// SISTEMA DE PAGINAÇÃO
+// ========================================
+
+// Configuração
+const NOTICIAS_POR_PAGINA = 10;
+let paginaAtual = 1;
+let totalPaginas = 1;
+
+// Função para aplicar paginação
+function aplicarPaginacao() {
+    const cards = document.querySelectorAll('.card-noticia');
+    
+    // Filtra apenas cards visíveis (não escondidos por filtros)
+    const cardsVisiveis = Array.from(cards).filter(card => {
+        const computedStyle = window.getComputedStyle(card);
+        return computedStyle.display !== 'none' || card.style.display !== 'none';
+    });
+
+    const totalNoticias = cardsVisiveis.length;
+    totalPaginas = Math.ceil(totalNoticias / NOTICIAS_POR_PAGINA);
+    
+    // Se não houver notícias, totalPaginas = 1 (para sempre mostrar a paginação)
+    if (totalPaginas === 0) {
+        totalPaginas = 1;
+    }
+
+    // Ajusta página atual se necessário
+    if (paginaAtual > totalPaginas) {
+        paginaAtual = totalPaginas;
+    }
+    if (paginaAtual < 1) {
+        paginaAtual = 1;
+    }
+
+    // Esconde todos os cards visíveis primeiro
+    cardsVisiveis.forEach(card => {
+        card.classList.add('paginacao-oculto');
+    });
+
+    // Mostra apenas os cards da página atual
+    const inicio = (paginaAtual - 1) * NOTICIAS_POR_PAGINA;
+    const fim = inicio + NOTICIAS_POR_PAGINA;
+    
+    cardsVisiveis.slice(inicio, fim).forEach(card => {
+        card.classList.remove('paginacao-oculto');
+    });
+
+    // Atualiza controles
+    atualizarControlesPaginacao(totalNoticias, inicio, fim);
+}
+
+function atualizarControlesPaginacao(totalNoticias, inicio, fim) {
+    // Atualiza informações de quantidade
+    const infoInicio = document.getElementById('info-inicio');
+    const infoFim = document.getElementById('info-fim');
+    const infoTotal = document.getElementById('info-total');
+    
+    if (infoInicio) infoInicio.textContent = totalNoticias > 0 ? inicio + 1 : 0;
+    if (infoFim) infoFim.textContent = Math.min(fim, totalNoticias);
+    if (infoTotal) infoTotal.textContent = totalNoticias;
+
+    // Atualiza estado dos botões
+    const btnPrimeira = document.getElementById('btn-primeira');
+    const btnAnterior = document.getElementById('btn-anterior');
+    const btnProxima = document.getElementById('btn-proxima');
+    const btnUltima = document.getElementById('btn-ultima');
+    
+    if (btnPrimeira) btnPrimeira.disabled = paginaAtual === 1;
+    if (btnAnterior) btnAnterior.disabled = paginaAtual === 1;
+    if (btnProxima) btnProxima.disabled = paginaAtual === totalPaginas;
+    if (btnUltima) btnUltima.disabled = paginaAtual === totalPaginas;
+
+    // Gera números das páginas
+    gerarNumerosPaginas();
+
+    // REMOVIDO: A lógica de esconder/mostrar paginação
+    // Agora a paginação fica sempre visível
+}
+
+function gerarNumerosPaginas() {
+    const container = document.getElementById('numeros-paginas');
+    if (!container) return;
+    
+    container.innerHTML = '';
+
+    const maxBotoes = 7;
+    let paginas = [];
+
+    if (totalPaginas <= maxBotoes) {
+        paginas = Array.from({length: totalPaginas}, (_, i) => i + 1);
+    } else {
+        if (paginaAtual <= 3) {
+            paginas = [1, 2, 3, 4, '...', totalPaginas];
+        } else if (paginaAtual >= totalPaginas - 2) {
+            paginas = [1, '...', totalPaginas - 3, totalPaginas - 2, totalPaginas - 1, totalPaginas];
+        } else {
+            paginas = [1, '...', paginaAtual - 1, paginaAtual, paginaAtual + 1, '...', totalPaginas];
+        }
+    }
+
+    paginas.forEach(num => {
+        if (num === '...') {
+            const reticencias = document.createElement('span');
+            reticencias.className = 'pagina-reticencias';
+            reticencias.textContent = '...';
+            container.appendChild(reticencias);
+        } else {
+            const botao = document.createElement('button');
+            botao.className = 'pagina-numero';
+            if (num === paginaAtual) {
+                botao.classList.add('ativa');
+            }
+            botao.textContent = num;
+            botao.onclick = () => irParaPagina(num);
+            container.appendChild(botao);
+        }
+    });
+}
+
+function irParaPagina(numeroPagina) {
+    paginaAtual = numeroPagina;
+    aplicarPaginacao();
+    
+    // Scroll suave para o topo
+    const container = document.querySelector('.noticias-container');
+    if (container) {
+        const offset = 100;
+        const elementPosition = container.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Inicializa os event listeners
+function inicializarPaginacao() {
+    console.log('Inicializando paginação...');
+    
+    const btnPrimeira = document.getElementById('btn-primeira');
+    const btnAnterior = document.getElementById('btn-anterior');
+    const btnProxima = document.getElementById('btn-proxima');
+    const btnUltima = document.getElementById('btn-ultima');
+    
+    if (btnPrimeira) {
+        btnPrimeira.addEventListener('click', () => {
+            console.log('Clicou em primeira');
+            irParaPagina(1);
+        });
+    }
+    
+    if (btnAnterior) {
+        btnAnterior.addEventListener('click', () => {
+            console.log('Clicou em anterior');
+            irParaPagina(Math.max(1, paginaAtual - 1));
+        });
+    }
+    
+    if (btnProxima) {
+        btnProxima.addEventListener('click', () => {
+            console.log('Clicou em próxima');
+            irParaPagina(Math.min(totalPaginas, paginaAtual + 1));
+        });
+    }
+    
+    if (btnUltima) {
+        btnUltima.addEventListener('click', () => {
+            console.log('Clicou em última');
+            irParaPagina(totalPaginas);
+        });
+    }
+    
+    // Aplica paginação inicial
+    aplicarPaginacao();
+}
+
+// Quando o DOM estiver pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarPaginacao);
+} else {
+    inicializarPaginacao();
+}
+
+// Para HTMX - reaplica após carregar conteúdo
+document.body.addEventListener('htmx:afterSwap', function(event) {
+    console.log('HTMX afterSwap detectado');
+    setTimeout(() => {
+        paginaAtual = 1;
+        inicializarPaginacao();
+    }, 100);
+});

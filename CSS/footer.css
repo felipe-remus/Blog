@@ -1,0 +1,118 @@
+/* ========================================
+   RODAPÉ (FOOTER)
+   ======================================== */
+#rodape {
+    background: linear-gradient(to top, #26011C 0%, #1a0113 100%);
+    border-top: 3px solid #e10600;
+    margin-top: auto;
+    padding: 2rem 3rem;
+    color: #ffffff;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Coloca tudo em coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    gap: 1.5rem;
+    text-align: center; /* Centraliza o texto */
+}
+
+.footer-esquerda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.copyright {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #ffffff;
+}
+
+.footer-subtitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-direita {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza os links */
+}
+
+.footer-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    background-color: #e10600;
+    border-color: #e10600;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+}
+
+.footer-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s ease;
+}
+
+.footer-link:hover .footer-icon {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    #rodape {
+        padding: 1.5rem 1.5rem;
+    }
+
+    .footer-direita {
+        gap: 1rem;
+    }
+
+    .footer-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .footer-icon {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-link span {
+        display: none;
+    }
+
+    .footer-link {
+        padding: 0.6rem;
+        border-radius: 50%;
+    }
+
+    .footer-icon {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+}

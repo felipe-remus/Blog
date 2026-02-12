@@ -1,0 +1,36 @@
+<!-- Container de paginação -->
+<div class="paginacao-container" id="paginacao">
+    <button class="paginacao-btn" id="btn-primeira" title="Primeira página">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="11 17 6 12 11 7"></polyline>
+            <polyline points="18 17 13 12 18 7"></polyline>
+        </svg>
+    </button>
+    
+    <button class="paginacao-btn" id="btn-anterior" title="Página anterior">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    
+    <div class="paginacao-numeros" id="numeros-paginas">
+        <!-- Números serão gerados dinamicamente -->
+    </div>
+    
+    <button class="paginacao-btn" id="btn-proxima" title="Próxima página">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+    
+    <button class="paginacao-btn" id="btn-ultima" title="Última página">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="13 17 18 12 13 7"></polyline>
+            <polyline points="6 17 11 12 6 7"></polyline>
+        </svg>
+    </button>
+</div>
+
+<div class="info-paginacao" id="info-paginacao">
+    Mostrando <span id="info-inicio">1</span>-<span id="info-fim">10</span> de <span id="info-total">0</span> notícias
+</div>

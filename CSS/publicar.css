@@ -2,9 +2,9 @@
    PÁGINA DE ESCREVER NOTÍCIA
    ======================================== */
 .pagina-escrita {
-    max-width: 800px;
+    max-width: 900px;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
 }
 
 .pagina-escrita h1 {
@@ -12,6 +12,8 @@
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2rem;
+    font-weight: 700;
+    font-family: TerminalVelocity, Arial, sans-serif;
 }
 
 #form-noticia .campo {
@@ -21,66 +23,80 @@
 #form-noticia label {
     display: block;
     font-family: Arial, sans-serif;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
     color: #26011C;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1rem;
 }
 
 #titulo-noticia {
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.8rem 1rem;
     font-size: 1.2rem;
-    border: 1px solid #26011C;
-    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
+    transition: all 0.3s ease;
+    font-weight: 600;
 }
 
 #titulo-noticia:focus {
     outline: none;
-    border-color: #26011C;
-    box-shadow: 0 0 0 3px rgba(38, 1, 28, 0.1);
+    border-color: #e10600;
+    box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+}
+
+#titulo-noticia::placeholder {
+    color: #999;
+    font-weight: 400;
 }
 
 #texto-noticia {
     width: 100%;
-    padding: 0.8rem;
+    padding: 1rem;
     font-family: Arial, sans-serif;
     font-size: 1rem;
-    border: 1px solid #26011C;
+    line-height: 1.6;
+    border: 2px solid #e0e0e0;
     border-radius: 8px;
-    min-height: 200px;
+    min-height: 250px;
     resize: vertical;
     box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.3s ease;
 }
 
 #texto-noticia:focus {
     outline: none;
-    border-color: #26011C;
-    box-shadow: 0 0 0 3px rgba(38, 1, 28, 0.1);
+    border-color: #e10600;
+    box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+}
+
+#texto-noticia::placeholder {
+    color: #999;
 }
 
 .botao-enviar {
     display: block;
     width: 100%;
-    max-width: 300px;
-    margin: 1rem auto;
-    padding: 0.8rem;
-    background-color: #26011C;
+    max-width: 350px;
+    margin: 2rem auto 1rem auto;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #26011C 0%, #1a0113 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 1.2rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(38, 1, 28, 0.2);
 }
 
 .botao-enviar:hover {
-    background-color: #1a0013;
+    background: linear-gradient(135deg, #e10600 0%, #c10500 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(38, 1, 28, 0.3);
+    box-shadow: 0 6px 16px rgba(225, 6, 0, 0.3);
 }
 
 .botao-enviar:active {
@@ -91,49 +107,59 @@
    SEÇÕES COLAPSÁVEIS
    ======================================== */
 .collapsible-section {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
 }
 
 .collapsible-header {
     cursor: pointer;
-    padding: 0.8rem 1rem;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 1rem 1.3rem;
+    background: linear-gradient(135deg, #f8f8f8 0%, #ececec 100%);
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.05rem;
     color: #26011C;
     transition: all 0.3s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .collapsible-header:hover {
-    background: linear-gradient(135deg, #e0e0e0 0%, #d5d5d5 100%);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #e8e8e8 0%, #d8d8d8 100%);
+    border-color: #26011C;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.collapsible-header.active {
+    background: linear-gradient(135deg, #26011C 0%, #1a0113 100%);
+    color: white;
+    border-color: #26011C;
 }
 
 .collapsible-header::after {
     content: '▼';
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     transition: transform 0.3s ease;
     opacity: 0.7;
 }
 
 .collapsible-header.active::after {
     transform: rotate(180deg);
+    opacity: 1;
 }
 
 .collapsible-content {
     display: none;
     margin-top: 0.8rem;
-    padding: 1rem;
+    padding: 1.5rem;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e0e0e0;
 }
 
 .collapsible-content.show {
@@ -149,5 +175,231 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Estilo para campos dentro das seções colapsáveis */
+.collapsible-content .campo {
+    margin-bottom: 1.2rem;
+}
+
+.collapsible-content .campo:last-child {
+    margin-bottom: 0;
+}
+
+.collapsible-content label {
+    display: block;
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.5rem;
+    color: #26011C;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.collapsible-content input,
+.collapsible-content select,
+.collapsible-content textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.collapsible-content input:focus,
+.collapsible-content select:focus,
+.collapsible-content textarea:focus {
+    outline: none;
+    border-color: #e10600;
+    box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .pagina-escrita {
+        padding: 0 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    .pagina-escrita h1 {
+        font-size: 1.7rem;
+        margin-bottom: 1.5rem;
+    }
+
+    #form-noticia .campo {
+        margin-bottom: 1.5rem;
+    }
+
+    #form-noticia label {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+
+    #titulo-noticia {
+        padding: 0.7rem 0.9rem;
+        font-size: 1.1rem;
+    }
+
+    #texto-noticia {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+        min-height: 220px;
+    }
+
+    .botao-enviar {
+        max-width: 300px;
+        padding: 0.9rem 1.8rem;
+        font-size: 1.1rem;
+    }
+
+    .collapsible-header {
+        padding: 0.9rem 1.1rem;
+        font-size: 1rem;
+    }
+
+    .collapsible-content {
+        padding: 1.2rem;
+    }
+
+    .collapsible-content label {
+        font-size: 0.9rem;
+    }
+
+    .collapsible-content input,
+    .collapsible-content select,
+    .collapsible-content textarea {
+        padding: 0.65rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .pagina-escrita {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    .pagina-escrita h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+
+    #form-noticia .campo {
+        margin-bottom: 1.3rem;
+    }
+
+    #form-noticia label {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+
+    #titulo-noticia {
+        padding: 0.65rem 0.8rem;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+
+    #texto-noticia {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        min-height: 200px;
+        border-radius: 6px;
+    }
+
+    .botao-enviar {
+        max-width: 100%;
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 25px;
+        margin: 1.5rem auto 1rem auto;
+    }
+
+    .collapsible-section {
+        margin-bottom: 1.2rem;
+    }
+
+    .collapsible-header {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    .collapsible-header::after {
+        font-size: 0.8rem;
+    }
+
+    .collapsible-content {
+        padding: 1rem;
+        margin-top: 0.6rem;
+        border-radius: 8px;
+    }
+
+    .collapsible-content .campo {
+        margin-bottom: 1rem;
+    }
+
+    .collapsible-content label {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .collapsible-content input,
+    .collapsible-content select,
+    .collapsible-content textarea {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+        border-radius: 5px;
+    }
+}
+
+/* Mobile muito pequeno */
+@media (max-width: 360px) {
+    .pagina-escrita {
+        padding: 0 0.8rem;
+    }
+
+    .pagina-escrita h1 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    #titulo-noticia {
+        padding: 0.6rem;
+        font-size: 0.95rem;
+    }
+
+    #texto-noticia {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+        min-height: 180px;
+    }
+
+    .botao-enviar {
+        padding: 0.75rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .collapsible-header {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    .collapsible-content {
+        padding: 0.9rem;
+    }
+
+    .collapsible-content input,
+    .collapsible-content select,
+    .collapsible-content textarea {
+        padding: 0.55rem;
+        font-size: 0.8rem;
     }
 }
