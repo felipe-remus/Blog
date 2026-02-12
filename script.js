@@ -80,7 +80,7 @@ function aplicarFiltros() {
 document.addEventListener('input', (e) => {
     if (e.target.id === 'busca-texto') {
         clearTimeout(timeoutBusca);
-        timeoutBusca = setTimeout(aplicarFiltros, 300); // Ajustei para 300ms
+        timeoutBusca = setTimeout(aplicarFiltros, 300);
     }
 });
 
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
-      // ✅ ADICIONA: Detecta clique no botão limpar por EVENT DELEGATION
+      // Detecta clique no botão limpar por EVENT DELEGATION
       if (e.target.id === 'btn-limpar-todas' || e.target.closest('#btn-limpar-todas')) {
         limparTodasTags();
       }
@@ -174,7 +174,7 @@ function getTipoTag(elemento) {
     return null;
 }
 
-// ✅ FUNÇÃO HELPER: Busca checkbox de forma robusta
+// Busca checkbox de forma robusta
 function encontrarCheckbox(valor, tipo) {
     const candidates = document.querySelectorAll('.checkbox-tag input[type="checkbox"]');
     for (const cb of candidates) {
@@ -234,11 +234,11 @@ function atualizarBotaoLimpar() {
 }
 
 // ========================================
-// ✅ FUNÇÃO LIMPAR TODAS AS TAGS (NOVA!)
+// FUNÇÃO LIMPAR TUDO
 // ========================================
 function limparTodasTags() {
     
-    // ✅ ATIVA FLAG ANTES DE COMEÇAR
+    // ATIVA FLAG ANTES DE COMEÇAR
     limpezaEmAndamento = true;
     
     // Desmarca todos os checkboxes
@@ -272,7 +272,7 @@ function limparTodasTags() {
         aviso.style.display = 'none';
     }
     
-    // ✅ DESATIVA FLAG APÓS CONCLUSÃO
+    // DESATIVA FLAG APÓS CONCLUSÃO
     setTimeout(() => { 
         limpezaEmAndamento = false; 
     }, 50);
@@ -284,7 +284,7 @@ function limparTodasTags() {
 document.addEventListener('change', e => {
     if (e.target.type !== 'checkbox' || !e.target.closest('.checkbox-tag')) return;
     
-    // ✅ IGNORA EVENTOS DURANTE LIMPEZA TOTAL
+    // IGNORA EVENTOS DURANTE LIMPEZA TOTAL
     if (limpezaEmAndamento) return;
 
     const checkbox = e.target;
@@ -335,11 +335,11 @@ document.addEventListener('change', e => {
         clone.classList.add('tag-selecionada');
         clone.classList.remove('tag-preview');
 
-        // ✅ Armazena o valor e o tipo para busca segura
+        // Armazena o valor e o tipo para busca segura
         clone.dataset.tagValue = valor;
         clone.dataset.tagTipo = tipo;
 
-        // ✅ Clique na tag inteira → desmarca
+        // Clique na tag inteira → desmarca
         clone.style.cursor = 'pointer';
         clone.onclick = function(e) {
             // Se clicar no X, deixa o X lidar
@@ -353,7 +353,7 @@ document.addEventListener('change', e => {
             }
         };
 
-        // ✅ Botão ×
+        // Botão X
         const btn = document.createElement('span');
         btn.className = 'remove-tag';
         btn.innerHTML = '&times;';
@@ -372,10 +372,10 @@ document.addEventListener('change', e => {
         label.classList.add('tag-selecionado-visual');
 
     } else {
-        // ✅ Remove da seleção
+        // Remove da seleção
         selecoes[tipo].delete(valor);
 
-        // ✅ Remove tag visual usando dataset
+        // Remove tag visual usando dataset
         tagsSel.querySelectorAll('.tag-selecionada').forEach(tag => {
             if (tag.dataset.tagValue === valor && tag.dataset.tagTipo === tipo) {
                 tag.remove();
@@ -385,7 +385,7 @@ document.addEventListener('change', e => {
         label.classList.remove('tag-selecionado-visual');
     }
 
-    // ✅ ATUALIZA CONTADORES E BOTÃO
+    // ATUALIZA CONTADORES E BOTÃO
     atualizarContadores();
     atualizarBotaoLimpar();
 
@@ -412,7 +412,7 @@ function inicializarTags() {
 // Executa na carga inicial
 document.addEventListener('DOMContentLoaded', inicializarTags);
 
-// ✅ Se usa HTMX, executa após updates
+// Se usa HTMX, executa após updates
 document.addEventListener('htmx:afterSwap', inicializarTags);
 
 // Fallback com timeout
@@ -529,7 +529,7 @@ function autoSlide() {
 function startAutoSlide() {
     if (!sliderInitialized) return;
     stopAutoSlide(); // Para qualquer timer existente
-    autoSlideInterval = setInterval(autoSlide, 5000); // 5 segundos
+    autoSlideInterval = setInterval(autoSlide, 10000);
 }
 
 // Para o slider automático
@@ -812,3 +812,43 @@ document.body.addEventListener('htmx:afterSwap', function(event) {
         inicializarPaginacao();
     }, 100);
 });
+
+// ========================================
+// SISTEMA DE ORDENAÇÃO DE NOTICIAS
+// ========================================
+
+// Ordena quando o conteúdo HTMX é carregado
+document.body.addEventListener('htmx:afterSwap', function(evt) {
+    ordenarNoticias();
+});
+
+// Ordena no carregamento inicial
+document.addEventListener('DOMContentLoaded', ordenarNoticias);
+
+function ordenarNoticias() {
+    const containers = document.querySelectorAll('.noticias-container');
+    if (containers.length === 0) return;
+    
+    const parent = containers[0].parentElement;
+    
+    const noticiasOrdenadas = Array.from(containers).sort((a, b) => {
+        // Se você adicionou data-data
+        const dataA = a.querySelector('.card-noticia').getAttribute('data-data');
+        const dataB = b.querySelector('.card-noticia').getAttribute('data-data');
+        
+        if (dataA && dataB) {
+            return new Date(dataB) - new Date(dataA);
+        }
+        
+        // Caso contrário, extrai da meta
+        const metaA = a.querySelector('.meta').textContent.match(/\d{2}\/\d{2}\/\d{4}/)[0];
+        const metaB = b.querySelector('.meta').textContent.match(/\d{2}\/\d{2}\/\d{4}/)[0];
+        
+        const [diaA, mesA, anoA] = metaA.split('/');
+        const [diaB, mesB, anoB] = metaB.split('/');
+        
+        return new Date(anoB, mesB - 1, diaB) - new Date(anoA, mesA - 1, diaA);
+    });
+    
+    noticiasOrdenadas.forEach(noticia => parent.appendChild(noticia));
+}

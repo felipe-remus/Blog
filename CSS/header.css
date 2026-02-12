@@ -1,7 +1,8 @@
 /* ========================================
-   CABEÇALHO (HEADER) – VERSÃO HORIZONTAL
+   CABEÇALHO 
    ======================================== */
 #cabecalho {
+    background: linear-gradient(to bottom, #26011cd8 0%, #ffffff 40%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,7 +11,6 @@
     border-bottom: 3px solid #e10600; 
     flex-wrap: wrap;
     gap: 1rem;
-    background: linear-gradient(to bottom, #26011C 0%, #f8f8f8 45%);
     transition: box-shadow 0.3s ease;
 }
 
@@ -62,7 +62,7 @@
     transform: translateX(-50%) scaleX(0);
     width: 70%;
     height: 2px;
-    background-color: #e10600; /* vermelho F1 */
+    background-color: #e10600; 
     transition: transform 0.3s ease;
 }
 

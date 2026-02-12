@@ -2,7 +2,7 @@
    RODAPÉ (FOOTER)
    ======================================== */
 #rodape {
-    background: linear-gradient(to top, #26011C 0%, #1a0113 100%);
+    background-color: #26011C;
     border-top: 3px solid #e10600;
     margin-top: auto;
     padding: 2rem 3rem;
@@ -13,10 +13,10 @@
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column; /* Coloca tudo em coluna */
-    align-items: center; /* Centraliza horizontalmente */
+    flex-direction: column;
+    align-items: center;
     gap: 1.5rem;
-    text-align: center; /* Centraliza o texto */
+    text-align: center; 
 }
 
 .footer-esquerda {
@@ -45,7 +45,7 @@
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
-    justify-content: center; /* Centraliza os links */
+    justify-content: center;
 }
 
 .footer-link {
