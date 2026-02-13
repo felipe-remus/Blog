@@ -1,0 +1,305 @@
+/* ========================================
+   PÁGINA DE HISTÓRIA - ESTILOS GERAIS
+   ======================================== */
+
+.historia-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.historia-titulo-principal {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #26011C;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.historia-subtitulo {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 3rem;
+    font-weight: 400;
+    font-family: Arial, sans-serif;
+}
+
+/* ========================================
+   SEÇÕES DE CONTEÚDO
+   ======================================== */
+
+.historia-secao {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #e10600;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+.historia-secao:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border-left-color: #26011C;
+}
+
+.historia-secao:nth-child(even) {
+    border-left-color: #26011C;
+}
+
+.historia-secao:nth-child(even):hover {
+    border-left-color: #e10600;
+}
+
+/* ========================================
+   TÍTULOS E SUBTÍTULOS
+   ======================================== */
+
+.historia-secao h2 {
+    font-size: 1.75rem;
+    color: #26011C;
+    margin: 0 0 1.5rem 0;
+    font-weight: 700;
+    line-height: 1.3;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.historia-secao h3 {
+    font-size: 1.3rem;
+    color: #e10600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* ========================================
+   PARÁGRAFOS E TEXTOS
+   ======================================== */
+
+.historia-secao p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+/* ========================================
+   LISTAS
+   ======================================== */
+
+.historia-secao ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.5rem 0;
+}
+
+.historia-secao ul li {
+    padding-left: 2rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.historia-secao ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #e10600;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.historia-secao ul li strong {
+    color: #26011C;
+    font-weight: 700;
+}
+
+/* ========================================
+   CAIXAS DE DESTAQUE
+   ======================================== */
+
+.destaque {
+    background: linear-gradient(to right, #f8f8f8 0%, #ffffff 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+    border-left: 3px solid #e10600;
+    transition: all 0.2s ease;
+}
+
+.destaque:hover {
+    background: linear-gradient(to right, #f0f0f0 0%, #f8f8f8 100%);
+    transform: translateX(4px);
+}
+
+.destaque p {
+    margin-bottom: 0;
+    line-height: 1.7;
+    color: #444;
+}
+
+.destaque strong {
+    color: #26011C;
+    font-weight: 700;
+}
+
+/* ========================================
+   RESPONSIVIDADE - TABLETS (768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+    .historia-container {
+        padding: 0 1rem;
+    }
+
+    .historia-titulo-principal {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .historia-subtitulo {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .historia-secao {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .historia-secao h2 {
+        font-size: 1.4rem;
+    }
+
+    .historia-secao h3 {
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .historia-secao p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    .historia-secao ul li {
+        font-size: 0.95rem;
+        padding-left: 1.8rem;
+    }
+
+    .historia-secao ul li::before {
+        font-size: 1.1rem;
+    }
+
+    .destaque {
+        padding: 1.2rem;
+        margin: 1.5rem 0;
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE - MOBILE (480px)
+   ======================================== */
+
+@media (max-width: 480px) {
+    .historia-container {
+        padding: 0 0.8rem;
+    }
+
+    .historia-titulo-principal {
+        font-size: 1.6rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .historia-subtitulo {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .historia-secao {
+        padding: 1.2rem;
+        margin-bottom: 1.2rem;
+        border-radius: 10px;
+    }
+
+    .historia-secao h2 {
+        font-size: 1.25rem;
+    }
+
+    .historia-secao h3 {
+        font-size: 1.1rem;
+        margin-top: 1.2rem;
+    }
+
+    .historia-secao p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+    }
+
+    .historia-secao ul {
+        margin: 1.2rem 0;
+    }
+
+    .historia-secao ul li {
+        font-size: 0.9rem;
+        padding-left: 1.5rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .historia-secao ul li::before {
+        font-size: 1rem;
+    }
+
+    .destaque {
+        padding: 1rem;
+        margin: 1.2rem 0;
+        border-radius: 8px;
+    }
+
+    .destaque p {
+        font-size: 0.9rem;
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE - MOBILE PEQUENO (360px)
+   ======================================== */
+
+@media (max-width: 360px) {
+    .historia-titulo-principal {
+        font-size: 1.4rem;
+    }
+
+    .historia-subtitulo {
+        font-size: 0.85rem;
+    }
+
+    .historia-secao {
+        padding: 1rem;
+    }
+
+    .historia-secao h2 {
+        font-size: 1.15rem;
+    }
+
+    .historia-secao h3 {
+        font-size: 1rem;
+    }
+
+    .historia-secao p,
+    .historia-secao ul li,
+    .destaque p {
+        font-size: 0.85rem;
+    }
+}

@@ -103,6 +103,14 @@
     transform: translateY(0);
 }
 
+.grupo-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+
 /* ========================================
    SEÇÕES COLAPSÁVEIS
    ======================================== */

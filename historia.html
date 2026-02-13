@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História</title>
+
+    <link rel="stylesheet" href="CSS/base.css">
+    <link rel="stylesheet" href="CSS/filtros.css">
+    <link rel="stylesheet" href="CSS/footer.css">
+    <link rel="stylesheet" href="CSS/header.css">
+    <link rel="stylesheet" href="CSS/historia.css">
+    <link rel="stylesheet" href="CSS/login.css">
+    <link rel="stylesheet" href="CSS/noticias.css">
+    <link rel="stylesheet" href="CSS/paginacao.css">
+    <link rel="stylesheet" href="CSS/publicar.css">
+    <link rel="stylesheet" href="CSS/slider.css">
+    <link rel="stylesheet" href="CSS/tags.css">
+    
+    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <template
+        hx-get="html/header.html"
+        hx-target="#xcabecalho"
+        hx-trigger="load">
+    </template>
+    <div id="xcabecalho"></div>
+
+    <!-- Botão "Voltar para a Home" -->
+    <div class="voltar-topo">
+        <a href="index.html" class="btn-voltar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Voltar para a Home</span>
+        </a>
+    </div>
+
+    <main>
+            <div class="historia-container">
+                <h1 class="historia-titulo-principal">História das Categorias de Automobilismo</h1>
+                <p class="historia-subtitulo">Conheça a trajetória das principais competições de corrida do mundo</p>
+
+                <!-- Seção Fórmula 1 -->
+                <section class="historia-secao">
+                    <h2>Fórmula 1</h2>
+                    
+                    <p>A Fórmula 1 é a categoria mais prestigiada do automobilismo mundial, representando o ápice da velocidade, tecnologia e competição em circuitos. Fundada oficialmente em 1950, quando foi realizado o primeiro Campeonato Mundial de Pilotos no circuito de Silverstone, Inglaterra, a F1 nasceu com o objetivo de padronizar as regras das corridas de monopostos que já aconteciam na Europa desde os anos 1920 e 1930.</p>
+
+                    <p>A primeira corrida oficial foi vencida por Giuseppe Farina, piloto italiano da equipe Alfa Romeo, que também se tornou o primeiro campeão mundial da história. Desde então, a categoria evoluiu dramaticamente, passando por diversas eras marcadas por avanços tecnológicos, mudanças de regulamentos e o surgimento de lendas do esporte.</p>
+
+                    <div class="destaque">
+                        <p><strong>Eras Marcantes:</strong> A era turbo dos anos 1980, a dominância da McLaren-Honda no final da década, a revolução tecnológica dos anos 1990 com Williams e Ferrari, e mais recentemente, a era híbrida iniciada em 2014 com a dominação da Mercedes.</p>
+                    </div>
+
+                    <p>Pilotos lendários como Juan Manuel Fangio, Ayrton Senna, Michael Schumacher, Lewis Hamilton e Max Verstappen deixaram suas marcas indeléveis na história da categoria. A F1 não é apenas sobre velocidade, mas também sobre estratégia, engenharia de ponta, trabalho em equipe e a busca incessante pela perfeição.</p>
+
+                    <h3>Categorias de Base da Fórmula 1</h3>
+
+                    <p>O caminho até a Fórmula 1 é pavimentado por diversas categorias de formação, conhecidas como a "escada do automobilismo". Estas categorias foram desenvolvidas para preparar jovens pilotos com as habilidades técnicas e mentais necessárias para competir no mais alto nível.</p>
+
+                    <ul>
+                        <li><strong>F1 Academy:</strong> Categoria de base exclusiva para mulheres, que utiliza as mesmas regras da Formula 4, com o objetivo de desenvolver jovens pilotas para categorias mais altas do automobilismo, oferecendo suporte técnico, visibilidade e integração ao ecossistema da F1.</li>
+
+                        <li><strong>Fórmula 4:</strong> Porta de entrada para o automobilismo de monopostos, onde pilotos geralmente entre 15 e 18 anos dão seus primeiros passos em carros de corrida profissionais.</li>
+
+                        <li><strong>Fórmula 3:</strong> Categoria intermediária que oferece carros mais potentes e competitivos. Inclui campeonatos regionais e o prestigiado Campeonato FIA de Fórmula 3, que corre nos mesmos fins de semana da F1.</li>
+
+                        <li><strong>Fórmula 2:</strong> Última etapa antes da F1 e principal categoria de acesso ao topo do automobilismo. Conta com carros padronizados e regulamento técnico unificado, garantindo igualdade de equipamento entre as equipes e colocando o desempenho do piloto como principal diferencial na disputa.</li>
+                    </ul>
+
+                    <p>Muitos dos pilotos de F1 passaram por essas categorias. A Fórmula 2, em especial, serve como vitrine para os olheiros das equipes de F1, sendo comum que campeões ou vice-campeões da categoria sejam promovidos.</p>
+                </section>
+
+                <!-- Seção Fórmula E -->
+                <section class="historia-secao">
+                    <h2>Fórmula E</h2>
+                    
+                    <p>A Fórmula E representa o futuro do automobilismo, sendo a primeira categoria de corrida totalmente elétrica sancionada pela FIA. Fundada em 2014, a categoria nasceu com uma missão clara: promover a mobilidade elétrica sustentável e servir como laboratório de desenvolvimento para tecnologias que eventualmente chegarão aos carros de rua.</p>
+
+                    <p>A primeira temporada foi realizada em 2014-2015, com corridas disputadas em circuitos de rua localizados em grandes centros urbanos ao redor do mundo. A escolha por circuitos urbanos não foi acidental - a categoria buscava levar as corridas para o coração das cidades, aproximando o esporte dos fãs e destacando a sustentabilidade das soluções elétricas em ambientes metropolitanos.</p>
+
+                    <div class="destaque">
+                        <p><strong>Inovação Tecnológica:</strong> Nas primeiras temporadas, os pilotos precisavam trocar de carro durante a corrida devido à limitação das baterias. A partir da temporada 2018-2019 (Gen2), isso não foi mais necessário, demonstrando a rápida evolução da tecnologia.</p>
+                    </div>
+
+                    <p>A categoria se destaca por seu formato único e inovador. O "Attack Mode" permite que pilotos obtenham temporariamente mais potência ao passar por uma zona específica da pista, adicionando um elemento estratégico emocionante. O "Fanboost" permite que os fãs votem em seus pilotos favoritos, dando-lhes um impulso extra de energia durante a corrida.</p>
+
+                    <p>Grandes montadoras automotivas participam do campeonato, utilizando-o como plataforma de desenvolvimento para suas tecnologias de veículos elétricos. Pilotos experientes e ex-pilotos de F1 ajudaram a dar credibilidade e visibilidade à categoria.</p>
+
+                    <p>A Fórmula E demonstrou que corridas elétricas podem ser emocionantes e competitivas, mudando a percepção pública sobre veículos elétricos e pavimentando o caminho para um futuro mais sustentável no automobilismo mundial.</p>
+                </section>
+
+                <!-- Seção IndyCar -->
+                <section class="historia-secao">
+                    <h2>IndyCar Series</h2>
+                    
+                    <p>A IndyCar Series é a principal categoria de monopostos dos Estados Unidos e representa uma das mais tradicionais competições de automobilismo do mundo. Suas raízes remontam ao início do século XX, com uma história profundamente entrelaçada com a lendária Indy 500, disputada pela primeira vez em 1911 no Indianapolis Motor Speedway.</p>
+
+                    <p>A categoria moderna da IndyCar como conhecemos hoje foi formada em 1996 pela Indy Racing League (IRL), num período turbulento que viu a divisão do automobilismo americano de monopostos. Em 2008, houve a reunificação com a rival CART/Champ Car, criando a IndyCar Series unificada que existe atualmente, sob a gestão da Indycar LLC.</p>
+
+                    <div class="destaque">
+                        <p><strong>A Lendária Indy 500:</strong> Conhecida como "The Greatest Spectacle in Racing", a corrida de 500 milhas de Indianapolis é um dos eventos esportivos mais assistidos do mundo, com capacidade para mais de 250.000 espectadores e uma história repleta de tradições centenárias.</p>
+                    </div>
+
+                    <p>A IndyCar se diferencia por sua versatilidade de pistas. Enquanto a F1 corre predominantemente em circuitos permanentes, a IndyCar compete em três tipos diferentes de pistas:</p>
+
+                    <ul>
+                        <li><strong>Óvais:</strong> Pistas de alta velocidade e oval, onde os carros podem ultrapassar velocidades gigantes.</li>
+                        
+                        <li><strong>Circuitos de rua:</strong> Traçados temporários em cidades, proporcionando corridas cheias de ultrapassagens.</li>
+                        
+                        <li><strong>Circuitos permanentes:</strong> Pistas fechadas tradicionais, com traçado uníco e muita técnicas de pilotagem.</li>
+                    </ul>
+
+                    <p>Esta diversidade exige que os pilotos sejam extremamente versáteis, dominando diferentes técnicas de pilotagem. Grandes nomes da F1 testaram suas habilidades na IndyCar.</p>
+
+                    <p>A categoria também é conhecida por suas corridas intensamente competitivas, onde ultrapassagens são frequentes e qualquer piloto pode vencer em um bom dia. O uso de especificações técnicas padronizadas (chassi e motores padronizados) garante que o talento do piloto e a estratégia da equipe sejam os fatores decisivos, resultando em campeonatos disputados até a última corrida.</p>
+
+                    <p>Pilotos como Scott Dixon, Hélio Castroneves, e Josef Newgarden são exemplos da excelência que a categoria produz, mantendo viva a rica tradição do automobilismo americano.</p>
+                </section>
+        </div>
+    </main>
+
+    <hr>
+
+    <!-- Rodapé -->
+    <template
+        hx-get="html/footer.html"
+        hx-target="#footer"
+        hx-trigger="load">
+    </template>
+    <div id="footer"></div>
+</body>
+</html>
