@@ -40,384 +40,6 @@ document.addEventListener('click', (e) => {
     container.querySelector(`#form-${alvo}`)?.classList.add('ativo');
 });
 
-// ========================================
-// FILTROS
-// ========================================
-let timeoutBusca;
-
-function aplicarFiltros() {
-    const termo = (document.getElementById('busca-texto')?.value || '').trim().toLowerCase();
-    const categoria = document.getElementById('filtro-categoria')?.value || '';
-    const equipe = document.getElementById('filtro-equipe')?.value || '';
-    const piloto = document.getElementById('filtro-piloto')?.value || '';
-    const pista = document.getElementById('filtro-pista')?.value || '';
-    const cards = document.querySelectorAll('.card-noticia');
-
-    if (cards.length === 0) return;
-
-    cards.forEach(card => {
-        const texto = card.textContent.toLowerCase();
-        const categorias = (card.getAttribute('data-categoria') || '').split(' ').filter(Boolean);
-        const equipes = (card.getAttribute('data-equipe') || '').split(' ').filter(Boolean);
-        const pilotos = (card.getAttribute('data-piloto') || '').split(' ').filter(Boolean);
-        const pistas = (card.getAttribute('data-pista') || '').split(' ').filter(Boolean);
-
-        const passaBusca = !termo || texto.includes(termo);
-        const passaCategoria = !categoria || categorias.includes(categoria);
-        const passaEquipe = !equipe || equipes.includes(equipe);
-        const passaPiloto = !piloto || pilotos.includes(piloto);
-        const passaPista = !pista || pistas.includes(pista);
-
-        card.style.display = (passaBusca && passaCategoria && passaEquipe && passaPiloto && passaPista) ? 'block' : 'none';
-    });
-
-    // Integração com paginação
-    paginaAtual = 1; // Volta pra primeira página ao filtrar
-    aplicarPaginacao(); // Reaplica a paginação
-}
-
-// Event listener para busca (com debounce)
-document.addEventListener('input', (e) => {
-    if (e.target.id === 'busca-texto') {
-        clearTimeout(timeoutBusca);
-        timeoutBusca = setTimeout(aplicarFiltros, 300);
-    }
-});
-
-// Event listener para selects de filtro
-document.addEventListener('change', (e) => {
-    if (
-        e.target.id === 'filtro-categoria' ||
-        e.target.id === 'filtro-equipe' ||
-        e.target.id === 'filtro-piloto' ||
-        e.target.id === 'filtro-pista'
-    ) {
-        aplicarFiltros();
-    }
-});
-
-// Inicializa filtros quando a página carregar
-function inicializarFiltros() {
-    // Aguarda um pouco para garantir que o DOM está pronto
-    setTimeout(() => {
-        aplicarFiltros(); // Já chama aplicarPaginacao() internamente
-    }, 100);
-}
-
-// Quando o DOM estiver pronto
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarFiltros);
-} else {
-    inicializarFiltros();
-}
-
-// Para HTMX - reaplica após carregar conteúdo
-document.body.addEventListener('htmx:afterSwap', function(event) {
-    // Se carregou notícias, reaplica os filtros
-    if (event.detail.target.classList?.contains('noticias-container') || 
-        event.detail.target.id === 'noticias-container') {
-        setTimeout(inicializarFiltros, 100);
-    }
-});
-
-// Inicializar quando o documento estiver pronto
-document.addEventListener('DOMContentLoaded', inicializarFiltros);
-
-// ========================================
-// VARIÁVEL DE CONTROLE GLOBAL
-// ========================================
-let limpezaEmAndamento = false;
-
-// ========================================
-// Mostrar Tags
-// ========================================
-document.addEventListener('DOMContentLoaded', function() {
-  
-    // Event Delegation - funciona mesmo após recarregar com HTMX
-    document.addEventListener('click', function(e) {
-      // Verifica se clicou em um header colapsável
-      if (e.target.classList.contains('collapsible-header')) {
-        const targetId = e.target.getAttribute('data-target');
-        const content = document.getElementById(targetId);
-        
-        if (content) {
-          content.classList.toggle('show');
-          e.target.classList.toggle('active');
-        }
-      }
-      
-      // Detecta clique no botão limpar por EVENT DELEGATION
-      if (e.target.id === 'btn-limpar-todas' || e.target.closest('#btn-limpar-todas')) {
-        limparTodasTags();
-      }
-    });
-    
-});
-
-// ========================================
-// GERENCIADOR DE TAGS - VERSÃO CORRIGIDA
-// ========================================
-
-const selecoes = {
-    categoria: new Set(),
-    equipe: new Set(),
-    piloto: new Set(),
-    pista: new Set()
-};
-const limites = { categoria: 1, equipe: 4, piloto: 4, pista: 4 };
-
-function getTipoTag(elemento) {
-    if (elemento.classList.contains('categoria')) return 'categoria';
-    if (elemento.classList.contains('piloto')) return 'piloto';
-    if (elemento.classList.contains('pista')) return 'pista';
-    if ([...elemento.classList].some(c => c.startsWith('equipe-'))) return 'equipe';
-    return null;
-}
-
-// Busca checkbox de forma robusta
-function encontrarCheckbox(valor, tipo) {
-    const candidates = document.querySelectorAll('.checkbox-tag input[type="checkbox"]');
-    for (const cb of candidates) {
-        const label = cb.closest('.checkbox-tag');
-        if (!label) continue;
-        
-        const tagPreview = label.querySelector('.tag-preview');
-        if (!tagPreview) continue;
-        
-        const cbTipo = getTipoTag(tagPreview);
-        
-        if (cb.value === valor && cbTipo === tipo) {
-            return cb;
-        }
-    }
-    return null;
-}
-
-// ========================================
-// ATUALIZAÇÃO DE CONTADORES
-// ========================================
-function atualizarContadores() {
-    // Contador de Equipes
-    const countEquipes = document.getElementById('count-equipes');
-    if (countEquipes) {
-        countEquipes.textContent = `(${selecoes.equipe.size}/${limites.equipe})`;
-    }
-    
-    // Contador de Pilotos
-    const countPilotos = document.getElementById('count-pilotos');
-    if (countPilotos) {
-        countPilotos.textContent = `(${selecoes.piloto.size}/${limites.piloto})`;
-    }
-    
-    // Contador de Pistas
-    const countPistas = document.getElementById('count-pistas');
-    if (countPistas) {
-        countPistas.textContent = `(${selecoes.pista.size}/${limites.pista})`;
-    }
-}
-
-// ========================================
-// CONTROLE DO BOTÃO LIMPAR 
-// ========================================
-function atualizarBotaoLimpar() {
-    const btnLimpar = document.getElementById('btn-limpar-todas');
-    if (!btnLimpar) return;
-    
-    // Verifica se há alguma tag selecionada em qualquer categoria
-    const temTags = Object.values(selecoes).some(set => set.size > 0);
-    
-    if (temTags) {
-        btnLimpar.style.display = 'block';
-    } else {
-        btnLimpar.style.display = 'none';
-    }
-}
-
-// ========================================
-// FUNÇÃO LIMPAR TUDO
-// ========================================
-function limparTodasTags() {
-    
-    // ATIVA FLAG ANTES DE COMEÇAR
-    limpezaEmAndamento = true;
-    
-    // Desmarca todos os checkboxes
-    document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked').forEach(checkbox => {
-        checkbox.checked = false;
-    });
-    
-    // Limpa todas as seleções
-    Object.keys(selecoes).forEach(tipo => {
-        selecoes[tipo].clear();
-    });
-    
-    // Limpa a área visual
-    const tagsSel = document.querySelector('.tags-selecionadas');
-    if (tagsSel) {
-        tagsSel.innerHTML = '';
-    }
-    
-    // Remove classe de selecionado visual
-    document.querySelectorAll('.tag-selecionado-visual').forEach(el => {
-        el.classList.remove('tag-selecionado-visual');
-    });
-    
-    // Atualiza contadores e botão
-    atualizarContadores();
-    atualizarBotaoLimpar();
-    
-    // Esconde aviso
-    const aviso = document.getElementById('aviso-tags');
-    if (aviso) {
-        aviso.style.display = 'none';
-    }
-    
-    // DESATIVA FLAG APÓS CONCLUSÃO
-    setTimeout(() => { 
-        limpezaEmAndamento = false; 
-    }, 50);
-}
-
-// ========================================
-// EVENT LISTENER DE CHANGE (✅ ÚNICO!)
-// ========================================
-document.addEventListener('change', e => {
-    if (e.target.type !== 'checkbox' || !e.target.closest('.checkbox-tag')) return;
-    
-    // IGNORA EVENTOS DURANTE LIMPEZA TOTAL
-    if (limpezaEmAndamento) return;
-
-    const checkbox = e.target;
-    const label = checkbox.closest('.checkbox-tag');
-    const tagPreview = label.querySelector('.tag-preview');
-    const tipo = getTipoTag(tagPreview);
-    const valor = checkbox.value;
-    
-    if (!tipo) return;
-
-    const tagsSel = document.querySelector('.tags-selecionadas');
-    const aviso = document.getElementById('aviso-tags');
-
-    if (!tagsSel) {
-        return;
-    }
-
-    // Verifica estado atual
-    const jaSelecionado = selecoes[tipo].has(valor);
-
-    if (checkbox.checked) {
-        // Impede duplicação
-        if (jaSelecionado) {
-            checkbox.checked = false;
-            return;
-        }
-
-        // Verifica limite
-        if (selecoes[tipo].size >= limites[tipo]) {
-            checkbox.checked = false;
-            const msg = tipo === 'categoria' 
-                ? '⚠️ Só 1 categoria permitida.' 
-                : `⚠️ Máximo de ${limites[tipo]} ${tipo === 'equipe' ? 'equipes' : tipo === 'piloto' ? 'pilotos' : 'pistas'} atingido.`;
-            
-            if (aviso) {
-                aviso.textContent = msg;
-                aviso.style.cssText = 'display:block;color:#d32f2f;background:#ffebee;padding:0.5rem;border-radius:4px;border-left:3px solid #d32f2f;font-size:0.9rem';
-                setTimeout(() => { if (aviso.textContent === msg) aviso.style.display = 'none'; }, 3500);
-            }
-            return;
-        }
-
-        // Adiciona à seleção
-        selecoes[tipo].add(valor);
-
-        // Adiciona tag visual
-        const clone = tagPreview.cloneNode(true);
-        clone.classList.add('tag-selecionada');
-        clone.classList.remove('tag-preview');
-
-        // Armazena o valor e o tipo para busca segura
-        clone.dataset.tagValue = valor;
-        clone.dataset.tagTipo = tipo;
-
-        // Clique na tag inteira → desmarca
-        clone.style.cursor = 'pointer';
-        clone.onclick = function(e) {
-            // Se clicar no X, deixa o X lidar
-            if (e.target.classList.contains('remove-tag')) return;
-            e.stopPropagation();
-
-            const cb = encontrarCheckbox(valor, tipo);
-            if (cb && cb.checked) {
-                cb.checked = false;
-                cb.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-        };
-
-        // Botão X
-        const btn = document.createElement('span');
-        btn.className = 'remove-tag';
-        btn.innerHTML = '&times;';
-        btn.style.cssText = 'margin-left:0.4rem;font-weight:bold;cursor:pointer;opacity:0.7';
-        btn.onclick = function(e) {
-            e.stopPropagation();
-            const cb = encontrarCheckbox(valor, tipo);
-            if (cb && cb.checked) {
-                cb.checked = false;
-                cb.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-        };
-        clone.appendChild(btn);
-
-        tagsSel.appendChild(clone);
-        label.classList.add('tag-selecionado-visual');
-
-    } else {
-        // Remove da seleção
-        selecoes[tipo].delete(valor);
-
-        // Remove tag visual usando dataset
-        tagsSel.querySelectorAll('.tag-selecionada').forEach(tag => {
-            if (tag.dataset.tagValue === valor && tag.dataset.tagTipo === tipo) {
-                tag.remove();
-            }
-        });
-        
-        label.classList.remove('tag-selecionado-visual');
-    }
-
-    // ATUALIZA CONTADORES E BOTÃO
-    atualizarContadores();
-    atualizarBotaoLimpar();
-
-    // Limpa aviso se tudo estiver ok
-    if (aviso && Object.values(selecoes).every(set => set.size <= limites[set.tipo || 'equipe'])) {
-        aviso.style.display = 'none';
-    }
-});
-
-// ========================================
-// Inicializa ao carregar E após HTMX
-// ========================================
-function inicializarTags() {
-    document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked').forEach(checkbox => {
-        const tagPreview = checkbox.closest('.checkbox-tag')?.querySelector('.tag-preview');
-        if (!tagPreview) return;
-        const tipo = getTipoTag(tagPreview);
-        if (tipo) selecoes[tipo].add(checkbox.value);
-    });
-    atualizarContadores();
-    atualizarBotaoLimpar();
-}
-
-// Executa na carga inicial
-document.addEventListener('DOMContentLoaded', inicializarTags);
-
-// Se usa HTMX, executa após updates
-document.addEventListener('htmx:afterSwap', inicializarTags);
-
-// Fallback com timeout
-setTimeout(inicializarTags, 100);
-
 /* ========================================
 SLIDER HERO 
 ======================================== */
@@ -832,23 +454,689 @@ function ordenarNoticias() {
     const parent = containers[0].parentElement;
     
     const noticiasOrdenadas = Array.from(containers).sort((a, b) => {
-        // Se você adicionou data-data
         const dataA = a.querySelector('.card-noticia').getAttribute('data-data');
         const dataB = b.querySelector('.card-noticia').getAttribute('data-data');
         
-        if (dataA && dataB) {
-            return new Date(dataB) - new Date(dataA);
-        }
+        const parsarData = (str) => {
+            if (!str) return new Date(0);
+            const [dia, mes, ano] = str.split('/');
+            return new Date(ano, mes - 1, dia);
+        };
         
-        // Caso contrário, extrai da meta
-        const metaA = a.querySelector('.meta').textContent.match(/\d{2}\/\d{2}\/\d{4}/)[0];
-        const metaB = b.querySelector('.meta').textContent.match(/\d{2}\/\d{2}\/\d{4}/)[0];
-        
-        const [diaA, mesA, anoA] = metaA.split('/');
-        const [diaB, mesB, anoB] = metaB.split('/');
-        
-        return new Date(anoB, mesB - 1, diaB) - new Date(anoA, mesA - 1, diaA);
+        return parsarData(dataB) - parsarData(dataA);
     });
     
     noticiasOrdenadas.forEach(noticia => parent.appendChild(noticia));
 }
+
+// ========================================
+// BASE DE DADOS POR CATEGORIA
+// ========================================
+const DADOS_CATEGORIAS = {
+    f1: {
+
+        label: 'Fórmula 1',
+        equipes: [
+            { value: 'alpine',       label: 'Alpine',       classe: 'equipe-alpine' },
+            { value: 'astonmartin',  label: 'Aston Martin',  classe: 'equipe-astonmartin' },
+            { value: 'audi',         label: 'Audi',          classe: 'equipe-audi' },
+            { value: 'cadillac',     label: 'Cadillac',      classe: 'equipe-cadillac' },
+            { value: 'ferrari',      label: 'Ferrari',       classe: 'equipe-ferrari' },
+            { value: 'haas',         label: 'Haas',          classe: 'equipe-haas' },
+            { value: 'mclaren',      label: 'McLaren',       classe: 'equipe-mclaren' },
+            { value: 'mercedes',     label: 'Mercedes',      classe: 'equipe-mercedes' },
+            { value: 'redbull',      label: 'Red Bull',      classe: 'equipe-redbull' },
+            { value: 'racing-bulls', label: 'Racing Bulls',  classe: 'equipe-racingbulls' },
+            { value: 'williams',     label: 'Williams',      classe: 'equipe-williams' },
+        ],
+        pilotos: [
+            { value: 'alex-albon', label: 'Alex Albon' },
+            { value: 'arvid-lindblad', label: 'Arvid Lindblad' },
+            { value: 'carlos-sainz', label: 'Carlos Sainz' },
+            { value: 'charles-leclerc', label: 'Charles Leclerc' },
+            { value: 'esteban-ocon', label: 'Esteban Ocon' },
+            { value: 'fernando-alonso', label: 'Fernando Alonso' },
+            { value: 'franco-colapinto', label: 'Franco Colapinto' },
+            { value: 'george-russell', label: 'George Russell' },
+            { value: 'gabriel-bortoleto', label: 'Gabriel Bortoleto' },
+            { value: 'isaac-hadjar', label: 'Isaac Hadjar' },
+            { value: 'kimi-antonelli', label: 'Kimi Antonelli' },
+            { value: 'lando-norris', label: 'Lando Norris' },
+            { value: 'lewis-hamilton', label: 'Lewis Hamilton' },
+            { value: 'liam-lawson', label: 'Liam Lawson' },
+            { value: 'lance-stroll', label: 'Lance Stroll' },
+            { value: 'max-verstappen', label: 'Max Verstappen' },
+            { value: 'nico-hulkenberg', label: 'Nico Hülkenberg' },
+            { value: 'oliver-bearman', label: 'Oliver Bearman' },
+            { value: 'oscar-piastri', label: 'Oscar Piastri' },
+            { value: 'pierre-gasly', label: 'Pierre Gasly' },
+            { value: 'sergio-perez', label: 'Sergio Pérez' },
+            { value: 'valtteri-bottas', label: 'Valtteri Bottas' },
+        ],
+        pistas: [
+            { value: 'australia', label: 'Austrália' },
+            { value: 'china', label: 'China' },
+            { value: 'japao', label: 'Japão' },
+            { value: 'barein', label: 'Barein' },
+            { value: 'arabia-saudita', label: 'Arábia Saudita' },
+            { value: 'miami', label: 'Miami' },
+            { value: 'canada', label: 'Canadá' },
+            { value: 'monaco', label: 'Mônaco' },
+            { value: 'barcelona', label: 'Barcelona' },
+            { value: 'austria', label: 'Áustria' },
+            { value: 'inglaterra', label: 'Inglaterra' },
+            { value: 'belgica', label: 'Bélgica' },
+            { value: 'hungria', label: 'Hungria' },
+            { value: 'holanda', label: 'Holanda' },
+            { value: 'monza', label: 'Monza' },
+            { value: 'madrid', label: 'Madri' },
+            { value: 'azerbaijao', label: 'Azerbaijão' },
+            { value: 'singapura', label: 'Singapura' },
+            { value: 'austin', label: 'Austin' },
+            { value: 'mexico', label: 'México' },
+            { value: 'brasil', label: 'Brasil' },
+            { value: 'las-vegas', label: 'Las Vegas' },
+            { value: 'qatar', label: 'Catar' },
+            { value: 'abu-dhabi', label: 'Abu Dhabi' },
+        ],
+    },
+  
+    // F2, F3, F4 e F1 Academy usam os mesmos circuitos da F1
+    // mas sem filtros de piloto/equipe (ou adicione conforme precisar)
+    f2: {
+        label: 'Fórmula 2',
+        equipes: [],
+        pilotos: [],
+        pistas: [
+            { value: 'barein', label: 'Barein' },
+            { value: 'arabia-saudita', label: 'Arábia Saudita' },
+            { value: 'australia', label: 'Austrália' },
+            { value: 'miami', label: 'Miami' },
+            { value: 'monaco', label: 'Mônaco' },
+            { value: 'barcelona', label: 'Barcelona' },
+            { value: 'austria', label: 'Áustria' },
+            { value: 'inglaterra', label: 'Inglaterra' },
+            { value: 'hungria', label: 'Hungria' },
+            { value: 'belgica', label: 'Bélgica' },
+            { value: 'monza', label: 'Monza' },
+            { value: 'azerbaijao', label: 'Azerbaijão' },
+            { value: 'singapura', label: 'Singapura' },
+            { value: 'austin', label: 'Austin' },
+            { value: 'abu-dhabi', label: 'Abu Dhabi' },
+        ],
+    },
+  
+    f3: {
+        label: 'Fórmula 3',
+        equipes: [],
+        pilotos: [],
+        pistas: [
+            { value: 'barein', label: 'Barein' },
+            { value: 'australia', label: 'Austrália' },
+            { value: 'monaco', label: 'Mônaco' },
+            { value: 'barcelona', label: 'Barcelona' },
+            { value: 'austria', label: 'Áustria' },
+            { value: 'inglaterra', label: 'Inglaterra' },
+            { value: 'hungria', label: 'Hungria' },
+            { value: 'belgica', label: 'Bélgica' },
+            { value: 'monza', label: 'Monza' },
+            { value: 'abu-dhabi', label: 'Abu Dhabi' },
+        ],
+    },
+  
+    f4: {
+        label: 'Fórmula 4',
+        equipes: [],
+        pilotos: [],
+        pistas: [],
+    },
+  
+    f1academy: {
+        label: 'F1 Academy',
+        equipes: [],
+        pilotos: [],
+        pistas: [
+            { value: 'barein', label: 'Barein' },
+            { value: 'miami', label: 'Miami' },
+            { value: 'monaco', label: 'Mônaco' },
+            { value: 'austria', label: 'Áustria' },
+            { value: 'inglaterra', label: 'Inglaterra' },
+            { value: 'holanda', label: 'Holanda' },
+            { value: 'singapura', label: 'Singapura' },
+            { value: 'austin', label: 'Austin' },
+            { value: 'abu-dhabi', label: 'Abu Dhabi' },
+        ],
+    },
+  
+    fe: {
+        label: 'Fórmula E',
+        equipes: [
+            { value: 'andretti-fe', label: 'Andretti Formula E' },
+            { value: 'ds-penske', label: 'DS Penske' },
+            { value: 'envision', label: 'Envision Racing' },
+            { value: 'ert-fe', label: 'ERT Formula E' },
+            { value: 'jaguar', label: 'Jaguar TCS Racing' },
+            { value: 'mahindra', label: 'Mahindra Racing' },
+            { value: 'maserati', label: 'Maserati MSG Racing' },
+            { value: 'mclaren-fe', label: 'McLaren Formula E' },
+            { value: 'nissan-fe', label: 'Nissan Formula E' },
+            { value: 'porsche-fe', label: 'Porsche TAG Heuer' },
+        ],
+        pilotos: [
+            { value: 'antonio-felix-da-costa', label: 'António Félix da Costa' },
+            { value: 'dan-ticktum', label: 'Dan Ticktum' },
+            { value: 'jake-dennis', label: 'Jake Dennis' },
+            { value: 'jean-eric-vergne', label: 'Jean-Éric Vergne' },
+            { value: 'lucas-di-grassi', label: 'Lucas di Grassi' },
+            { value: 'max-gunther', label: 'Maximilian Günther' },
+            { value: 'mitch-evans', label: 'Mitch Evans' },
+            { value: 'nick-cassidy', label: 'Nick Cassidy' },
+            { value: 'norman-nato', label: 'Norman Nato' },
+            { value: 'nyck-de-vries', label: 'Nyck de Vries' },
+            { value: 'oliver-rowland', label: 'Oliver Rowland' },
+            { value: 'pascal-wehrlein', label: 'Pascal Wehrlein' },
+            { value: 'sacha-fenestraz', label: 'Sacha Fenestraz' },
+            { value: 'sebastien-buemi', label: 'Sébastien Buemi' },
+            { value: 'stoffel-vandoorne', label: 'Stoffel Vandoorne' },
+            { value: 'taylor-barnard', label: 'Taylor Barnard' },
+            { value: 'jake-hughes', label: 'Jake Hughes' },
+            { value: 'robin-frijns', label: 'Robin Frijns' },
+        ],
+        pistas: [
+            { value: 'diriyah', label: 'Diriyah (Arábia Saudita)' },
+            { value: 'cidade-do-mexico-fe', label: 'Cidade do México' },
+            { value: 'tóquio-fe', label: 'Tóquio' },
+            { value: 'misano-fe', label: 'Misano' },
+            { value: 'monaco-fe', label: 'Mônaco' },
+            { value: 'berlin-fe', label: 'Berlim' },
+            { value: 'jakarta-fe', label: 'Jacarta' },
+            { value: 'portland-fe', label: 'Portland' },
+            { value: 'londres-fe', label: 'Londres' },
+            { value: 'cape-town-fe', label: 'Cidade do Cabo' },
+            { value: 'sao-paulo-fe', label: 'São Paulo' },
+            { value: 'shanghai-fe', label: 'Xangai' },
+        ],
+        },
+    
+        indy: {
+        label: 'IndyCar Series',
+        equipes: [
+            { value: 'andretti-global', label: 'Andretti Global' },
+            { value: 'arrow-mclaren', label: 'Arrow McLaren' },
+            { value: 'chip-ganassi', label: 'Chip Ganassi Racing' },
+            { value: 'dale-coyne', label: 'Dale Coyne Racing' },
+            { value: 'ed-carpenter', label: 'Ed Carpenter Racing' },
+            { value: 'juncos-hollinger', label: 'Juncos Hollinger Racing' },
+            { value: 'meyer-shank', label: 'Meyer Shank Racing' },
+            { value: 'penske', label: 'Team Penske' },
+            { value: 'rahal', label: 'Rahal Letterman Lanigan' },
+            { value: 'foyt', label: 'AJ Foyt Racing' },
+        ],
+        pilotos: [
+            { value: 'alex-palou', label: 'Álex Palou' },
+            { value: 'agustin-canapino', label: 'Agustín Canapino' },
+            { value: 'callum-ilott', label: 'Callum Ilott' },
+            { value: 'christian-lundgaard', label: 'Christian Lundgaard' },
+            { value: 'colton-herta', label: 'Colton Herta' },
+            { value: 'devlin-defrancesco', label: 'Devlin DeFrancesco' },
+            { value: 'felix-rosenqvist', label: 'Felix Rosenqvist' },
+            { value: 'graham-rahal', label: 'Graham Rahal' },
+            { value: 'helio-castroneves', label: 'Hélio Castroneves' },
+            { value: 'josef-newgarden', label: 'Josef Newgarden' },
+            { value: 'kyle-kirkwood', label: 'Kyle Kirkwood' },
+            { value: 'marcus-ericsson', label: 'Marcus Ericsson' },
+            { value: 'pato-oward', label: "Pato O'Ward" },
+            { value: 'pietro-fittipaldi', label: 'Pietro Fittipaldi' },
+            { value: 'rinus-veekay', label: 'Rinus VeeKay' },
+            { value: 'santino-ferrucci', label: 'Santino Ferrucci' },
+            { value: 'scott-dixon', label: 'Scott Dixon' },
+            { value: 'scott-mclaughlin', label: 'Scott McLaughlin' },
+            { value: 'will-power', label: 'Will Power' },
+            { value: 'takuma-sato', label: 'Takuma Sato' },
+        ],
+        pistas: [
+            { value: 'st-petersburg', label: 'St. Petersburg' },
+            { value: 'texas', label: 'Texas Motor Speedway' },
+            { value: 'long-beach', label: 'Long Beach' },
+            { value: 'barber', label: 'Barber Motorsports Park' },
+            { value: 'indianapolis-oval', label: 'Indianapolis (Oval)' },
+            { value: 'indianapolis-road', label: 'Indianapolis (Road Course)' },
+            { value: 'detroit-indy', label: 'Detroit' },
+            { value: 'road-america', label: 'Road America' },
+            { value: 'mid-ohio', label: 'Mid-Ohio' },
+            { value: 'toronto-indy', label: 'Toronto' },
+            { value: 'iowa', label: 'Iowa Speedway' },
+            { value: 'nashville', label: 'Nashville' },
+            { value: 'gateway', label: 'Gateway' },
+            { value: 'portland-indy', label: 'Portland' },
+            { value: 'laguna-seca', label: 'Laguna Seca' },
+        ],
+    },
+};
+
+// ========================================
+// FILTROS DINÂMICOS POR CATEGORIA
+// ========================================
+
+function popularSelect(selectId, itens, placeholder) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    select.innerHTML = `<option value="">${placeholder}</option>`;
+    itens.forEach(({ value, label }) => {
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = label;
+      select.appendChild(opt);
+    });
+  }
+  
+  function atualizarFiltrosDinamicos(categoria) {
+    const dados = DADOS_CATEGORIAS[categoria];
+  
+    const containerEquipe = document.getElementById('container-equipe');
+    const containerPiloto = document.getElementById('container-piloto');
+    const containerPista  = document.getElementById('container-pista');
+  
+    // Reseta os selects dinâmicos
+    popularSelect('filtro-equipe', [], 'Selecione a Equipe');
+    popularSelect('filtro-piloto', [], 'Selecione o Piloto');
+    popularSelect('filtro-pista',  [], 'Selecione a Pista');
+  
+    if (!dados) {
+      // Nenhuma categoria selecionada → esconde tudo
+      containerEquipe.style.display = 'none';
+      containerPiloto.style.display = 'none';
+      containerPista.style.display  = 'none';
+      return;
+    }
+  
+    // Equipes
+    if (dados.equipes.length > 0) {
+      popularSelect('filtro-equipe', dados.equipes, 'Selecione a Equipe');
+      containerEquipe.style.display = 'block';
+    } else {
+      containerEquipe.style.display = 'none';
+    }
+  
+    // Pilotos
+    if (dados.pilotos.length > 0) {
+      popularSelect('filtro-piloto', dados.pilotos, 'Selecione o Piloto');
+      containerPiloto.style.display = 'block';
+    } else {
+      containerPiloto.style.display = 'none';
+    }
+  
+    // Pistas
+    if (dados.pistas.length > 0) {
+      popularSelect('filtro-pista', dados.pistas, 'Selecione a Pista');
+      containerPista.style.display = 'block';
+    } else {
+      containerPista.style.display = 'none';
+    }
+  }
+  
+  // -------- lógica de filtragem (mantida igual) --------
+  let timeoutBusca;
+  
+  function aplicarFiltros() {
+    const termo     = (document.getElementById('busca-texto')?.value || '').trim().toLowerCase();
+    const categoria = document.getElementById('filtro-categoria')?.value || '';
+    const equipe    = document.getElementById('filtro-equipe')?.value || '';
+    const piloto    = document.getElementById('filtro-piloto')?.value || '';
+    const pista     = document.getElementById('filtro-pista')?.value || '';
+    const cards     = document.querySelectorAll('.card-noticia');
+  
+    if (cards.length === 0) return;
+  
+    cards.forEach(card => {
+      const texto      = card.textContent.toLowerCase();
+      const categorias = (card.getAttribute('data-categoria') || '').split(' ').filter(Boolean);
+      const equipes    = (card.getAttribute('data-equipe')    || '').split(' ').filter(Boolean);
+      const pilotos    = (card.getAttribute('data-piloto')    || '').split(' ').filter(Boolean);
+      const pistas     = (card.getAttribute('data-pista')     || '').split(' ').filter(Boolean);
+  
+      const passaBusca    = !termo     || texto.includes(termo);
+      const passaCategoria = !categoria || categorias.includes(categoria);
+      const passaEquipe   = !equipe    || equipes.includes(equipe);
+      const passaPiloto   = !piloto    || pilotos.includes(piloto);
+      const passaPista    = !pista     || pistas.includes(pista);
+  
+      card.style.display = (passaBusca && passaCategoria && passaEquipe && passaPiloto && passaPista)
+        ? 'block' : 'none';
+    });
+  
+    paginaAtual = 1;
+    aplicarPaginacao();
+  }
+  
+  // Event listeners
+  document.addEventListener('input', e => {
+    if (e.target.id === 'busca-texto') {
+      clearTimeout(timeoutBusca);
+      timeoutBusca = setTimeout(aplicarFiltros, 300);
+    }
+  });
+  
+  document.addEventListener('change', e => {
+    if (e.target.id === 'filtro-categoria') {
+      atualizarFiltrosDinamicos(e.target.value);
+      aplicarFiltros();
+      return;
+    }
+    if (['filtro-equipe', 'filtro-piloto', 'filtro-pista'].includes(e.target.id)) {
+      aplicarFiltros();
+    }
+  });
+  
+  function inicializarFiltros() {
+    setTimeout(() => {
+      const catAtual = document.getElementById('filtro-categoria')?.value || '';
+      atualizarFiltrosDinamicos(catAtual);
+      aplicarFiltros();
+    }, 100);
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarFiltros);
+  } else {
+    inicializarFiltros();
+  }
+  
+  document.addEventListener('DOMContentLoaded', inicializarFiltros);
+  document.body.addEventListener('htmx:afterSwap', function(event) {
+    if (event.detail.target.classList?.contains('noticias-container') ||
+        event.detail.target.id === 'noticias-container') {
+      setTimeout(inicializarFiltros, 100);
+    }
+  });
+
+// ========================================
+// GERADOR DE ABAS (usa DADOS_CATEGORIAS)
+// ========================================
+
+function criarAbaHTML(catKey) {
+    const dados = DADOS_CATEGORIAS[catKey];
+    if (!dados) return '';
+  
+    // Checkbox de categoria
+    const checkCat = `
+      <div class="grupo-tags grupo-categoria-aba">
+        <span class="subtitulo-tag">Categoria:</span>
+        <label class="checkbox-tag">
+          <input type="checkbox" name="categoria" value="${catKey}" data-tipo="categoria">
+          <span class="tag tag-preview categoria">${dados.label}</span>
+        </label>
+      </div>`;
+  
+    // Equipes
+    const checkEquipes = dados.equipes.length ? `
+      <div class="collapsible-section">
+        <h3 class="collapsible-header" data-target="equipes-${catKey}">
+          Equipes <span class="tag-count" id="count-equipes-${catKey}">(0/4)</span>
+        </h3>
+        <div id="equipes-${catKey}" class="collapsible-content">
+          <div class="grupo-tags">
+            ${dados.equipes.map(e => `
+              <label class="checkbox-tag">
+                <input type="checkbox" value="${e.value}" data-tipo="equipe" data-cat="${catKey}">
+                <span class="tag tag-preview ${e.classe || 'equipe'}">${e.label}</span>
+              </label>`).join('')}
+          </div>
+        </div>
+      </div>` : '';
+  
+    // Pilotos
+    const checkPilotos = dados.pilotos.length ? `
+      <div class="collapsible-section">
+        <h3 class="collapsible-header" data-target="pilotos-${catKey}">
+          Pilotos <span class="tag-count" id="count-pilotos-${catKey}">(0/4)</span>
+        </h3>
+        <div id="pilotos-${catKey}" class="collapsible-content">
+          <div class="grupo-tags">
+            ${dados.pilotos.map(p => `
+              <label class="checkbox-tag">
+                <input type="checkbox" value="${p.value}" data-tipo="piloto" data-cat="${catKey}">
+                <span class="tag tag-preview piloto">${p.label}</span>
+              </label>`).join('')}
+          </div>
+        </div>
+      </div>` : '';
+  
+    // Pistas
+    const checkPistas = dados.pistas.length ? `
+      <div class="collapsible-section">
+        <h3 class="collapsible-header" data-target="pistas-${catKey}">
+          Pistas <span class="tag-count" id="count-pistas-${catKey}">(0/4)</span>
+        </h3>
+        <div id="pistas-${catKey}" class="collapsible-content">
+          <div class="grupo-tags">
+            ${dados.pistas.map(p => `
+              <label class="checkbox-tag">
+                <input type="checkbox" value="${p.value}" data-tipo="pista" data-cat="${catKey}">
+                <span class="tag tag-preview pista">${p.label}</span>
+              </label>`).join('')}
+          </div>
+        </div>
+      </div>` : '';
+  
+    return `
+      <div class="aba-painel" id="aba-${catKey}" style="display:none;" role="tabpanel">
+        ${checkCat}
+        ${checkEquipes}
+        ${checkPilotos}
+        ${checkPistas}
+      </div>`;
+  }
+  
+  function renderizarAbas() {
+    const container = document.getElementById('abas-conteudo');
+    if (!container) return;
+    container.innerHTML = Object.keys(DADOS_CATEGORIAS).map(criarAbaHTML).join('');
+    // Mostra a primeira aba
+    const primeiraAba = container.querySelector('.aba-painel');
+    if (primeiraAba) primeiraAba.style.display = 'block';
+  }
+  
+  // Troca de aba
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.aba-btn');
+    if (!btn) return;
+  
+    const catKey = btn.dataset.aba;
+  
+    // Atualiza botões
+    document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('aba-ativa'));
+    btn.classList.add('aba-ativa');
+  
+    // Mostra painel correto
+    document.querySelectorAll('.aba-painel').forEach(p => p.style.display = 'none');
+    const painel = document.getElementById(`aba-${catKey}`);
+    if (painel) painel.style.display = 'block';
+  });
+  
+  // ========================================
+  // GERENCIADOR DE TAGS (adaptado para abas)
+  // ========================================
+  
+  let limpezaEmAndamento = false;
+  
+  const selecoes = {
+    categoria: new Set(),
+    equipe: new Set(),
+    piloto: new Set(),
+    pista: new Set(),
+  };
+  const limites = { categoria: 1, equipe: 4, piloto: 4, pista: 4 };
+  
+  function getTipoTag(checkbox) {
+    return checkbox.dataset.tipo || null;
+  }
+  
+  function encontrarCheckbox(valor, tipo) {
+    return document.querySelector(
+      `.checkbox-tag input[type="checkbox"][value="${valor}"][data-tipo="${tipo}"]`
+    );
+  }
+  
+  function atualizarContadores() {
+    // Contadores por aba
+    Object.keys(DADOS_CATEGORIAS).forEach(catKey => {
+      ['equipes', 'pilotos', 'pistas'].forEach(grupo => {
+        const el = document.getElementById(`count-${grupo}-${catKey}`);
+        if (!el) return;
+        const tipo = grupo === 'equipes' ? 'equipe' : grupo === 'pilotos' ? 'piloto' : 'pista';
+        // Conta só os checkboxes desta categoria
+        const selecionadosNaCat = document.querySelectorAll(
+          `#aba-${catKey} input[data-tipo="${tipo}"]:checked`
+        ).length;
+        const limite = limites[tipo];
+        el.textContent = `(${selecionadosNaCat}/${limite})`;
+      });
+    });
+  }
+  
+  function atualizarBotaoLimpar() {
+    const btn = document.getElementById('btn-limpar-todas');
+    if (!btn) return;
+    const temTags = Object.values(selecoes).some(set => set.size > 0);
+    btn.style.display = temTags ? 'block' : 'none';
+  }
+  
+  function limparTodasTags() {
+    limpezaEmAndamento = true;
+  
+    document.querySelectorAll('.checkbox-tag input[type="checkbox"]:checked')
+      .forEach(cb => { cb.checked = false; });
+  
+    Object.keys(selecoes).forEach(tipo => selecoes[tipo].clear());
+  
+    const tagsSel = document.querySelector('.tags-selecionadas');
+    if (tagsSel) tagsSel.innerHTML = '';
+  
+    document.querySelectorAll('.tag-selecionado-visual')
+      .forEach(el => el.classList.remove('tag-selecionado-visual'));
+  
+    atualizarContadores();
+    atualizarBotaoLimpar();
+  
+    const aviso = document.getElementById('aviso-tags');
+    if (aviso) aviso.style.display = 'none';
+  
+    setTimeout(() => { limpezaEmAndamento = false; }, 50);
+  }
+  
+  // Collapsible + Limpar (event delegation)
+  document.addEventListener('click', e => {
+    if (e.target.classList.contains('collapsible-header')) {
+      const targetId = e.target.getAttribute('data-target');
+      const content  = document.getElementById(targetId);
+      if (content) {
+        content.classList.toggle('show');
+        e.target.classList.toggle('active');
+      }
+    }
+    if (e.target.id === 'btn-limpar-todas' || e.target.closest('#btn-limpar-todas')) {
+      limparTodasTags();
+    }
+  });
+  
+  // Change de checkboxes
+  document.addEventListener('change', e => {
+    if (e.target.type !== 'checkbox' || !e.target.closest('.checkbox-tag')) return;
+    if (limpezaEmAndamento) return;
+  
+    const checkbox   = e.target;
+    const label      = checkbox.closest('.checkbox-tag');
+    const tipo       = getTipoTag(checkbox);
+    const valor      = checkbox.value;
+    const tagPreview = label.querySelector('.tag-preview');
+    const tagsSel    = document.querySelector('.tags-selecionadas');
+    const aviso      = document.getElementById('aviso-tags');
+  
+    if (!tipo || !tagsSel) return;
+  
+    const jaSelecionado = selecoes[tipo].has(valor);
+  
+    if (checkbox.checked) {
+      if (jaSelecionado) { checkbox.checked = false; return; }
+  
+      if (selecoes[tipo].size >= limites[tipo]) {
+        checkbox.checked = false;
+        const msgs = {
+          categoria: '⚠️ Só 1 categoria permitida.',
+          equipe:    `⚠️ Máximo de ${limites.equipe} equipes atingido.`,
+          piloto:    `⚠️ Máximo de ${limites.piloto} pilotos atingido.`,
+          pista:     `⚠️ Máximo de ${limites.pista} pistas atingido.`,
+        };
+        if (aviso) {
+          aviso.textContent = msgs[tipo];
+          aviso.style.cssText = 'display:block;color:#d32f2f;background:#ffebee;padding:0.5rem;border-radius:4px;border-left:3px solid #d32f2f;font-size:0.9rem';
+          setTimeout(() => { aviso.style.display = 'none'; }, 3500);
+        }
+        return;
+      }
+  
+      selecoes[tipo].add(valor);
+  
+      const clone = tagPreview.cloneNode(true);
+      clone.classList.add('tag-selecionada');
+      clone.classList.remove('tag-preview');
+      clone.dataset.tagValue = valor;
+      clone.dataset.tagTipo  = tipo;
+      clone.style.cursor = 'pointer';
+  
+      clone.onclick = function(ev) {
+        if (ev.target.classList.contains('remove-tag')) return;
+        ev.stopPropagation();
+        const cb = encontrarCheckbox(valor, tipo);
+        if (cb && cb.checked) {
+          cb.checked = false;
+          cb.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      };
+  
+      const btn = document.createElement('span');
+      btn.className  = 'remove-tag';
+      btn.innerHTML  = '&times;';
+      btn.style.cssText = 'margin-left:0.4rem;font-weight:bold;cursor:pointer;opacity:0.7';
+      btn.onclick = function(ev) {
+        ev.stopPropagation();
+        const cb = encontrarCheckbox(valor, tipo);
+        if (cb && cb.checked) {
+          cb.checked = false;
+          cb.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      };
+  
+      clone.appendChild(btn);
+      tagsSel.appendChild(clone);
+      label.classList.add('tag-selecionado-visual');
+  
+    } else {
+      selecoes[tipo].delete(valor);
+      tagsSel.querySelectorAll('.tag-selecionada').forEach(tag => {
+        if (tag.dataset.tagValue === valor && tag.dataset.tagTipo === tipo) tag.remove();
+      });
+      label.classList.remove('tag-selecionado-visual');
+    }
+  
+    atualizarContadores();
+    atualizarBotaoLimpar();
+    if (aviso) aviso.style.display = 'none';
+  });
+  
+  // ========================================
+  // INICIALIZAÇÃO
+  // ========================================
+  function inicializarPublicar() {
+    renderizarAbas();
+    atualizarContadores();
+    atualizarBotaoLimpar();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarPublicar);
+  } else {
+    inicializarPublicar();
+  }
+  document.addEventListener('htmx:afterSwap', inicializarPublicar);

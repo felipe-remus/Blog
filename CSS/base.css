@@ -75,35 +75,82 @@ main {
     transform: translateX(-4px);
 }
 
+/* ========================================
+   RESPONSIVIDADE - LAYOUT E BOTÃO VOLTAR
+   ======================================== */
+
+/* Tablets */
 @media (max-width: 768px) {
+    main {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
     .voltar-topo {
-        padding: 0 1.5rem;
-        margin-bottom: 1.5rem;
+        padding: 0.8rem;
+        margin-bottom: 0.8rem;
     }
 
     .btn-voltar {
+        padding: 0.7rem 1.2rem;
         font-size: 0.95rem;
-        padding: 0.7rem 1.3rem;
-    }
-
-    .btn-voltar svg {
-        width: 18px;
-        height: 18px;
+        gap: 0.5rem;
     }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
+    main {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
     .voltar-topo {
-        padding: 0 1rem;
+        padding: 0.6rem;
+        margin-bottom: 0.6rem;
     }
 
     .btn-voltar {
-        font-size: 0.9rem;
-        padding: 0.6rem 1.2rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.875rem;
+        gap: 0.4rem;
+        border-radius: 40px;
+        /* Impede que o hover de translateX quebre o layout em telas pequenas */
+        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .btn-voltar svg {
-        width: 16px;
-        height: 16px;
+    /* Remove o efeito de deslizar para a esquerda no mobile —
+       em tela pequena ele pode sair do viewport ou parecer quebrado */
+    .btn-voltar:hover {
+        transform: none;
+    }
+
+    .btn-voltar:hover svg {
+        transform: none;
+    }
+
+    /* Substitui o hover por um feedback de toque (active) mais adequado ao mobile */
+    .btn-voltar:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 6px rgba(225, 6, 0, 0.25);
+    }
+}
+
+/* Mobile muito pequeno */
+@media (max-width: 360px) {
+    main {
+        padding: 0.8rem;
+        margin: 0.8rem auto;
+    }
+
+    .voltar-topo {
+        padding: 0.5rem;
+    }
+
+    .btn-voltar {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.825rem;
+        gap: 0.35rem;
+        border-width: 1.5px;
     }
 }

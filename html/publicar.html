@@ -1,336 +1,47 @@
 <form id="form-noticia">
+
     <!-- Título -->
     <div class="campo">
-        <label for="titulo-noticia">Título: </label>
-        <input type="text" id="titulo-noticia" required>
+      <label for="titulo-noticia">Título:</label>
+      <input type="text" id="titulo-noticia" required>
     </div>
-
-    <!-- Texto da notícia -->
+  
+    <!-- Texto -->
     <div class="campo">
-        <label for="texto-noticia">Texto: </label>
-        <textarea id="texto-noticia" required></textarea>
+      <label for="texto-noticia">Texto:</label>
+      <textarea id="texto-noticia" required></textarea>
     </div>
-
-    <!-- Seleção de Tags -->
+  
+    <!-- Tags selecionadas (preview global) -->
     <div class="campo">
-        <label>Tags (selecione uma ou mais)</label>
-        <div class="tag-selector">
-            <div class="tags-selecionadas">
-                <!-- Tags aparecerão aqui via JS -->
-            </div>
-            <div id="aviso-tags" class="aviso-tags"></div>
-            <button type="button" class="btn-limpar-tags" id="btn-limpar-todas" style="display: none;">✕ Limpar Tudo</button>
-        </div>
+      <label>Tags selecionadas:</label>
+      <div class="tag-selector">
+        <div class="tags-selecionadas"></div>
+        <div id="aviso-tags" class="aviso-tags"></div>
+        <button type="button" class="btn-limpar-tags" id="btn-limpar-todas" style="display:none;">✕ Limpar Tudo</button>
+      </div>
     </div>
 
-    <!-- Tags Categorias -->
-    <div class="grupo-tags">
-        <span class="subtitulo-tag">Categorias: </span>
-        
-        <label class="checkbox-tag">
-            <input type="checkbox" name="categoria" value="formula1">
-            <span class="tag tag-preview categoria">Fórmula 1</span>
-        </label>
-        
-        <label class="checkbox-tag">
-            <input type="checkbox" name="categoria" value="formula2">
-            <span class="tag tag-preview categoria">Fórmula 2</span>
-        </label>
-        
-        <label class="checkbox-tag">
-            <input type="checkbox" name="categoria" value="formula3">
-            <span class="tag tag-preview categoria">Fórmula 3</span>
-        </label>
-        
-        <label class="checkbox-tag">
-            <input type="checkbox" name="categoria" value="formula4">
-            <span class="tag tag-preview categoria">Fórmula 4</span>
-        </label>
-
-        <label class="checkbox-tag">
-            <input type="checkbox" name="categoria" value="f1academy">
-            <span class="tag tag-preview categoria">F1 Academy</span>
-        </label>
-
-        <label class="checkbox-tag">
-            <input type="checkbox" name="categoria" value="formulae">
-            <span class="tag tag-preview categoria">Fórmula E</span>
-        </label>
-
-        <label class="checkbox-tag">
-            <input type="checkbox" name="categoria" value="formulaindy">
-            <span class="tag tag-preview categoria">Fórmula Indy</span>
-        </label>
+    <!-- Tags selecionadas (preview global) -->
+    <div class="campo">
+        <label>Selecione as Tags:</label>
     </div>
-
-
-    <!-- Tags Equipes -->
-    <div class="collapsible-section">
-        <h3 class="collapsible-header" data-target="equipes">
-            Mostrar Equipes
-            <span class="tag-count" id="count-equipes">(0/4)</span>
-        </h3>
-        <div id="equipes" class="collapsible-content">
-            <!-- Tags de Equipe -->
-            <div class="grupo-tags">
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="alpine">
-                    <span class="tag tag-preview equipe-alpine">Alpine</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="aston-martin">
-                    <span class="tag tag-preview equipe-astonmartin">Aston Martin</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="audi">
-                    <span class="tag tag-preview equipe-audi">Audi</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="cadillac">
-                    <span class="tag tag-preview equipe-cadillac">Cadillac</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="ferrari">
-                    <span class="tag tag-preview equipe-ferrari">Ferrari</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="haas">
-                    <span class="tag tag-preview equipe-haas">Haas</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="mclaren">
-                    <span class="tag tag-preview equipe-mclaren">McLaren</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="mercedes">
-                    <span class="tag tag-preview equipe-mercedes">Mercedes</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="racing-bulls">
-                    <span class="tag tag-preview equipe-racingbulls">Racing Bulls</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="redbull">
-                    <span class="tag tag-preview equipe-redbull">Red Bull</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="williams">
-                    <span class="tag tag-preview equipe-williams">Williams</span>
-                </label>
-            </div>
-        </div>
+  
+    <!-- ABAS DE CATEGORIA -->
+    <div class="abas-categoria">
+      <nav class="abas-nav" role="tablist">
+        <button type="button" class="aba-btn aba-ativa" data-aba="f1"        role="tab">Fórmula 1</button>
+        <button type="button" class="aba-btn"           data-aba="f2"        role="tab">Fórmula 2</button>
+        <button type="button" class="aba-btn"           data-aba="f3"        role="tab">Fórmula 3</button>
+        <button type="button" class="aba-btn"           data-aba="f4"        role="tab">Fórmula 4</button>
+        <button type="button" class="aba-btn"           data-aba="f1academy" role="tab">F1 Academy</button>
+        <button type="button" class="aba-btn"           data-aba="fe"        role="tab">Fórmula E</button>
+        <button type="button" class="aba-btn"           data-aba="indy"      role="tab">IndyCar</button>
+      </nav>
+  
+      <!-- Conteúdo de cada aba (gerado via JS) -->
+      <div id="abas-conteudo"></div>
     </div>
-
-    <!-- Tags Pilotos -->
-    <div class="collapsible-section">
-        <h3 class="collapsible-header" data-target="pilotos">
-            Mostrar Pilotos
-            <span class="tag-count" id="count-pilotos">(0/4)</span>
-        </h3>
-        <div id="pilotos" class="collapsible-content">
-            <!-- Tags de Piloto -->
-            <div class="grupo-tags">
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="alex-albon">
-                    <span class="tag tag-preview piloto">Alex Albon</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="arvid-lindblad">
-                    <span class="tag tag-preview piloto">Arvid Lindblad</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="carlos-sainz">
-                    <span class="tag tag-preview piloto">Carlos Sainz</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="charles-leclerc">
-                    <span class="tag tag-preview piloto">Charles Leclerc</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="esteban-ocon">
-                    <span class="tag tag-preview piloto">Esteban Ocon</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="fernando-alonso">
-                    <span class="tag tag-preview piloto">Fernando Alonso</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="franco-colapinto">
-                    <span class="tag tag-preview piloto">Franco Colapinto</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="george-russell">
-                    <span class="tag tag-preview piloto">George Russell</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="gabriel-bortoleto">
-                    <span class="tag tag-preview piloto">Gabriel Bortoleto</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="isaac-hadjar">
-                    <span class="tag tag-preview piloto">Isaac Hadjar</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="kimi-antonelli">
-                    <span class="tag tag-preview piloto">Kimi Antonelli</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="lando-norris">
-                    <span class="tag tag-preview piloto">Lando Norris</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="lewis-hamilton">
-                    <span class="tag tag-preview piloto">Lewis Hamilton</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="liam-lawson">
-                    <span class="tag tag-preview piloto">Liam Lawson</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="lance-stroll">
-                    <span class="tag tag-preview piloto">Lance Stroll</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="max-verstappen">
-                    <span class="tag tag-preview piloto">Max Verstappen</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="nico-hulkenberg">
-                    <span class="tag tag-preview piloto">Nico Hülkenberg</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="oliver-bearman">
-                    <span class="tag tag-preview piloto">Oliver Bearman</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="oscar-piastri">
-                    <span class="tag tag-preview piloto">Oscar Piastri</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="pierre-gasly">
-                    <span class="tag tag-preview piloto">Pierre Gasly</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="sergio-perez">
-                    <span class="tag tag-preview piloto">Sergio Pérez</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="valtteri-bottas">
-                    <span class="tag tag-preview piloto">Valtteri Bottas</span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tags Pistas -->
-    <div class="collapsible-section">
-        <h3 class="collapsible-header" data-target="pistas">
-            Mostrar Pistas
-            <span class="tag-count" id="count-pistas">(0/4)</span>
-        </h3>
-        <div id="pistas" class="collapsible-content">
-            <!-- Tags de Pista -->
-            <div class="grupo-tags">
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="australia">
-                    <span class="tag tag-preview pista">Austrália</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="china">
-                    <span class="tag tag-preview pista">China</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="japao">
-                    <span class="tag tag-preview pista">Japão</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="barein">
-                    <span class="tag tag-preview pista">Barein</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="arabia-saudita">
-                    <span class="tag tag-preview pista">Arábia Saudita</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="miami">
-                    <span class="tag tag-preview pista">Miami</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="canada">
-                    <span class="tag tag-preview pista">Canadá</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="monaco">
-                    <span class="tag tag-preview pista">Mônaco</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="barcelona">
-                    <span class="tag tag-preview pista">Barcelona</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="austria">
-                    <span class="tag tag-preview pista">Áustria</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="inglaterra">
-                    <span class="tag tag-preview pista">Inglaterra</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="belgica">
-                    <span class="tag tag-preview pista">Bélgica</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="hungria">
-                    <span class="tag tag-preview pista">Hungria</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="holanda">
-                    <span class="tag tag-preview pista">Holanda</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="monza">
-                    <span class="tag tag-preview pista">Monza</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="madrid">
-                    <span class="tag tag-preview pista">Madri</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="azerbaijao">
-                    <span class="tag tag-preview pista">Azerbaijão</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="singapura">
-                    <span class="tag tag-preview pista">Singapura</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="austin">
-                    <span class="tag tag-preview pista">Austin</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="mexico">
-                    <span class="tag tag-preview pista">México</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="brasil">
-                    <span class="tag tag-preview pista">Brasil</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="las-vegas">
-                    <span class="tag tag-preview pista">Las Vegas</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="qatar">
-                    <span class="tag tag-preview pista">Catar</span>
-                </label>
-                <label class="checkbox-tag">
-                    <input type="checkbox" value="abu-dhabi">
-                    <span class="tag tag-preview pista">Abu Dhabi</span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <!-- Botão de enviar -->
+  
     <button type="submit" class="botao-enviar">Publicar Notícia</button>
-</form>
+  </form>

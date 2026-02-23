@@ -244,6 +244,12 @@
     color: white;
 }
 
+/* Fallback genérico para equipes sem cor específica (FE, IndyCar, etc.) */
+.tag.equipe {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
 /* ========================================
    SEÇÃO DE CATEGORIAS
    ======================================== */
