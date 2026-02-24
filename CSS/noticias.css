@@ -1,19 +1,20 @@
 /* ========================================
-   CARDS DE NOTÍCIAS
-   ======================================== */
+    CARDS DE NOTÍCIAS
+======================================== */
 .noticias-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cards por linha */
     gap: 2rem;
     margin: 2rem auto;
     padding: 0 2rem;
-    max-width: 900px;
+    max-width: 1400px;
+    align-items: start; /* cards de alturas diferentes não se esticam */
 }
 
 .card-noticia {
     background: #ffffff;
     border: 1px solid #e0e0e0;
-    border-left: 4px solid #e10600; /* Borda vermelha F1 */
+    border-left: 4px solid #e10600;
     border-radius: 12px;
     padding: 2rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -33,7 +34,7 @@
 
 .card-noticia h2 {
     color: #26011C;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin: 0 0 0.6rem 0;
     line-height: 1.3;
@@ -47,10 +48,12 @@
     font-size: 0.875rem;
     color: #666;
     margin: 0;
+    flex-wrap: wrap;
 }
 
 .meta-icon {
     opacity: 0.7;
+    flex-shrink: 0;
 }
 
 .separador {
@@ -86,32 +89,14 @@
     letter-spacing: 0.5px;
 }
 
-/* Tags por tipo */
-.tag.categoria {
-    background-color: #e10600;
-    color: white;
-}
-
-.tag.piloto {
-    background-color: #26011C;
-    color: white;
-}
-
-.tag.pista {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ddd;
-}
-
-/* Hover nas tags */
 .tag:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* ========================================
-   COMENTÁRIOS NAS NOTÍCIAS
-   ======================================== */
+    COMENTÁRIOS
+======================================== */
 .secao-comentarios {
     margin-top: 2rem;
     padding-top: 1.5rem;
@@ -128,9 +113,7 @@
     font-weight: 700;
 }
 
-.comentarios-icon {
-    color: #e10600;
-}
+.comentarios-icon { color: #e10600; }
 
 .lista-comentarios {
     margin-bottom: 1.5rem;
@@ -159,22 +142,9 @@
     margin-bottom: 0.6rem;
 }
 
-.comentario-autor {
-    font-weight: 700;
-    color: #26011C;
-    font-size: 0.95rem;
-}
-
-.comentario-data {
-    font-size: 0.8rem;
-    color: #999;
-}
-
-.comentario-texto {
-    line-height: 1.6;
-    color: #444;
-    font-size: 0.95rem;
-}
+.comentario-autor { font-weight: 700; color: #26011C; font-size: 0.95rem; }
+.comentario-data  { font-size: 0.8rem; color: #999; }
+.comentario-texto { line-height: 1.6; color: #444; font-size: 0.95rem; }
 
 .formulario-comentario {
     display: flex;
@@ -205,9 +175,7 @@
     border-color: #e10600;
 }
 
-.formulario-comentario textarea::placeholder {
-    color: #999;
-}
+.formulario-comentario textarea::placeholder { color: #999; }
 
 .botao-comentar {
     align-self: flex-end;
@@ -233,63 +201,29 @@
     box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
 }
 
-.botao-comentar:active {
-    transform: translateY(0);
-}
-
-.botao-comentar svg {
-    width: 16px;
-    height: 16px;
-}
+.botao-comentar:active { transform: translateY(0); }
+.botao-comentar svg   { width: 16px; height: 16px; }
 
 /* ========================================
-   RESPONSIVIDADE
-   ======================================== */
-@media (max-width: 768px) {
+    RESPONSIVIDADE
+======================================== */
+@media (max-width: 900px) {
     .noticias-container {
+        grid-template-columns: 1fr; /* volta para 1 coluna */
         padding: 0 1rem;
     }
+}
 
-    .card-noticia {
-        padding: 1.5rem;
-    }
-
-    .card-noticia h2 {
-        font-size: 1.4rem;
-    }
-
-    .card-tags {
-        justify-content: flex-start;
-    }
-
-    .tag {
-        font-size: 0.75rem;
-        padding: 0.35rem 0.75rem;
-    }
-
-    .formulario-comentario {
-        padding: 1rem;
-    }
+@media (max-width: 768px) {
+    .card-noticia { padding: 1.5rem; }
+    .card-noticia h2 { font-size: 1.4rem; }
+    .tag { font-size: 0.75rem; padding: 0.35rem 0.75rem; }
+    .formulario-comentario { padding: 1rem; }
 }
 
 @media (max-width: 480px) {
-    .card-noticia h2 {
-        font-size: 1.25rem;
-    }
-
-    .meta {
-        font-size: 0.8rem;
-        flex-wrap: wrap;
-    }
-
-    .comentario-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-    }
-
-    .botao-comentar {
-        width: 100%;
-        justify-content: center;
-    }
+    .card-noticia h2 { font-size: 1.25rem; }
+    .meta { font-size: 0.8rem; }
+    .comentario-header { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .botao-comentar { width: 100%; justify-content: center; }
 }
