@@ -15,6 +15,7 @@ function encontrarCheckbox(valor, tipo) {
 }
 
 // ── Contadores por aba ─────────────────────────────────────────────────────
+// DEPOIS
 function atualizarContadores() {
     Object.keys(DADOS_CATEGORIAS).forEach(catKey => {
         [
@@ -24,9 +25,7 @@ function atualizarContadores() {
         ].forEach(({ grupo, tipo }) => {
             const el = document.getElementById(`count-${grupo}-${catKey}`);
             if (!el) return;
-            const count = document.querySelectorAll(
-                `#aba-${catKey} input[data-tipo="${tipo}"]:checked`
-            ).length;
+            const count = selecoes[tipo].size; // ✅ conta o total global, independente da aba
             el.textContent = `(${count}/${limites[tipo]})`;
         });
     });
@@ -93,7 +92,7 @@ document.addEventListener('change', e => {
             checkbox.checked = false;
             if (aviso) {
                 const msgs = {
-                    categoria: '⚠️ Só 1 categoria permitida.',
+                    categoria: '⚠️ Só 2 categorias permitida.',
                     equipe:    `⚠️ Máximo de ${limites.equipe} equipes atingido.`,
                     piloto:    `⚠️ Máximo de ${limites.piloto} pilotos atingido.`,
                     pista:     `⚠️ Máximo de ${limites.pista} pistas atingido.`,

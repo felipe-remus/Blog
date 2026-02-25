@@ -12,6 +12,10 @@
     width: 100%; /* Adiciona largura total */
 }
 
+.paginacao-oculto {
+    display: none; /* remove o card do fluxo do grid completamente */
+}
+
 .paginacao-btn {
     min-width: 40px;
     height: 40px;

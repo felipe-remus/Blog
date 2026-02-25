@@ -21,4 +21,4 @@ const selecoes = {
     pista:     new Set(),
 };
 
-const limites = { categoria: 1, equipe: 4, piloto: 4, pista: 4 };
+const limites = { categoria: 2, equipe: 4, piloto: 4, pista: 4 };
