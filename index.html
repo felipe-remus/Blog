@@ -50,16 +50,16 @@
     </template>
     <div id="xcabecalho"></div>
 
-    <main>
-        <!-- Slider Hero (carregado via HTMX) -->
-        <template
-            hx-get="html/slider.html"
-            hx-target="#slider"
-            hx-trigger="load"
+    <!-- Slider Hero (carregado via HTMX) -->
+    <template
+        hx-get="html/slider.html"
+        hx-target="#slider"
+        hx-trigger="load"
         >
-        </template>
-        <div id="slider"></div>
+    </template>
+    <div id="slider"></div>
 
+    <main>
         <!-- Barra de Pesquisa -->
         <div class="busca-container">
             <label for="busca-texto">Pesquisar notícias:</label>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Gerenciamento de Dados</title>
+
+    <link rel="stylesheet" href="CSS/admin.css">
+    <link rel="stylesheet" href="CSS/footer.css">
+
+    <script src="SCRIPT/admin.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
+
+    <header class="admin-header">
+        <h1>
+            <a href="index.html" class="badge-admin">Admin</a>
+            Gerenciamento de Dados
+        </h1>
+        <span class="header-note">Apenas visual — dados em memória (sem banco de dados)</span>
+    </header>
+
+    <main class="admin-main">
+
+        <div class="page-intro">
+            ⚠️ <strong>Modo Frontend:</strong> Alterações feitas aqui existem apenas nessa sessão do navegador.
+            Quando o backend estiver pronto, as ações de adicionar/remover serão conectadas ao banco de dados.
+        </div>
+
+        <!-- ABAS -->
+        <nav class="abas-nav" role="tablist">
+            <button class="aba-btn aba-ativa" data-aba="f1"        role="tab">Fórmula 1</button>
+            <button class="aba-btn"           data-aba="f2"        role="tab">Fórmula 2</button>
+            <button class="aba-btn"           data-aba="f3"        role="tab">Fórmula 3</button>
+            <button class="aba-btn"           data-aba="f4"        role="tab">Fórmula 4</button>
+            <button class="aba-btn"           data-aba="f1academy" role="tab">F1 Academy</button>
+            <button class="aba-btn"           data-aba="fe"        role="tab">Fórmula E</button>
+            <button class="aba-btn"           data-aba="indy"      role="tab">IndyCar</button>
+        </nav>
+
+        <!-- Conteúdo das abas (gerado via JS) -->
+        <div id="abas-conteudo"></div>
+
+    </main>
+
+    <!-- Rodapé -->
+    <template
+        hx-get="html/footer.html"
+        hx-target="#footer"
+        hx-trigger="load">
+    </template>
+    <div id="footer"></div>
+</body>
+</html>
