@@ -1,14 +1,19 @@
 /* ========================================
 CABEÇALHO 
-   ======================================== */
+======================================== */
 #cabecalho {
-    background: linear-gradient(to bottom, #26011cd8 0%, #ffffff 40%);
+    position: fixed;       
+    top: 0;                
+    left: 0;               
+    z-index: 1000;         
+
+    background: linear-gradient(to bottom, #26011cd8 0%, #ffffff 50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 2rem;
     background-color: #ffffff;
-    border-bottom: 3px solid #e10600; 
+    border-bottom: 3px solid #e10600;
     flex-wrap: wrap;
     gap: 1rem;
     transition: box-shadow 0.3s ease;
