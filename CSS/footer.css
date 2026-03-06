@@ -19,7 +19,7 @@
     text-align: center; 
 }
 
-.footer-esquerda {
+.footer-info {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,7 +42,7 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
-.footer-direita {
+.footer-social {
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
@@ -87,7 +87,7 @@
         padding: 1.5rem 1.5rem;
     }
 
-    .footer-direita {
+    .footer-social {
         gap: 1rem;
     }
 

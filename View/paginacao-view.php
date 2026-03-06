@@ -32,5 +32,8 @@
 </div>
 
 <div class="info-paginacao" id="info-paginacao">
-    Mostrando <span id="info-inicio">1</span>-<span id="info-fim">10</span> de <span id="info-total">0</span> notícias
+    Mostrando 
+    <span id="info-inicio"><?= $pagina_inicio ?></span>-<span id="info-fim"><?= $pagina_fim ?></span> 
+    de 
+    <span id="info-total"><?= $total_noticias ?></span> notícias
 </div>

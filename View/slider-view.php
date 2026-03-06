@@ -6,15 +6,15 @@
         <div class="slide active">
             <div class="slide-background" style="background-image: url('img/img-Slider/1-Eua-Rouge.png');"></div>
             <div class="slide-content">
-                <h1>Últimas Notícias do Automobilismo</h1>
+                <h1><?= $titulo_slider[0]?></h1>
                 <div class="botoes-slider">
-                    <a href="noticias.html" class="botao-slider">Ver Notícias</a>
+                    <a href="noticias.html" class="botao-slider"><?=$botao1[0]?></a>
                 </div>
                 <div class="area-colaboradores">
-                    <p>Quer escrever para o Blog da F1?</p>
+                    <p><?=$sub_titulo[0]?></p>
                     <div class="botoes-slider">
-                        <a href="login.html" class="botao-slider">Área de Login/Criar Conta</a>
-                        <a href="escrever-noticia.html" class="botao-slider">Escrever Notícia</a>
+                        <a href="login.html" class="botao-slider"><?=$botao2[0]?></a>
+                        <a href="escrever-noticia.html" class="botao-slider"><?=$botao3[0]?></a>
                     </div>
                 </div>
             </div>
@@ -24,15 +24,15 @@
         <div class="slide">
             <div class="slide-background" style="background-image: url('img/img-Slider/1-Piloto.png');"></div>
             <div class="slide-content">
-                <h1>Diferentes Categorias</h1>
+                <h1><?= $titulo_slider[1]?></h1>
                 <div class="botoes-slider">
-                    <a href="historia.html" class="botao-slider">Conheça a história das Categorias</a>
+                    <a href="historia.html" class="botao-slider"><?=$botao1[1]?></a>
                 </div>
                 <div class="area-colaboradores">
-                    <p>Seja parte da nossa equipe de jornalistas!</p>
+                    <p><?=$sub_titulo[1]?></p>
                     <div class="botoes-slider">
-                        <a href="login.html" class="botao-slider">Fazer Login</a>
-                        <a href="escrever-noticia.html" class="botao-slider">Publicar Agora</a>
+                        <a href="login.html" class="botao-slider"><?=$botao2[1]?></a>
+                        <a href="escrever-noticia.html" class="botao-slider"><?=$botao3[1]?></a>
                     </div>
                 </div>
             </div>
@@ -42,15 +42,15 @@
         <div class="slide">
             <div class="slide-background" style="background-image: url('img/img-Slider/1-Senna.png');"></div>
             <div class="slide-content">
-                <h1>História e Legado de Senna</h1>
+                <h1><?= $titulo_slider[2]?></h1>
                 <div class="botoes-slider">
-                    <a href="senna.html" class="botao-slider">Conheça a História de Senna</a>
+                    <a href="senna.html" class="botao-slider"><?=$botao1[2]?></a>
                 </div>
                 <div class="area-colaboradores">
-                    <p>Homenageie o tricampeão mundial</p>
+                    <p><?=$sub_titulo[2]?></p>
                     <div class="botoes-slider">
-                        <a href="login.html" class="botao-slider">Criar Conta</a>
-                        <a href="escrever-noticia.html" class="botao-slider">Escrever sobre Senna</a>
+                        <a href="login.html" class="botao-slider"><?=$botao2[2]?></a>
+                        <a href="escrever-noticia.html" class="botao-slider"><?=$botao3[2]?></a>
                     </div>
                 </div>
             </div>
