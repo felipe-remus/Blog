@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/filtros.css">
+<link rel="stylesheet" href="../css/footer.css">
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/historia.css">
+<link rel="stylesheet" href="../css/login.css">
+<link rel="stylesheet" href="../css/noticias.css">
+<link rel="stylesheet" href="../css/paginacao.css">
+<link rel="stylesheet" href="../css/publicar.css">
+<link rel="stylesheet" href="../css/slider.css">
+<link rel="stylesheet" href="../css/tags.css">
+
+<script src="../script/script.js" defer></script>
+
+<!-- Slider Hero -->
+<div class="slider-hero">
+    <div class="slider-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-background" style="background-image: url('img/img-slider/1-Eua-Rouge.png');"></div>
+            <div class="slide-content">
+                <h1>Últimas Notícias do Automobilismo</h1>
+                <div class="botoes-slider">
+                    <a href="noticias.html" class="botao-slider">Ver Notícia</a>
+                </div>
+                <div class="area-colaboradores">
+                    <p>Quer escrever para o Blog?</p>
+                    <div class="botoes-slider">
+                        <a href="login.html" class="botao-slider">Área de Login/Criar Conta</a>
+                        <a href="escrever-noticia.html" class="botao-slider">Escrever Notícia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-background" style="background-image: url('img/img-slider/1-Piloto.png');"></div>
+            <div class="slide-content">
+                <h1>Diferentes Categorias</h1>
+                <div class="botoes-slider">
+                    <a href="historia.html" class="botao-slider">Conheça a história das Categorias</a>
+                </div>
+                <div class="area-colaboradores">
+                    <p>Seja parte da nossa equipe de jornalistas!</p>
+                    <div class="botoes-slider">
+                        <a href="login.html" class="botao-slider">Fazer Login</a>
+                        <a href="escrever-noticia.html" class="botao-slider">Publicar Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-background" style="background-image: url('img/img-slider/1-Senna.png');"></div>
+            <div class="slide-content">
+                <h1>História e Legado de Senna</h1>
+                <div class="botoes-slider">
+                    <a href="senna.html" class="botao-slider">Conheça a História de Senna</a>
+                </div>
+                <div class="area-colaboradores">
+                    <p>Homenageie o tricampeão mundial</p>
+                    <div class="botoes-slider">
+                        <a href="login.html" class="botao-slider">Criar Conta</a>
+                        <a href="escrever-noticia.html" class="botao-slider">Escrever sobre Senna</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botões de navegação -->
+    <button class="slider-nav slider-prev" onclick="changeSlide(-1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <button class="slider-nav slider-next" onclick="changeSlide(1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- Indicadores (bolinhas) -->
+    <div class="slider-indicators">
+        <span class="indicator active" onclick="goToSlide(0)"></span>
+        <span class="indicator" onclick="goToSlide(1)"></span>
+        <span class="indicator" onclick="goToSlide(2)"></span>
+    </div>
+</div>
