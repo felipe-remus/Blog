@@ -19,7 +19,6 @@
 
         <div class="card-imagem">
             <img src="<?=$imagem_noticia?>"
-                alt="<?=$imagem_alt_noticia?>"
                 loading="lazy">
             <span class="card-imagem-badge"><?=$tag_categoria?></span>
         </div>
@@ -45,10 +44,6 @@
             </div>
 
             <p class="card-conteudo"><?=$texto_noticia?></p>
-
-            <div class="card-tags">
-                <span class="tag"><?=$tag_categoria?></span>
-            </div>
         </div>
     </article>
 </div>

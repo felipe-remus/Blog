@@ -25,7 +25,7 @@ hr {
 }
 
 /* ========================================
-   LAYOUT PRINCIPAL (MAIN)
+LAYOUT PRINCIPAL (MAIN)
    ======================================== */
 main {
     padding: 2rem;
@@ -34,9 +34,9 @@ main {
 }
 
 /* ========================================
-   BOTÃO VOLTAR
+BOTÃO VOLTAR
    ======================================== */
-.voltar-topo {
+.voltar-home {
     text-align: left;
     margin-bottom: 1rem;
     padding-left: 0.5rem;
@@ -76,7 +76,7 @@ main {
 }
 
 /* ========================================
-   RESPONSIVIDADE - LAYOUT E BOTÃO VOLTAR
+RESPONSIVIDADE - LAYOUT E BOTÃO VOLTAR
    ======================================== */
 
 /* Tablets */

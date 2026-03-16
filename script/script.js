@@ -263,16 +263,6 @@ function inicializarPaginacao() {
 document.addEventListener('htmx:afterSwap', () => setTimeout(inicializarPaginacao, 150));
 
 // ============================================================
-// INIT
-// ============================================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.querySelector('.slider-hero'))   initSlider();
-    if (document.querySelector('.card-noticia'))  inicializarPaginacao();
-    highlightCurrentPage();
-});
-
-// ============================================================
 // MODAL DE NOTÍCIA
 // ============================================================
 
@@ -358,3 +348,238 @@ function scrollToSecao(id, btn) {
     document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('aba-ativa'));
     btn.classList.add('aba-ativa');
 }
+
+// ============================================================
+// PUBLICAR PREVIEW — Live Preview do Card de Notícia
+// ============================================================
+
+function inicializarPublicarPreview() {
+    // ========================================
+    // ELEMENTOS DO FORMULÁRIO
+    // ========================================
+    const inputTitulo = document.getElementById('input-titulo');
+    const inputConteudo = document.getElementById('input-conteudo');
+    const inputAutor = document.getElementById('input-autor');
+    const inputImagem = document.getElementById('input-imagem');
+    const categoriaSelecionada = document.getElementById('categoria-selecionada');
+    const botoesCategorias = document.querySelectorAll('.categoria-btn');
+    const formulario = document.getElementById('form-noticia');
+
+    // Se nenhum desses elementos existe, não inicializar
+    if (!formulario || botoesCategorias.length === 0) {
+        setTimeout(inicializarPublicarPreview, 200);
+        return;
+    }
+
+    // ========================================
+    // ELEMENTOS DO PREVIEW
+    // ========================================
+    const previewTitulo = document.getElementById('preview-titulo');
+    const previewConteudo = document.getElementById('preview-conteudo');
+    const previewAutor = document.getElementById('preview-autor');
+    const previewImagem = document.getElementById('preview-imagem');
+    const previewData = document.getElementById('preview-data');
+    const previewCategoriaBadge = document.getElementById('preview-categoria-badge');
+    const previewTag = document.getElementById('preview-tag');
+    const previewImagemContainer = document.getElementById('preview-imagem-container');
+    const fileName = document.getElementById('file-name');
+
+    // ========================================
+    // INICIALIZAÇÃO
+    // ========================================
+    if (previewData) atualizarDataAtual();
+
+    // ========================================
+    // EVENT LISTENERS - INPUTS DE TEXTO
+    // ========================================
+    if (inputTitulo) {
+        inputTitulo.addEventListener('input', function() {
+            if (this.value.trim()) {
+                previewTitulo.textContent = this.value;
+                previewTitulo.classList.remove('preview-text');
+            } else {
+                previewTitulo.textContent = 'Digite o título aqui...';
+                previewTitulo.classList.add('preview-text');
+            }
+        });
+    }
+
+    if (inputConteudo) {
+        inputConteudo.addEventListener('input', function() {
+            if (this.value.trim()) {
+                previewConteudo.textContent = this.value;
+                previewConteudo.classList.remove('preview-text');
+            } else {
+                previewConteudo.textContent = 'Digite o conteúdo da notícia aqui. Será exibido em até 4 linhas na visualização do card.';
+                previewConteudo.classList.add('preview-text');
+            }
+        });
+    }
+
+    if (inputAutor) {
+        inputAutor.addEventListener('input', function() {
+            const autorTexto = this.value.trim() || 'usuário';
+            previewAutor.textContent = autorTexto;
+        });
+    }
+
+    // ========================================
+    // EVENT LISTENERS - SELEÇÃO DE IMAGEM
+    // ========================================
+    if (inputImagem) {
+        inputImagem.addEventListener('change', function(e) {
+            const arquivo = e.target.files[0];
+            
+            if (arquivo) {
+                // Atualizar nome do arquivo exibido
+                if (fileName) fileName.textContent = arquivo.name;
+                
+                // Criar preview da imagem
+                const leitor = new FileReader();
+                leitor.onload = function(event) {
+                    if (previewImagem) {
+                        previewImagem.src = event.target.result;
+                        previewImagem.alt = 'Preview - ' + arquivo.name;
+                        console.log('✓ Preview da imagem atualizado');
+                    }
+                };
+                leitor.readAsDataURL(arquivo);
+            } else {
+                if (fileName) fileName.textContent = 'Nenhuma imagem selecionada';
+                resetarImagem();
+            }
+        });
+
+        // 🔥 IMPORTANTE: Quando clicar no botão (.file-label), clicar no input invisível
+        const fileLabel = document.querySelector('.file-label');
+        if (fileLabel) {
+            fileLabel.addEventListener('click', function(e) {
+                e.preventDefault();
+                inputImagem.click(); // ← ISTO ABRE O DIÁLOGO!
+            });
+        }
+    }
+
+    // ========================================
+    // EVENT LISTENERS - SELEÇÃO DE CATEGORIA
+    // ========================================
+    botoesCategorias.forEach(botao => {
+        botao.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remover classe ativa de todos os botões
+            botoesCategorias.forEach(btn => btn.classList.remove('ativo'));
+            
+            // Adicionar classe ativa ao botão clicado
+            this.classList.add('ativo');
+            
+            // Atualizar categoria selecionada
+            categoriaAtiva = this.getAttribute('data-categoria');
+            const categoriaNome = this.textContent;
+            
+            // Atualizar campo hidden
+            if (categoriaSelecionada) categoriaSelecionada.value = categoriaAtiva;
+            
+            // Atualizar preview
+            if (previewCategoriaBadge) previewCategoriaBadge.textContent = categoriaNome;
+            if (previewTag) previewTag.textContent = categoriaNome;
+        });
+    });
+
+    // ========================================
+    // SUBMIT DO FORMULÁRIO
+    // ========================================
+    formulario.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validar categoria selecionada
+        if (!categoriaAtiva) {
+            alert('Por favor, selecione uma categoria.');
+            return;
+        }
+        
+        // Validar imagem selecionada
+        if (!inputImagem.files.length) {
+            alert('Por favor, selecione uma imagem.');
+            return;
+        }
+
+        // Aqui você pode fazer o envio para o servidor
+        console.log({
+            titulo: inputTitulo.value,
+            conteudo: inputConteudo.value,
+            autor: inputAutor.value,
+            categoria: categoriaAtiva,
+            imagem: inputImagem.files[0]
+        });
+
+        // Simular envio bem-sucedido
+        alert('Notícia publicada com sucesso!');
+        this.reset();
+        resetarPreview();
+    });
+
+    // ========================================
+    // FUNÇÕES AUXILIARES
+    // ========================================
+    function atualizarDataAtual() {
+        const hoje = new Date();
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const ano = hoje.getFullYear();
+        if (previewData) previewData.textContent = `${dia}/${mes}/${ano}`;
+    }
+
+    function resetarImagem() {
+        if (previewImagem) {
+            previewImagem.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"%3E%3Crect fill="%23e8e8e8" width="800" height="450"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="24" fill="%23999"%3ESelecione uma imagem%3C/text%3E%3C/svg%3E';
+            previewImagem.alt = 'Preview da imagem';
+        }
+    }
+
+    function resetarPreview() {
+        if (previewTitulo) {
+            previewTitulo.textContent = 'Digite o título aqui...';
+            previewTitulo.classList.add('preview-text');
+        }
+        
+        if (previewConteudo) {
+            previewConteudo.textContent = 'Digite o conteúdo da notícia aqui. Será exibido em até 4 linhas na visualização do card.';
+            previewConteudo.classList.add('preview-text');
+        }
+        
+        if (previewAutor) previewAutor.textContent = 'usuário';
+        
+        resetarImagem();
+        
+        if (previewCategoriaBadge) previewCategoriaBadge.textContent = 'Categoria';
+        if (previewTag) previewTag.textContent = 'Categoria';
+        
+        if (fileName) fileName.textContent = 'Nenhuma imagem selecionada';
+        
+        botoesCategorias.forEach(btn => btn.classList.remove('ativo'));
+        if (categoriaSelecionada) categoriaSelecionada.value = '';
+        categoriaAtiva = null;
+        
+        atualizarDataAtual();
+    }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.querySelector('.slider-hero'))   initSlider();
+    if (document.querySelector('.card-noticia'))  inicializarPaginacao();
+    if (document.getElementById('form-noticia'))  inicializarPublicarPreview();
+    highlightCurrentPage();
+});
+
+// Reinicializar publicar preview ao carregar novo conteúdo via HTMX
+document.addEventListener('htmx:afterSwap', e => {
+    if (e.detail.target.id === 'conteudo-principal' || 
+        e.detail.target.querySelector('#form-noticia')) {
+        setTimeout(inicializarPublicarPreview, 150);
+    }
+});
