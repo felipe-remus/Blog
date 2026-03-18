@@ -1,7 +1,7 @@
 /* ========================================
 PÁGINA DE LOGIN / REGISTRO
    ======================================== */
-.pagina-login {
+   .pagina-login {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,6 +26,52 @@ PÁGINA DE LOGIN / REGISTRO
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     font-weight: 700;
+}
+
+/* ========================================
+NOTIFICAÇÕES DE ERRO / SUCESSO
+   ======================================== */
+.alerta {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: none;
+    animation: slideDown 0.3s ease;
+    font-weight: 500;
+    font-family: Arial, sans-serif;
+}
+
+.alerta.ativo {
+    display: block;
+}
+
+.alerta.erro {
+    background: #ffe0e0;
+    color: #c00;
+    border-left: 4px solid #c00;
+    border: 1px solid #ffcccc;
+}
+
+.alerta.sucesso {
+    background: #e0ffe0;
+    color: #0c0;
+    border-left: 4px solid #0c0;
+    border: 1px solid #ccffcc;
+}
+
+.alerta strong {
+    margin-right: 0.5rem;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .campo {
@@ -210,6 +256,12 @@ RESPONSIVIDADE
         font-size: 1rem;
     }
 
+    .alerta {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+        margin-bottom: 1.3rem;
+    }
+
     .botao-social {
         font-size: 0.9rem;
         padding: 0.65rem 1rem;
@@ -274,6 +326,13 @@ RESPONSIVIDADE
         border-radius: 6px;
     }
 
+    .alerta {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+        border-radius: 6px;
+    }
+
     .login-com-opcoes {
         margin-top: 1.5rem;
         padding-top: 1.5rem;
@@ -328,6 +387,12 @@ RESPONSIVIDADE
     .login-container .botao-de-login {
         padding: 0.7rem;
         font-size: 0.9rem;
+    }
+
+    .alerta {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
     }
 
     .botao-social {

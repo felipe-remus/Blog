@@ -14,7 +14,8 @@ SELECT
     c.nome_categoria
     FROM noticias n
     JOIN usuarios u ON n.usuario_id = u.id_usuario
-    JOIN categorias c ON n.categoria_id = c.id_categoria";
+    JOIN categorias c ON n.categoria_id = c.id_categoria
+    ORDER BY n.data_noticia DESC";
 
 $noticias = $con->query($sql_noticia);
 
