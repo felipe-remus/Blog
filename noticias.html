@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <!-- Cabeçalho -->
+    <!-- Cabeçalho HTML -->
     <template
         hx-get="template/header.html"
         hx-target="#xcabecalho"
@@ -52,35 +52,35 @@
     <main>
         <h1>Notícias das Equipes e Pilotos</h1>
 
-        <!-- Pesquisa e Filtro -->
+        <!-- Filtros PHP -->
         <template
-        hx-get="template/filtros.html"
-        hx-target="#filtro"
-        hx-trigger="load"
-        >
+            hx-get="filtros.php"
+            hx-target="#filtro" 
+            hx-swap="innerHTML"
+            hx-trigger="load">
         </template>
         <div id="filtro"></div>
 
-        <!-- Card de Notícia -->
+        <!-- Card de Notícia  PHP-->
         <template
-            hx-get="template/card.html"
-            hx-target="#noticia"
-            hx-trigger="load"
-            >
+            hx-get="card.php"
+            hx-target="#noticia" 
+            hx-swap="innerHTML"
+            hx-trigger="load">
         </template>
         <div id="noticia"></div>
 
-        <!-- Paginção -->
+        <!-- Paginção PHP -->
         <template
-            hx-get="template/paginacao.html"
-            hx-target="#paginacao"
-            hx-trigger="load"
-            >
+            hx-get="paginacao.php"
+            hx-target="#paginacao" 
+            hx-swap="innerHTML"
+            hx-trigger="load">
         </template>
         <div id="paginacao"></div>
     </main>
 
-    <!-- Rodapé -->
+    <!-- Rodapé  HTMl-->
     <template
         hx-get="template/footer.html"
         hx-target="#footer"

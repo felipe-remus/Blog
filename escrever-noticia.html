@@ -28,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Cabeçalho -->
+    <!-- Cabeçalho HTML -->
     <template
         hx-get="template/header.html"
         hx-target="#xcabecalho"
@@ -49,18 +49,18 @@
     </div>
 
     <main>
-        <!-- Pagina de escrevr -->
+        <!-- Publicar PHP -->
         <template
-            hx-get="template/publicar.html"
-            hx-target="#publicar"
-            hx-trigger="load"
-            >
+            hx-get="publicar.php"
+            hx-target="#publicar" 
+            hx-swap="innerHTML"
+            hx-trigger="load">
         </template>
         <div id="publicar"></div>
 
     </main>
 
-    <!-- Rodapé -->
+    <!-- Rodapé HTML -->
     <template
         hx-get="template/footer.html"
         hx-target="#footer"

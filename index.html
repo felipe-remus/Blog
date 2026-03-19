@@ -28,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Cabeçalho -->
+    <!-- Cabeçalho HTML -->
     <template
         hx-get="template/header.html"
         hx-target="#xcabecalho"
@@ -37,7 +37,7 @@
     </template>
     <div id="xcabecalho"></div>
 
-    <!-- Slider Hero (carregado via HTMX) -->
+    <!-- Slider Hero HTML -->
     <template
         hx-get="template/slider.html"
         hx-target="#slider"
@@ -47,21 +47,17 @@
     <div id="slider"></div>
 
     <main>
-        <div class="busca-container">
-            <input type="text" id="busca-texto" placeholder="Pesquisar Noticias...">
-        </div>
-
-        <!-- Card de Notícia -->
+        <!-- Card de Notícia HTML -->
         <template
-            hx-get="template/card.html"
-            hx-target="#noticia"
-            hx-trigger="load"
-            >
+            hx-get="card.php"
+            hx-target="#noticia" 
+            hx-swap="innerHTML"
+            hx-trigger="load">
         </template>
         <div id="noticia"></div>
     </main>
     
-    <!-- Rodapé -->
+    <!-- Rodapé HTML -->
     <template
         hx-get="template/footer.html"
         hx-target="#footer"

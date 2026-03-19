@@ -39,7 +39,7 @@
             <button type="submit" class="botao-de-login">Entrar</button>
         </form>
 
-        <!-- Resgistro -->
+        <!-- Registro -->
         <form id="form-registro" class="formulario" action="../pag-login.php" method="POST">
             <div class="campo">
                 <label for="nome-registro">Nome</label>
@@ -54,7 +54,6 @@
                 <input name="email_registro" type="email" id="email-registro" required>
             </div>
 
-            <!-- Linha com CPF e Telefone -->
             <div class="campo-linha">
                 <div class="subcampo">
                     <label for="telefone-registro">Telefone</label>
@@ -62,17 +61,15 @@
                 </div>
             </div>
             <script>
-                //Formatação Numero
                 document.getElementById('telefone-registro').addEventListener('input', function(e) {
                     var value = e.target.value;
                     var telPattern = value.replace(/\D/g, '')
                                         .replace(/(\d{2})(\d)/, '($1) $2')
-                                        .replace(/(\(\d{2}\)\s\d{5})(\d)/, '$1-$2')
+                                        .replace(/(\(\d{2}\) \s\d{5})(\d)/, '$1-$2')
                                         .replace(/(-\d{4})\d+?$/, '$1');        
                     e.target.value = telPattern;
-                    });
+                });
             </script>
-
             <div class="campo">
                 <label for="senha-registro">Senha</label>
                 <input name="senha_registro" type="password" id="senha-registro" required>
