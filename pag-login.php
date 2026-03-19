@@ -65,13 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao_registro'])) {
     $nome = trim($_POST['nome_registro'] ?? '');
     $user = trim($_POST['user_registro'] ?? '');
     $email = trim($_POST['email_registro'] ?? '');
-    $cpf = trim($_POST['cpf_registro'] ?? '');
     $telefone = trim($_POST['fone_registro'] ?? '');
     $senha = trim($_POST['senha_registro'] ?? '');
     $confirmar_senha = trim($_POST['confirmar_senha_registro'] ?? '');
 
     // Validações básicas
-    if (empty($nome) || empty($user) || empty($email) || empty($cpf) || empty($telefone) || empty($senha)) {
+    if (empty($nome) || empty($user) || empty($email) || empty($telefone) || empty($senha)) {
         $erro = 'Preencha todos os campos obrigatórios!';
     } elseif (strlen($user) < 3) {
         $erro = 'O nome de usuário deve ter no mínimo 3 caracteres!';
@@ -84,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao_registro'])) {
     } else {
         try {
             // Verificar se usuário já existe
-            $sql_check = "SELECT COUNT(*) as total FROM usuarios WHERE user = ? OR email = ? OR cpf = ?";
+            $sql_check = "SELECT COUNT(*) as total FROM usuarios WHERE user = ? OR email = ?";
             $stmt_check = $con->prepare($sql_check);
             $stmt_check->execute([$user, $email, $cpf]);
             $resultado = $stmt_check->fetch(PDO::FETCH_ASSOC);
@@ -103,11 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao_registro'])) {
                 $sucesso = 'Conta criada com sucesso! Faça login para continuar.';
                 
                 // Limpar formulário
-                $nome = $user = $email = $cpf = $telefone = $senha = $confirmar_senha = '';
+                $nome = $user = $email = $telefone = $senha = $confirmar_senha = '';
             }
         } catch (PDOException $e) {
             if (strpos($e->getMessage(), 'UNIQUE constraint failed') !== false) {
-                $erro = 'Este usuário, email ou CPF já está registrado!';
+                $erro = 'Este usuário ou email já está registrado!';
             } else {
                 $erro = 'Erro ao criar conta. Tente novamente mais tarde.';
             }

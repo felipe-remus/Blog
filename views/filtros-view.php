@@ -10,7 +10,13 @@
 <link rel="stylesheet" href="../css/slider.css">
 <link rel="stylesheet" href="../css/tags.css">
 
-<script src="../script/script.js" defer></script>
+<script src="../script/edicao-noticia.js" defer></script>
+<script src="../script/header.js" defer></script>
+<script src="../script/historia.js" defer></script>
+<script src="../script/modal-noticia.js" defer></script>
+<script src="../script/publicar.js" defer></script>
+<script src="../script/slider.js" defer></script>
+<script src="../script/tabs.js" defer></script>
 
 <div class="filtros-wrapper">
     <div class="busca-container">

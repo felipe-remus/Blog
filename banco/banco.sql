@@ -20,8 +20,8 @@ INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('Formula 4','f4
 INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('F1 Academy','f1academy');
 INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('Formula E','fe');
 INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('IndyCar','indy');
-INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('WEC','wec');
-INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('WRC','wrc');
+INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('World Endurance Championship','wec');
+INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('World Rally Championship','wrc');
 INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('Nascar','nascar');
 INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES ('MotoGP','moto');
 
@@ -38,7 +38,6 @@ CREATE TABLE usuarios (
 	nome TEXT,
 	user TEXT UNIQUE,
 	email TEXT UNIQUE,
-	cpf TEXT UNIQUE,
 	telefone TEXT,
 	senha TEXT,
 	perfil_id INTEGER NOT NULL,
@@ -46,11 +45,11 @@ CREATE TABLE usuarios (
 	ON DELETE RESTRICT
 );
 
-INSERT INTO usuarios (nome, user, email, cpf, telefone, senha, perfil_id) VALUES
-('Lewis Hamilton', 'lewis_hamilton', 'lewishamilton44@gmail.com', '485.504.770-87', '(51) 3227-7663', '12345', 2);
+INSERT INTO usuarios (nome, user, email, telefone, senha, perfil_id) VALUES
+('Lewis Hamilton', 'lewis_hamilton', 'lewishamilton44@gmail.com', '(51) 3227-7663', '12345', 2);
 
-INSERT INTO usuarios (nome, user, email, cpf, telefone, senha, perfil_id) VALUES
-('Carlos Mendes Silva', 'carlos.msilva99', 'carlos.msilva.ficticio@emailteste.com', '392.847.105-66', '(21) 97654-3210', 'simulacao123', 2);
+INSERT INTO usuarios (nome, user, email, telefone, senha, perfil_id) VALUES
+('Carlos Mendes Silva', 'carlos.msilva99', 'carlos.msilva.ficticio@emailteste.com', '(21) 97654-3210', 'simulacao123', 2);
 
 CREATE TABLE noticias (
 	id_noticia INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,7 +74,7 @@ INSERT INTO noticias (titulo_noticia, texto_noticia, imagem_noticia, data_notici
 INSERT INTO noticias (titulo_noticia, texto_noticia, imagem_noticia, data_noticia, categoria_id, usuario_id) VALUES
 (
     'Sébastien Ogier é confirmado como piloto principal do WRC em 2026',
-    'Sébastien Ogier, oito vezes campeão mundial de rally, foi oficialmente confirmado como piloto principal para a temporada de 2026 do Campeonato Mundial de Rally. O francês continuará sua parceria com a equipe M-Sport Ford, buscando conquistar seu nono título mundial e consolidar sua posição como o piloto mais vitoriante da história do WRC. Com a mudança de regulamento técnico prevista para este ano, Ogier expressa entusiasmo em trabalhar com os novos protótipos Rally1, que prometem maior eficiência de combustível e desempenho aprimorado. Seu copiloto Julien Ingrassia permanecerá ao seu lado, mantendo uma das parcerias mais bem-sucedidas do motorsport contemporâneo. A dupla francêsa terá como adversários principais Elfyn Evans, também da M-Sport, e pilotos de outras fabricantes como Hyundai e Toyota. Ogier já venceu 57 eventos mundiais em sua carreira e continua demonstrando competitividade de alto nível. A temporada de 2026 promete ser emocionante, com diversas mudanças técnicas e novas frentes de competição entre as fabricantes. Especialistas apontam que a experiência de Ogier será crucial para o desenvolvimento do novo carro M-Sport Rally1, que sofreu significativas atualizações para se adequar às novas especificações do campeonato.',
+    'Sébastien Ogier, oito vezes campeão mundial, foi oficialmente confirmado como piloto principal para a temporada de 2026. O francês continuará sua parceria com a equipe M-Sport Ford, buscando conquistar seu nono título mundial e consolidar sua posição como o piloto mais vitoriante da história do WRC. Com a mudança de regulamento técnico prevista para este ano, Ogier expressa entusiasmo em trabalhar com os novos protótipos Rally1, que prometem maior eficiência de combustível e desempenho aprimorado. Seu copiloto Julien Ingrassia permanecerá ao seu lado, mantendo uma das parcerias mais bem-sucedidas do motorsport contemporâneo. A dupla francêsa terá como adversários principais Elfyn Evans, também da M-Sport, e pilotos de outras fabricantes como Hyundai e Toyota. Ogier já venceu 57 eventos mundiais em sua carreira e continua demonstrando competitividade de alto nível. A temporada de 2026 promete ser emocionante, com diversas mudanças técnicas e novas frentes de competição entre as fabricantes. Especialistas apontam que a experiência de Ogier será crucial para o desenvolvimento do novo carro M-Sport Rally1, que sofreu significativas atualizações para se adequar às novas especificações do campeonato.',
     'img-noticia/3rally.jpg',
     '2026-03-17',
     9,

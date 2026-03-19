@@ -330,13 +330,11 @@ PAINEL ADMINISTRATIVO - ADMIN.CSS
     color: #333;
 }
 
-.btn-deletar-categoria,
 .btn-deletar-usuario {
     border-color: #ff6b6b;
     color: #ff6b6b;
 }
 
-.btn-deletar-categoria:hover,
 .btn-deletar-usuario:hover {
     background: #fff0f0;
     border-color: #ff4444;

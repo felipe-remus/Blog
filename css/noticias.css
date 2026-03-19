@@ -6,7 +6,7 @@ CARD
 .noticias-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2px;                           /* gap narrow tipo jornal */
+    gap: 2rem;                           /* gap narrow tipo jornal */
     margin: 2.5rem auto;
     padding: 0 2rem;
     max-width: 1380px;
@@ -405,6 +405,7 @@ MODAL OVERLAY
     justify-content: center;
     transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.25s ease;
     z-index: 10;
+    outline: none;
 }
 
 .modal-fechar:hover {

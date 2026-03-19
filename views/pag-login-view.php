@@ -10,7 +10,13 @@
 <link rel="stylesheet" href="../css/slider.css">
 <link rel="stylesheet" href="../css/tags.css">
 
-<script src="../script/script.js" defer></script>
+<script src="../script/edicao-noticia.js" defer></script>
+<script src="../script/header.js" defer></script>
+<script src="../script/historia.js" defer></script>
+<script src="../script/modal-noticia.js" defer></script>
+<script src="../script/publicar.js" defer></script>
+<script src="../script/slider.js" defer></script>
+<script src="../script/tabs.js" defer></script>
 
 <main class="pagina-login">
     <div class="login-container">
@@ -51,26 +57,11 @@
             <!-- Linha com CPF e Telefone -->
             <div class="campo-linha">
                 <div class="subcampo">
-                    <label for="cpf-registro">CPF</label>
-                    <input name="cpf_registro" type="text" id="cpf-registro" placeholder="000.000.000.00">
-                </div>
-                <div class="subcampo">
                     <label for="telefone-registro">Telefone</label>
                     <input name="fone_registro" type="tel" id="telefone-registro" placeholder="(00) 00000-0000">
                 </div>
             </div>
             <script>
-                // Formatação CPF
-                document.getElementById('cpf-registro').addEventListener('input', function(e) {
-                    var value = e.target.value;
-                    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
-                                        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
-                                        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
-                                        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono dígito
-                                        .replace(/(-\d{2})\d+?$/, '$1'); // Impede entrada de mais de 11 dígitos
-                    e.target.value = cpfPattern;
-                });
-
                 //Formatação Numero
                 document.getElementById('telefone-registro').addEventListener('input', function(e) {
                     var value = e.target.value;
