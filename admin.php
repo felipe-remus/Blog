@@ -1,7 +1,6 @@
 <?php
 // Conexão
-$string_conexao = 'sqlite:banco/blog_racing.db';
-$con = new PDO($string_conexao);
+$con = new PDO("sqlite:banco/blog_racing.db");
 
 // PROCESSAR REQUISIÇÕES AJAX
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao'])) {

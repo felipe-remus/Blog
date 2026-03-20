@@ -1,7 +1,6 @@
 <?php
 // Conexão com o banco
-$string_conexao = 'sqlite:banco/blog_racing.db';
-$con = new PDO($string_conexao);
+$con = new PDO("sqlite:banco/blog_racing.db");
 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Configurações de paginação
