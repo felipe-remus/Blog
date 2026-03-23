@@ -6,6 +6,7 @@
     $autor          = $uma_noticia['autor'];
     $tag_categoria  = $uma_noticia['nome_categoria'];
     $imagem_noticia = $uma_noticia['imagem_noticia'];
+    $id_noticia = $uma_noticia['id_noticia'];
 ?>
     <article class="card-noticia"
         data-data="<?=$data_noticia?>"
@@ -46,7 +47,7 @@
                 </button>
 
                 <!-- Botão Deletar -->
-                <button class="btn-acao btn-deletar" aria-label="Deletar notícia" title="Deletar">
+                <a class="btn-acao btn-deletar" aria-label="Deletar notícia" title="Deletar" href="model_apagar-noticia.php?id_noticia=<?=$id_noticia?>">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="3 6 5 6 21 6"/>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -54,7 +55,7 @@
                         <line x1="14" y1="11" x2="14" y2="17"/>
                     </svg>
                     Deletar
-                </button>
+                </a>
                 
             </div>
         </div>

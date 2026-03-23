@@ -29,5 +29,5 @@ $stmt->execute();
 // Pega o ID
 $id = $pdo->lastInsertId();
 
-require "login.html";
+header("Location: login.html");
 ?>

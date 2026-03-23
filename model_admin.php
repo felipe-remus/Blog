@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao'])) {
 $sql_categorias = "SELECT * FROM categorias ORDER BY id_categoria";
 $categorias = $con->query($sql_categorias)->fetchAll(PDO::FETCH_ASSOC);
 
-// Usuários (SEM CPF E SENHA)
+// Usuários
 $sql_usuarios = "
 SELECT 
     u.id_usuario,

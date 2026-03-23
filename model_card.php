@@ -10,7 +10,8 @@ SELECT
     n.imagem_noticia, 
     n.data_noticia, 
     u.user AS autor,
-    c.nome_categoria
+    c.nome_categoria,
+    n.id_noticia
     FROM noticias n
     JOIN usuarios u ON n.usuario_id = u.id_usuario
     JOIN categorias c ON n.categoria_id = c.id_categoria

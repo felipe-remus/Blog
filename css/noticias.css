@@ -220,6 +220,7 @@ BOTÔES DE AÇÃO
     cursor: pointer;
     transition: all 0.24s ease;
     outline: none;
+    text-decoration: none;
 }
 
 .btn-acao:hover {
