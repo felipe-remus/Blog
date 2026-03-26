@@ -19,11 +19,12 @@ $usuarioLogado = isset($_SESSION['usuario']);
                 <div class="area-colaboradores">
                     <p>Deseja contribuir com nosso conteúdo?</p>
                     <div class="botoes-slider">
-                        <a href="../login.html" class="botao-slider">Login/Criar Conta</a>
-
                         <?php if ($usuarioLogado): ?>
+                            <a href="../login.html" class="botao-slider">Mudar seus Dados</a>
                             <!-- Mostra Publicar apenas se ESTIVER logado -->
                             <a href="../escrever-noticia.html" class="botao-slider">Publique seu Artigo</a>
+                        <?php else: ?>
+                            <a href="../login.html" class="botao-slider">Login/Criar Conta</a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -40,11 +41,12 @@ $usuarioLogado = isset($_SESSION['usuario']);
                 <div class="area-colaboradores">
                     <p>Junte-se à nossa equipe de colaboradores</p>
                     <div class="botoes-slider">
-                        <a href="../login.html" class="botao-slider">Login/Criar Conta</a>
-
                         <?php if ($usuarioLogado): ?>
+                            <a href="../login.html" class="botao-slider">Mudar seus Dados</a>
                             <!-- Mostra Publicar apenas se ESTIVER logado -->
                             <a href="../escrever-noticia.html" class="botao-slider">Publique sua Análise</a>
+                        <?php else: ?>
+                            <a href="../login.html" class="botao-slider">Login/Criar Conta</a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -61,11 +63,12 @@ $usuarioLogado = isset($_SESSION['usuario']);
                 <div class="area-colaboradores">
                     <p>Compartilhe sua memória sobre Senna</p>
                     <div class="botoes-slider">
-                        <a href="../login.html" class="botao-slider">Login/Criar Conta</a>
-
                         <?php if ($usuarioLogado): ?>
+                            <a href="../login.html" class="botao-slider">Mudar seus Dados</a>
                             <!-- Mostra Publicar apenas se ESTIVER logado -->
                             <a href="../escrever-noticia.html" class="botao-slider">Publique sua Homenagem</a>
+                        <?php else: ?>
+                            <a href="../login.html" class="botao-slider">Login/Criar Conta</a>
                         <?php endif; ?>
                     </div>
                 </div>

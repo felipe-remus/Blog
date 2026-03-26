@@ -27,7 +27,7 @@
 </head>
 <body>
     <?php
-        require "../view/view_header.php"
+        require "view/view_header.php"
     ?>
     <!-- BOTÃO VOLTAR -->
     <div class="voltar-home">
@@ -115,43 +115,10 @@
         <!-- ========== ABA CATEGORIAS ========== -->
         <div class="tab-content active" id="tab-categorias">
             <div class="admin-container">
-                <!-- FORMULÁRIO ADICIONAR CATEGORIA -->
-                <div class="admin-form-section">
-                    <h2>Adicionar Nova Categoria</h2>
-                    <form id="form-categoria" class="admin-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="nome_categoria">Nome da Categoria *</label>
-                                <input 
-                                    type="text" 
-                                    id="nome_categoria" 
-                                    name="nome_categoria"
-                                    placeholder="Ex: Fórmula 1"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="sigla_categoria">Sigla *</label>
-                                <input 
-                                    type="text" 
-                                    id="sigla_categoria" 
-                                    name="sigla_categoria"
-                                    placeholder="Ex: f1"
-                                    maxlength="20"
-                                    required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn-admin btn-adicionar">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                            </svg>
-                            Adicionar Categoria
-                        </button>
-                    </form>
-                </div>
 
                 <!-- TABELA DE CATEGORIAS -->
                 <div class="admin-table-section">
-                    <h2>Categorias Existentes</h2>
+                    <h2>Categorias</h2>
                     <div class="table-responsive">
                         <table class="admin-table">
                             <thead>
@@ -246,7 +213,7 @@
     <div class="toast" id="toast"></div>
 
     <?php
-        require "view_footer.php"
+        require "view/view_footer.php"
     ?>
 </body>
 </html>

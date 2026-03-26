@@ -7,29 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao'])) {
     header('Content-Type: application/json');
     $acao = $_POST['acao'];
 
-    // ========== CATEGORIAS ==========
-    
-    // Adicionar categoria
-    if ($acao === 'adicionar_categoria') {
-        $nome = trim($_POST['nome_categoria'] ?? '');
-        $sigla = trim($_POST['sigla_categoria'] ?? '');
-
-        if (empty($nome) || empty($sigla)) {
-            echo json_encode(['sucesso' => false, 'mensagem' => 'Nome e sigla são obrigatórios']);
-            exit;
-        }
-
-        try {
-            $sql = "INSERT INTO categorias (nome_categoria, sigla_categoria) VALUES (?, ?)";
-            $stmt = $con->prepare($sql);
-            $stmt->execute([$nome, $sigla]);
-            echo json_encode(['sucesso' => true, 'mensagem' => 'Categoria adicionada com sucesso']);
-        } catch (PDOException $e) {
-            echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao adicionar categoria']);
-        }
-        exit;
-    }
-
     // ========== USUÁRIOS ==========
 
     // Deletar usuário
@@ -107,5 +84,5 @@ SELECT
     (SELECT COUNT(*) FROM noticias WHERE DATE(data_noticia) = DATE('now')) as noticias_hoje";
 $stats = $con->query($sql_stats)->fetch(PDO::FETCH_ASSOC);
 
-require "../view/view_admin.php";
+require "../admin.php";
 ?>

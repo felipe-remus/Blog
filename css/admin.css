@@ -158,7 +158,6 @@ PAINEL ADMINISTRATIVO - ADMIN.CSS
 }
 
 /* SEÇÕES */
-.admin-form-section,
 .admin-table-section {
     background: white;
     border-radius: 12px;
@@ -166,56 +165,11 @@ PAINEL ADMINISTRATIVO - ADMIN.CSS
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.admin-form-section h2,
 .admin-table-section h2 {
     margin-top: 0;
     margin-bottom: 1.5rem;
     color: #26011C;
     font-size: 1.25rem;
-}
-
-/* FORMULÁRIO */
-.admin-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.form-group label {
-    font-weight: 600;
-    color: #333;
-    font-size: 0.95rem;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #26011C;
-    box-shadow: 0 0 0 3px rgba(38, 1, 28, 0.1);
 }
 
 /* BOTÕES ADMIN */
@@ -244,16 +198,6 @@ PAINEL ADMINISTRATIVO - ADMIN.CSS
 
 .btn-admin:active {
     transform: translateY(0);
-}
-
-.btn-adicionar {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    color: white;
-}
-
-.btn-adicionar:hover {
-    background: linear-gradient(135deg, #38d770 0%, #2ee5c4 100%);
-    box-shadow: 0 4px 12px rgba(67, 233, 123, 0.3);
 }
 
 /* TABELAS */

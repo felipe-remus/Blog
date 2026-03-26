@@ -346,7 +346,7 @@ if (formEditarPerfil) {
         
         const formData = new FormData(this);
         
-        enviarRequisicao(formData, '../model/model_editar-perfil.php', (resposta) => {
+        enviarRequisicao(formData, '../model/model_editar-usuario.php', (resposta) => {
             if (resposta.sucesso) {
                 mostrarToast(resposta.mensagem, 'sucesso');
                 

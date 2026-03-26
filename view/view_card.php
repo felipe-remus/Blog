@@ -7,7 +7,8 @@ $idUsuarioLogado = $usuarioLogado ? $_SESSION['usuario']['id_usuario'] : null;
 $perfilUsuario = $usuarioLogado ? $_SESSION['usuario']['perfil_id'] : null;
 ?>
 
-<div class="noticias-container">
+<!-- ✨ CORREÇÃO: Adicionado id="noticias-container" para JavaScript encontrar -->
+<div id="noticias-container" class="noticias-container">
 <?php while ( $uma_noticia = $noticias->fetch(PDO::FETCH_ASSOC) ) { 
     $titulo_noticia = $uma_noticia['titulo_noticia'];
     $texto_noticia  = $uma_noticia['texto_noticia'];
@@ -41,7 +42,8 @@ $perfilUsuario = $usuarioLogado ? $_SESSION['usuario']['perfil_id'] : null;
 
         <div class="card-imagem">
             <img src="<?=$imagem_noticia?>"
-                loading="lazy">
+                loading="lazy"
+                alt="<?=$titulo_noticia?>">
             <span class="card-imagem-badge"><?=$tag_categoria?></span>
         </div>
 
@@ -79,7 +81,10 @@ $perfilUsuario = $usuarioLogado ? $_SESSION['usuario']['perfil_id'] : null;
 
                     <?php if ($podeDeletar): ?>
                         <!-- Botão Deletar -->
-                        <a class="btn-acao btn-deletar" aria-label="Deletar notícia" title="Deletar" onclick="window.location.href='../model/model_noticia-apagar.php?id_noticia=<?=$id_noticia?>'">
+                        <a class="btn-acao btn-deletar"
+                        aria-label="Deletar notícia" 
+                        title="Deletar" 
+                        onclick="if(confirm('Tem certeza que deseja deletar esta notícia?')) { window.location.href='../model/model_noticia-apagar.php?id_noticia=<?=$id_noticia?>'; }">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="3 6 5 6 21 6"/>
                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>

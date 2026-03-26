@@ -22,25 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ========== CATEGORIAS ==========
-    const formCategoria = document.getElementById('form-categoria');
-    if (formCategoria) {
-        formCategoria.addEventListener('submit', (e) => {
-            e.preventDefault();
-            adicionarCategoria();
-        });
-    }
-
-    // Deletar categoria
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-deletar-categoria')) {
-            const id = e.target.closest('.btn-deletar-categoria').dataset.id;
-            const nome = e.target.closest('tr').querySelector('td:nth-child(1)').textContent;
-            confirmarAcao('Deletar Categoria', 
-                `Tem certeza que deseja deletar a categoria "${nome}"?`,
-                () => deletarCategoria(id));
-        }
-    });
-
     // ========== USUÁRIOS ==========
     
     // Atualizar perfil
@@ -83,64 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-// ========================================
-// FUNÇÕES - CATEGORIAS
-// ========================================
-
-function adicionarCategoria() {
-    const nome = document.getElementById('nome_categoria').value.trim();
-    const sigla = document.getElementById('sigla_categoria').value.trim();
-
-    if (!nome || !sigla) {
-        mostrarToast('Preencha todos os campos', 'erro');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('acao', 'adicionar_categoria');
-    formData.append('nome_categoria', nome);
-    formData.append('sigla_categoria', sigla);
-
-    enviarRequisicao(formData, (resposta) => {
-        if (resposta.sucesso) {
-            mostrarToast(resposta.mensagem, 'sucesso');
-            document.getElementById('form-categoria').reset();
-            setTimeout(() => {
-                location.reload();
-            }, 800);
-        } else {
-            mostrarToast(resposta.mensagem, 'erro');
-        }
-    });
-}
-
-function deletarCategoria(id) {
-    const formData = new FormData();
-    formData.append('acao', 'deletar_categoria');
-    formData.append('id_categoria', id);
-
-    enviarRequisicao(formData, (resposta) => {
-        if (resposta.sucesso) {
-            mostrarToast(resposta.mensagem, 'sucesso');
-            
-            // Animar remoção
-            const linha = document.querySelector(`tr[data-id="${id}"]`);
-            if (linha) {
-                linha.style.opacity = '0';
-                linha.style.transition = 'opacity 0.3s ease';
-            }
-            
-            // Recarregar página após 0.8 segundos
-            setTimeout(() => {
-                location.reload();
-            }, 800);
-        } else {
-            mostrarToast(resposta.mensagem, 'erro');
-        }
-        fecharModal();
-    });
-}
 
 // ========================================
 // FUNÇÕES - USUÁRIOS
@@ -247,16 +170,4 @@ function mostrarToast(mensagem, tipo = 'info') {
     setTimeout(() => {
         toast.classList.remove(tipo);
     }, 3000);
-}
-
-// ========================================
-// VALIDAÇÕES
-// ========================================
-
-// Validar entrada de sigla (apenas letras e números)
-const siglaInput = document.getElementById('sigla_categoria');
-if (siglaInput) {
-    siglaInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.toLowerCase().replace(/[^a-z0-9]/g, '');
-    });
 }
