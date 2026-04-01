@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
+
+/* ========================================
+   ACESSO RESTRITO — acesso-restrito.css
+   ======================================== */
+
+.ar-main {
+    position: relative;
+    min-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+/* ── Fita decorativa ──────────────────── */
+.ar-tape {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(
+        90deg,
+        #26011C 0px, #26011C 60px,
+        #e10600 60px, #e10600 120px
+    );
+    z-index: 2;
+    animation: arTapeSlide 8s linear infinite;
+}
+.ar-tape-bottom {
+    top: auto;
+    bottom: 0;
+    animation-direction: reverse;
+}
+@keyframes arTapeSlide {
+    from { background-position: 0 0; }
+    to   { background-position: 120px 0; }
+}
+
+/* ── Card principal ───────────────────── */
+.ar-wrapper {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto 1px 1fr;
+    gap: 0 3.5rem;
+    align-items: center;
+    max-width: 960px;
+    width: 100%;
+    background: #ffffff;
+    border-top: 4px solid #26011C;
+    border-bottom: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-radius: 2px;
+    box-shadow:
+        0 2px 8px rgba(38, 1, 28, 0.06),
+        0 16px 48px rgba(38, 1, 28, 0.09);
+    padding: 3.5rem;
+    animation: arCardIn 0.65s cubic-bezier(0.34, 1.1, 0.64, 1) both;
+}
+@keyframes arCardIn {
+    from { opacity: 0; transform: translateY(28px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Coluna esquerda ──────────────────── */
+.ar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    user-select: none;
+}
+
+/* Círculo do ícone */
+.ar-icon-wrap {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: arIconPulse 3s ease-in-out infinite;
+}
+.ar-icon-wrap.login {
+    background: rgba(38, 1, 28, 0.07);
+    border: 2px solid rgba(38, 1, 28, 0.15);
+    color: #26011C;
+}
+.ar-icon-wrap.shield {
+    background: rgba(225, 6, 0, 0.07);
+    border: 2px solid rgba(225, 6, 0, 0.2);
+    color: #e10600;
+}
+.ar-icon-wrap svg {
+    width: 44px;
+    height: 44px;
+}
+@keyframes arIconPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0.12); }
+    50%       { box-shadow: 0 0 0 12px rgba(225, 6, 0, 0); }
+}
+
+/* Número do código HTTP */
+.ar-codigo-box { text-align: center; }
+
+.ar-numero {
+    font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 3px #e10600;
+    line-height: 1;
+    display: block;
+    animation: arNumIn 0.6s 0.2s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+}
+@keyframes arNumIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* Label editorial */
+.ar-edition {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.ar-edition-line {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+}
+.ar-edition-dot { color: #e10600; font-size: 0.5rem; }
+
+/* ── Divisória ────────────────────────── */
+.ar-divider {
+    align-self: stretch;
+    background: #e0e0e0;
+    width: 1px;
+    min-height: 240px;
+}
+
+/* ── Coluna direita ───────────────────── */
+.ar-right {
+    display: flex;
+    flex-direction: column;
+    animation: arRightIn 0.65s 0.15s cubic-bezier(0.34, 1.1, 0.64, 1) both;
+}
+@keyframes arRightIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Kicker */
+.ar-kicker {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #e10600;
+    margin: 0 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.ar-kicker::before {
+    content: '';
+    display: inline-block;
+    width: 1.8rem;
+    height: 2px;
+    background: #e10600;
+    border-radius: 1px;
+}
+
+/* Título */
+.ar-headline {
+    font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+    font-weight: 800;
+    color: #26011C;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin: 0 0 1.2rem;
+}
+
+/* Régua */
+.ar-rule {
+    width: 100%;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 0 0 1.2rem;
+    position: relative;
+}
+.ar-rule::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 3rem;
+    height: 3px;
+    background: #e10600;
+    transform: translateY(-1px);
+    border-radius: 1px;
+}
+
+/* Corpo */
+.ar-body {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #444;
+    margin: 0 0 0.9rem;
+}
+.ar-body:last-of-type { margin-bottom: 1.8rem; }
+
+/* ── Botões ───────────────────────────── */
+.ar-acoes {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.ar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.5rem;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    background: none;
+}
+
+.ar-btn-primario {
+    background: linear-gradient(135deg, #26011C 0%, #1a0113 100%);
+    color: #ffffff;
+    border-color: #26011C;
+    box-shadow: 0 2px 10px rgba(38, 1, 28, 0.2);
+}
+.ar-btn-primario:hover {
+    background: linear-gradient(135deg, #e10600 0%, #c10500 100%);
+    border-color: #e10600;
+    box-shadow: 0 4px 16px rgba(225, 6, 0, 0.35);
+    transform: translateY(-2px);
+}
+.ar-btn-primario svg { transition: transform 0.28s ease; }
+.ar-btn-primario:hover svg { transform: translateX(3px); }
+
+.ar-btn-secundario {
+    background: transparent;
+    color: #26011C;
+    border-color: #ccc;
+}
+.ar-btn-secundario:hover {
+    border-color: #26011C;
+    background: #f4f4f4;
+    transform: translateY(-2px);
+}
+
+/* ── Rodapé editorial ─────────────────── */
+.ar-rodape-editorial {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.78rem;
+    color: #999;
+    border-top: 1px solid #ebebeb;
+    padding-top: 1.2rem;
+}
+.ar-rodape-editorial strong { color: #26011C; font-weight: 700; }
+
+/* ========================================
+RESPONSIVIDADE
+   ======================================== */
+@media (max-width: 768px) {
+    .ar-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem 0;
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+    .ar-divider { display: none; }
+    .ar-left {
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 2rem;
+    }
+    .ar-kicker { justify-content: flex-start; }
+    .ar-right  { text-align: left; }
+    .ar-icon-wrap { width: 75px; height: 75px; }
+    .ar-icon-wrap svg { width: 36px; height: 36px; }
+}
+
+@media (max-width: 480px) {
+    .ar-main    { padding: 3rem 1rem; }
+    .ar-wrapper { padding: 2rem 1.4rem; }
+    .ar-headline { font-size: 1.4rem; }
+    .ar-body    { font-size: 0.9rem; }
+    .ar-acoes   { flex-direction: column; }
+    .ar-btn     { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 360px) {
+    .ar-numero  { font-size: 3rem; }
+    .ar-wrapper { padding: 1.5rem 1.1rem; }
+}

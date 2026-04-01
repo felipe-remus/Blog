@@ -1,0 +1,480 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Inter:wght@400;500;600&display=swap');
+
+/* ========================================
+404 — NOT FOUND
+   ======================================== */
+
+/* Canvas de partículas ao fundo */
+#nf-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+}
+
+/* Área principal */
+.notfound-main {
+    position: relative;
+    min-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+/* ========================================
+FITA DECORATIVA (topo e base)
+   ======================================== */
+.nf-tape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(
+        90deg,
+        #26011C 0px,
+        #26011C 60px,
+        #e10600 60px,
+        #e10600 120px
+    );
+    z-index: 2;
+    animation: nfTapeSlide 8s linear infinite;
+}
+
+.nf-tape-bottom {
+    top: auto;
+    bottom: 0;
+    animation-direction: reverse;
+}
+
+@keyframes nfTapeSlide {
+    from { background-position: 0 0; }
+    to   { background-position: 120px 0; }
+}
+
+/* ========================================
+LAYOUT PRINCIPAL (grid editorial)
+   ======================================== */
+.nf-wrapper {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto 1px 1fr;
+    gap: 0 3.5rem;
+    align-items: center;
+    max-width: 1000px;
+    width: 100%;
+    background: #ffffff;
+    border-top: 4px solid #26011C;
+    border-bottom: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-radius: 2px;
+    box-shadow:
+        0 2px 8px rgba(38, 1, 28, 0.06),
+        0 16px 48px rgba(38, 1, 28, 0.09);
+    padding: 3.5rem 3.5rem;
+    animation: nfCardIn 0.7s cubic-bezier(0.34, 1.1, 0.64, 1) both;
+}
+
+@keyframes nfCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(32px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+COLUNA ESQUERDA — DÍGITOS
+   ======================================== */
+.nf-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-right: 0;
+    user-select: none;
+}
+
+.nf-digits {
+    display: flex;
+    align-items: center;
+    gap: 0.1em;
+    line-height: 1;
+}
+
+.nf-digit {
+    font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 900;
+    color: #26011C;
+    display: block;
+    position: relative;
+    animation: nfDigitIn 0.6s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+}
+
+.nf-digit:nth-child(1) { animation-delay: 0.10s; }
+.nf-digit:nth-child(2) { animation-delay: 0.22s; }
+.nf-digit:nth-child(3) { animation-delay: 0.34s; }
+
+@keyframes nfDigitIn {
+    from {
+        opacity: 0;
+        transform: translateY(-24px) scaleY(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+/* Zero com "buraco" vermelho */
+.nf-zero {
+    color: transparent;
+    -webkit-text-stroke: 4px #e10600;
+    text-shadow: 4px #e10600;
+    position: relative;
+}
+
+/* Glitch animado nos dígitos */
+.nf-digit::before,
+.nf-digit::after {
+    content: attr(data-char);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+}
+
+.nf-digit::before {
+    color: #e10600;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.nf-digit::after {
+    color: #26011C;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+/* O zero usa stroke, então os pseudo-elementos herdam o mesmo */
+.nf-zero::before,
+.nf-zero::after {
+    -webkit-text-stroke: 4px #e10600;
+    color: transparent;
+}
+
+.nf-digits:hover .nf-digit::before {
+    animation: nfGlitchTop 0.4s steps(2) infinite;
+}
+.nf-digits:hover .nf-digit::after {
+    animation: nfGlitchBot 0.4s steps(2) infinite;
+}
+
+@keyframes nfGlitchTop {
+    0%   { opacity: 0.8; transform: translate(-3px, 0); }
+    50%  { opacity: 0.6; transform: translate(3px, 0); }
+    100% { opacity: 0.8; transform: translate(-3px, 0); }
+}
+
+@keyframes nfGlitchBot {
+    0%   { opacity: 0.6; transform: translate(3px, 0); }
+    50%  { opacity: 0.8; transform: translate(-3px, 0); }
+    100% { opacity: 0.6; transform: translate(3px, 0); }
+}
+
+/* Label editorial abaixo dos dígitos */
+.nf-edition {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nf-edition-line {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+}
+
+.nf-edition-dot {
+    color: #e10600;
+    font-size: 0.55rem;
+}
+
+/* ========================================
+DIVISÓRIA VERTICAL
+   ======================================== */
+.nf-divider {
+    align-self: stretch;
+    background: #e0e0e0;
+    width: 1px;
+    min-height: 260px;
+}
+
+/* ========================================
+COLUNA DIREITA — EDITORIAL
+   ======================================== */
+.nf-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    animation: nfRightIn 0.7s 0.15s cubic-bezier(0.34, 1.1, 0.64, 1) both;
+}
+
+@keyframes nfRightIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Kicker (eyebrow) */
+.nf-kicker {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #e10600;
+    margin: 0 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nf-kicker::before {
+    content: '';
+    display: inline-block;
+    width: 1.8rem;
+    height: 2px;
+    background: #e10600;
+    border-radius: 1px;
+}
+
+/* Título principal */
+.nf-headline {
+    font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    font-weight: 800;
+    color: #26011C;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin: 0 0 1.2rem;
+}
+
+/* Régua editorial */
+.nf-rule {
+    width: 100%;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 0 0 1.2rem;
+    position: relative;
+}
+
+.nf-rule::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 3rem;
+    height: 3px;
+    background: #e10600;
+    transform: translateY(-1px);
+    border-radius: 1px;
+}
+
+/* Corpo do texto */
+.nf-body {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #444;
+    margin: 0 0 0.9rem;
+}
+
+.nf-body:last-of-type {
+    margin-bottom: 1.8rem;
+}
+
+/* ========================================
+BOTÕES DE AÇÃO
+   ======================================== */
+.nf-acoes {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.nf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.5rem;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nf-btn-primario {
+    background: linear-gradient(135deg, #26011C 0%, #1a0113 100%);
+    color: #ffffff;
+    border-color: #26011C;
+    box-shadow: 0 2px 10px rgba(38, 1, 28, 0.2);
+}
+
+.nf-btn-primario:hover {
+    background: linear-gradient(135deg, #e10600 0%, #c10500 100%);
+    border-color: #e10600;
+    box-shadow: 0 4px 16px rgba(225, 6, 0, 0.35);
+    transform: translateX(-4px);
+}
+
+.nf-btn-primario:hover svg {
+    transform: translateX(-3px);
+}
+
+.nf-btn-primario svg {
+    transition: transform 0.28s ease;
+}
+
+.nf-btn-secundario {
+    background: transparent;
+    color: #26011C;
+    border-color: #ccc;
+}
+
+.nf-btn-secundario:hover {
+    border-color: #26011C;
+    background: #f4f4f4;
+    transform: translateY(-2px);
+}
+
+/* ========================================
+RODAPÉ EDITORIAL
+   ======================================== */
+.nf-rodape-editorial {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.78rem;
+    color: #999;
+    border-top: 1px solid #ebebeb;
+    padding-top: 1.2rem;
+}
+
+.nf-rodape-editorial strong {
+    color: #26011C;
+    font-weight: 700;
+}
+
+.nf-sep {
+    color: #e0e0e0;
+}
+
+/* ========================================
+RESPONSIVIDADE
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .nf-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 2rem 0;
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    .nf-divider {
+        display: none;
+    }
+
+    .nf-left {
+        padding-right: 0;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 2rem;
+    }
+
+    .nf-right {
+        text-align: left;
+    }
+
+    .nf-kicker {
+        justify-content: flex-start;
+    }
+
+    .nf-digit {
+        font-size: clamp(4rem, 18vw, 7rem);
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .notfound-main {
+        padding: 3rem 1rem;
+    }
+
+    .nf-wrapper {
+        padding: 2rem 1.4rem;
+        margin: 0;
+    }
+
+    .nf-headline {
+        font-size: 1.5rem;
+    }
+
+    .nf-body {
+        font-size: 0.9rem;
+    }
+
+    .nf-acoes {
+        flex-direction: column;
+    }
+
+    .nf-btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.85rem;
+    }
+
+    .nf-zero {
+        -webkit-text-stroke-width: 3px;
+    }
+}
+
+@media (max-width: 360px) {
+    .nf-digit {
+        font-size: clamp(3rem, 20vw, 5.5rem);
+    }
+
+    .nf-wrapper {
+        padding: 1.5rem 1.1rem;
+    }
+}
