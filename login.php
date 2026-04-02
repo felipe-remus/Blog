@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -27,19 +31,15 @@
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Header -->
-    <template
-        hx-get="view/view_header.php"
-        hx-target="#header" 
-        hx-swap="innerHTML"
-        hx-trigger="load">
-    </template>
-    <div id="header"></div>
+    <!-- Header: include direto, sem requisição HTTP extra -->
+    <div id="header">
+        <?php require "view/view_header.php"; ?>
+    </div>
 
     <main>
         <!-- Botão "Voltar para a Home" -->
         <div class="voltar-home">
-            <a href="index.html" class="btn-voltar">
+            <a href="index.php" class="btn-voltar">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
                     <polyline points="12 19 5 12 12 5"></polyline>
@@ -58,13 +58,9 @@
         <div id="login"></div>
     </main>
 
-    <!-- Footer -->
-    <template
-        hx-get="view/view_footer.php"
-        hx-target="#footer" 
-        hx-swap="innerHTML"
-        hx-trigger="load">
-    </template>
-    <div id="footer"></div>
+    <!-- Footer: include direto, sem requisição HTTP extra -->
+    <div id="footer">
+        <?php require "view/view_footer.php"; ?>
+    </div>
 </body>
 </html>
