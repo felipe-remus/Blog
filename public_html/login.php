@@ -1,14 +1,14 @@
 <?php
-// Sessão iniciada UMA VEZ aqui — não precisa mais em nenhuma view
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    
+    <title>Login</title>
+
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/filtros.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -33,28 +33,34 @@ session_start();
 <body>
     <!-- Header: include direto, sem requisição HTTP extra -->
     <div id="header">
-        <?php require "view/view_header.php"; ?>
-    </div>
-
-    <!-- Slider Hero: include direto, sem requisição HTTP extra -->
-    <div id="slider">
-        <?php require "view/view_slider.php"; ?>
+        <?php require "../view/view_header.php"; ?>
     </div>
 
     <main>
-        <!-- Notícias: HTMX mantido pois responde a filtros e paginação dinâmica -->
+        <!-- Botão "Voltar para a Home" -->
+        <div class="voltar-home">
+            <a href="index.php" class="btn-voltar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Voltar para a Home</span>
+            </a>
+        </div>
+
+        <!-- Pagina Login -->
         <template
-            hx-get="model/model_noticia.php"
-            hx-target="#noticia"
+            hx-get="../view/view_pag-login.php"
+            hx-target="#login" 
             hx-swap="innerHTML"
             hx-trigger="load">
         </template>
-        <div id="noticia"></div>
+        <div id="login"></div>
     </main>
 
     <!-- Footer: include direto, sem requisição HTTP extra -->
     <div id="footer">
-        <?php require "view/view_footer.php"; ?>
+        <?php require "../view/view_footer.php"; ?>
     </div>
 </body>
 </html>

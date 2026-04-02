@@ -32,7 +32,7 @@ session_start();
 <body>
 
     <div id="header">
-        <?php require "view/view_header.php"; ?>
+        <?php require "../view/view_header.php"; ?>
     </div>
 
     <main>
@@ -82,7 +82,7 @@ session_start();
     </main>
 
     <div id="footer">
-        <?php require "view/view_footer.php"; ?>
+        <?php require "../view/view_footer.php"; ?>
     </div>
 
 </body>

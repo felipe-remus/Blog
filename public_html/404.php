@@ -20,7 +20,7 @@ http_response_code(404);
 <body>
 
     <div id="header">
-        <?php require "view/view_header.php"; ?>
+        <?php require "../view/view_header.php"; ?>
     </div>
 
     <main class="notfound-main">
@@ -93,7 +93,7 @@ http_response_code(404);
     </main>
 
     <div id="footer">
-        <?php require "view/view_footer.php"; ?>
+        <?php require "../view/view_footer.php"; ?>
     </div>
 
 </body>

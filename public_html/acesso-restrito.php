@@ -49,7 +49,7 @@ if (!empty($destino_da_sessao)) {
 </head>
 <body>
     <div id="header">
-        <?php require "view/view_header.php"; ?>
+        <?php require "../view/view_header.php"; ?>
     </div>
 
     <main class="ar-main">
@@ -129,7 +129,7 @@ if (!empty($destino_da_sessao)) {
     </main>
 
     <div id="footer">
-        <?php require "view/view_footer.php"; ?>
+        <?php require "../view/view_footer.php"; ?>
     </div>
 </body>
 </html>

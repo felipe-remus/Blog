@@ -1,7 +1,3 @@
-<?php
-// Sessão iniciada UMA VEZ aqui
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -34,7 +30,7 @@ session_start();
 
     <!-- Header: include direto, sem requisição HTTP extra -->
     <div id="header">
-        <?php require "view/view_header.php"; ?>
+        <?php require "../view/view_header.php"; ?>
     </div>
 
     <main>
@@ -53,7 +49,7 @@ session_start();
 
         <!-- Filtros: HTMX mantido pois carrega categorias do banco -->
         <template
-            hx-get="model/model_filtros.php"
+            hx-get="/proxy-noticias.php?p=model_filtros"
             hx-target="#filtro"
             hx-swap="innerHTML"
             hx-trigger="load">
@@ -62,7 +58,7 @@ session_start();
 
         <!-- Notícias: HTMX mantido pois responde a filtros e paginação dinâmica -->
         <template
-            hx-get="model/model_noticia.php"
+            hx-get="/proxy-noticias.php?p=model_noticia"
             hx-target="#noticia"
             hx-swap="innerHTML"
             hx-trigger="load">
@@ -72,7 +68,7 @@ session_start();
 
     <!-- Footer: include direto, sem requisição HTTP extra -->
     <div id="footer">
-        <?php require "view/view_footer.php"; ?>
+        <?php require "../view/view_footer.php"; ?>
     </div>
 </body>
 </html>

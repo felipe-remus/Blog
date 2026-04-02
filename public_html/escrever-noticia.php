@@ -38,7 +38,7 @@ requer_login();
 
     <!-- Header: include direto -->
     <div id="header">
-        <?php require "view/view_header.php"; ?>
+        <?php require "../view/view_header.php"; ?>
     </div>
 
     <main>
@@ -57,7 +57,7 @@ requer_login();
 
         <!-- Publicar: HTMX mantido pois faz requisições dinâmicas -->
         <template
-            hx-get="model/model_noticia-publicar.php"
+            hx-get="../model/model_noticia-publicar.php"
             hx-target="#publicar"
             hx-swap="innerHTML"
             hx-trigger="load">
@@ -67,7 +67,7 @@ requer_login();
 
     <!-- Footer: include direto -->
     <div id="footer">
-        <?php require "view/view_footer.php"; ?>
+        <?php require "../view/view_footer.php"; ?>
     </div>
 
 </body>
