@@ -1,7 +1,6 @@
 <?php
-session_start();
-require "includes/auth.php";
-
+// session_start(); // REMOVA ESTA LINHA
+require_once "includes/auth.php"; // Use require_once para segurança
 // Apenas usuários logados podem acessar esta página
 requer_login();
 ?>

@@ -2,11 +2,16 @@
 session_start();
 http_response_code(403);
 
-// Motivo recebido via query string: 'login' ou 'permissao'
-$motivo   = $_GET['motivo']   ?? 'login';
-$destino  = $_GET['destino']  ?? '';   // URL original (para redirecionar após login)
+// Lê o motivo da SESSÃO em vez de $_GET
+$motivo_da_sessao = $_SESSION['acesso_negado_motivo'] ?? 'login'; // Padrão ainda pode ser 'login' se algo der errado
+$destino_da_sessao = $_SESSION['acesso_negado_destino'] ?? '';
 
-$eh_login = ($motivo === 'login');
+// Limpa as variáveis da sessão imediatamente após lê-las para evitar persistência indesejada
+unset($_SESSION['acesso_negado_motivo']);
+unset($_SESSION['acesso_negado_destino']);
+
+// Determina o tipo de erro com base no motivo da sessão
+$eh_login = ($motivo_da_sessao === 'login');
 
 $titulo_principal = $eh_login
     ? "Acesso restrito: faça login para continuar"
@@ -24,10 +29,10 @@ $kicker = $eh_login ? "AUTENTICAÇÃO NECESSÁRIA" : "ACESSO NEGADO";
 $codigo = $eh_login ? "HTTP 401 · Unauthorized" : "HTTP 403 · Forbidden";
 $icone  = $eh_login ? "login" : "shield";
 
-// Monta o link de login com redirecionamento (se veio de uma página específica)
+// Usa o destino armazenado na sessão para o link de login
 $link_login = "login.php";
-if (!empty($destino)) {
-    $link_login = "login.php?redirect=" . urlencode($destino);
+if (!empty($destino_da_sessao)) {
+    $link_login = "login.php?redirect=" . urlencode($destino_da_sessao);
 }
 ?>
 <!DOCTYPE html>
@@ -36,45 +41,38 @@ if (!empty($destino)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $eh_login ? '401 — Acesso Restrito' : '403 — Sem Permissão' ?></title>
-
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/acesso-restrito.css">
-
     <script src="script/header.js" defer></script>
 </head>
 <body>
-
     <div id="header">
         <?php require "view/view_header.php"; ?>
     </div>
 
     <main class="ar-main">
-
         <div class="ar-tape"></div>
-
         <div class="ar-wrapper">
-
             <!-- Ícone / Código -->
             <div class="ar-left">
-
                 <div class="ar-icon-wrap <?= $icone ?>">
                     <?php if ($icone === 'login'): ?>
-                    <!-- Cadeado -->
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
+                        <!-- Cadeado -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
                     <?php else: ?>
-                    <!-- Escudo -->
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        <line x1="12" y1="9" x2="12" y2="13"/>
-                        <line x1="12" y1="17" x2="12.01" y2="17"/>
-                    </svg>
+                        <!-- Escudo -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
                     <?php endif; ?>
                 </div>
 
@@ -87,20 +85,15 @@ if (!empty($destino)) {
                     <span class="ar-edition-dot">●</span>
                     <span class="ar-edition-line"><?= $eh_login ? 'LOGIN' : 'PERMISSÃO' ?></span>
                 </div>
-
             </div>
 
             <div class="ar-divider" aria-hidden="true"></div>
 
             <!-- Conteúdo editorial -->
             <div class="ar-right">
-
                 <p class="ar-kicker"><?= htmlspecialchars($kicker) ?></p>
-
                 <h1 class="ar-headline"><?= htmlspecialchars($titulo_principal) ?></h1>
-
                 <div class="ar-rule"></div>
-
                 <p class="ar-body"><?= htmlspecialchars($corpo1) ?></p>
                 <p class="ar-body"><?= htmlspecialchars($corpo2) ?></p>
 
@@ -126,22 +119,17 @@ if (!empty($destino)) {
                             Ir para a Home
                         </a>
                     <?php endif; ?>
-
                     <button class="ar-btn ar-btn-secundario" onclick="history.back()">
                         Página anterior
                     </button>
                 </div>
             </div>
-
         </div>
-
         <div class="ar-tape ar-tape-bottom"></div>
-
     </main>
 
     <div id="footer">
         <?php require "view/view_footer.php"; ?>
     </div>
-
 </body>
 </html>
