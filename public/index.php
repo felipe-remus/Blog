@@ -44,7 +44,7 @@ session_start();
     <main>
         <!-- Notícias: HTMX mantido pois responde a filtros e paginação dinâmica -->
         <template
-            hx-get="../model/model_noticia.php"
+            hx-get="/proxy.php?p=model_noticia"
             hx-target="#noticia"
             hx-swap="innerHTML"
             hx-trigger="load">

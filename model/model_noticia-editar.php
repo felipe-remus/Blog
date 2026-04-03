@@ -89,6 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-
 require "../view/view_noticia-editar.php";
 ?>

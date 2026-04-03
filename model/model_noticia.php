@@ -1,7 +1,4 @@
 <?php
-// model_noticia.php é chamado via HTMX (requisição separada),
-// então precisa iniciar a sessão aqui também.
-// A proteção session_status evita erro caso já esteja ativa.
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -53,17 +50,17 @@ $sql_contagem = "
     JOIN categorias c ON n.categoria_id = c.id_categoria"
     . $where;
 
-$stmt_count     = $con->prepare($sql_contagem);
+$stmt_count = $con->prepare($sql_contagem);
 $stmt_count->execute($params);
 $total_noticias = (int) $stmt_count->fetch(PDO::FETCH_ASSOC)['total'];
-$total_paginas  = $total_noticias > 0 ? ceil($total_noticias / $por_pagina) : 1;
+$total_paginas = $total_noticias > 0 ? ceil($total_noticias / $por_pagina) : 1;
 
 // Garante que a página atual não ultrapasse o total
 $pagina_atual = min($pagina_atual, $total_paginas);
-$offset       = ($pagina_atual - 1) * $por_pagina;
+$offset = ($pagina_atual - 1) * $por_pagina;
 
 $inicio = $total_noticias > 0 ? $offset + 1 : 0;
-$fim    = min($offset + $por_pagina, $total_noticias);
+$fim = min($offset + $por_pagina, $total_noticias);
 
 // Busca paginada (respeitando filtros)
 $sql_noticia = "
