@@ -1,8 +1,12 @@
 <?php
-require "model_categoria.php";
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$pdo = new PDO("sqlite:../banco/blog_racing.db");
+require __DIR__ . "/model_categoria.php";
+
+// __DIR__ garante o caminho absoluto ao arquivo, independente de onde ele é incluído
+$pdo = new PDO("sqlite:" . __DIR__ . "/../banco/blog_racing.db");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if (!isset($_GET['id_noticia']) || empty($_GET['id_noticia'])) {
@@ -13,10 +17,10 @@ if (!isset($_GET['id_noticia']) || empty($_GET['id_noticia'])) {
 $id_noticia = $_GET['id_noticia'];
 
 $sql_mostrar = "
-    SELECT 
-        n.titulo_noticia, 
-        n.texto_noticia, 
-        n.imagem_noticia, 
+    SELECT
+        n.titulo_noticia,
+        n.texto_noticia,
+        n.imagem_noticia,
         u.user AS autor,
         c.nome_categoria,
         c.sigla_categoria,
@@ -38,31 +42,25 @@ if (!$uma_noticia) {
     exit;
 }
 
-$titulo_noticia_editar = $uma_noticia['titulo_noticia'];
-$texto_noticia_editar = $uma_noticia['texto_noticia'];
-$user_noticia_editar = $uma_noticia['autor'];
+$titulo_noticia_editar    = $uma_noticia['titulo_noticia'];
+$texto_noticia_editar     = $uma_noticia['texto_noticia'];
+$user_noticia_editar      = $uma_noticia['autor'];
 $categoria_noticia_editar = $uma_noticia['nome_categoria'];
-$imagem_noticia_editar = $uma_noticia['imagem_noticia'];
-$sigla_categoria_editar = $uma_noticia['sigla_categoria'];
+$imagem_noticia_editar    = $uma_noticia['imagem_noticia'];
+$sigla_categoria_editar   = $uma_noticia['sigla_categoria'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $titulo = $_POST['titulo'];
         $texto  = $_POST['texto'];
 
-        // Verifica se uma nova imagem foi enviada
         if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
-            // Pega o nome original do arquivo enviado
             $nome_original = basename($_FILES['img']['name']);
-
-            // Monta o novo nome: {id_noticia}-{nome-original}
-            $novo_nome = $id_noticia . '-' . $nome_original;
-
-            $destino = '../img-noticia/' . $novo_nome;
+            $novo_nome     = $id_noticia . '-' . $nome_original;
+            $destino       = __DIR__ . '/../img-noticia/' . $novo_nome;
             move_uploaded_file($_FILES['img']['tmp_name'], $destino);
-            $img = $destino;
+            $img = '../img-noticia/' . $novo_nome;
         } else {
-            // Nenhuma imagem nova: mantém a imagem atual do banco
             $img = $_POST['img_atual'];
         }
 
@@ -75,9 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
 
         $stmt = $pdo->prepare($sql_editar);
-        $stmt->bindValue(':titulo', $titulo);
-        $stmt->bindValue(':img', $img);
-        $stmt->bindValue(':texto', $texto);
+        $stmt->bindValue(':titulo',     $titulo);
+        $stmt->bindValue(':img',        $img);
+        $stmt->bindValue(':texto',      $texto);
         $stmt->bindValue(':id_noticia', $id_noticia);
         $stmt->execute();
 
@@ -89,5 +87,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-require "../view/view_noticia-editar.php";
-?>
+
+require __DIR__ . "/../view/view_noticia-editar.php";

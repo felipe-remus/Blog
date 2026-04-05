@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../includes/auth.php";
+require "includes/auth.php";
 
 // Apenas administradores (perfil_id = 1) podem acessar esta página
 requer_admin();

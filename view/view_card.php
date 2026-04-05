@@ -1,7 +1,4 @@
 <?php
-// REMOVIDO: session_start() — a sessão já é iniciada no model_noticia.php
-// que por sua vez é chamado via HTMX. A proteção abaixo garante
-// que funcione mesmo se chamado de outro contexto:
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -73,7 +70,7 @@ $perfilUsuario      = $usuarioLogado ? $_SESSION['usuario']['perfil_id'] : null;
                         <a class="btn-acao"
                             aria-label="Editar notícia"
                             title="Editar"
-                            onclick="window.location.href='../model/model_noticia-editar.php?id_noticia=<?= $id_noticia ?>';">
+                            href="actions/noticia-editar.php?id_noticia=<?= $id_noticia ?>">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L21 6.5z"/>
                             </svg>
@@ -85,7 +82,7 @@ $perfilUsuario      = $usuarioLogado ? $_SESSION['usuario']['perfil_id'] : null;
                         <a class="btn-acao"
                             aria-label="Deletar notícia"
                             title="Deletar"
-                            onclick="window.location.href='../model/model_noticia-apagar.php?id_noticia=<?= $id_noticia ?>';">
+                            href="actions/noticia-apagar.php?id_noticia=<?= $id_noticia ?>">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="3 6 5 6 21 6"/>
                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>

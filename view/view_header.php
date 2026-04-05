@@ -24,7 +24,7 @@ $perfilUsuario = $usuarioLogado ? $_SESSION['usuario']['perfil_id'] : null;
                 <a href="../model/model_admin.php" class="nav-link admin-link">Painel Admin</a>
             <?php endif; ?>
             <span class="nav-link">Olá, <?php echo htmlspecialchars($nomeUsuario); ?></span>
-            <a href="../model/model_logout.php" class="nav-link logout-btn">Sair</a>
+            <a href="actions/logout.php" class="nav-link logout-btn">Sair</a>
         <?php else: ?>
             <a href="../login.php" class="nav-link" data-page="login.php">Login</a>
         <?php endif; ?>

@@ -33,6 +33,19 @@ function inicializarPublicarPreview() {
         atualizarDataAtual();
     }
 
+    // Exibe flash de sessão caso venha via PHP (fallback)
+    const flashData = document.getElementById('flash-data');
+    if (flashData) {
+        mostrarToastPublicar(flashData.dataset.mensagem, flashData.dataset.tipo);
+    }
+
+    // ========================================
+    // INTERCEPTA SUBMIT DO FORMULÁRIO
+    // ========================================
+    if (formulario) {
+        formulario.addEventListener('submit', handlePublicarSubmit);
+    }
+
     // ========================================
     // EVENT LISTENERS - INPUTS DE TEXTO
     // ========================================
@@ -70,13 +83,11 @@ function inicializarPublicarPreview() {
             const arquivo = e.target.files[0];
             
             if (arquivo) {
-                // Atualizar nome do arquivo exibido
                 const fileName = document.getElementById('file-name');
                 if (fileName) {
                     fileName.textContent = arquivo.name;
                 }
                 
-                // Criar preview da imagem
                 const leitor = new FileReader();
                 leitor.onload = function(event) {
                     if (previewImagem) {
@@ -94,7 +105,6 @@ function inicializarPublicarPreview() {
             }
         });
 
-        // Quando clicar no label, clicar no input invisível
         const fileLabel = document.querySelector('.file-label');
         if (fileLabel) {
             fileLabel.addEventListener('click', function(e) {
@@ -112,18 +122,15 @@ function inicializarPublicarPreview() {
         btnRemoverImagem.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Limpar o input de arquivo
             if (inputImagem) {
                 inputImagem.value = '';
             }
             
-            // Atualizar nome do arquivo
             const fileName = document.getElementById('file-name');
             if (fileName) {
                 fileName.textContent = 'Nenhuma imagem selecionada';
             }
             
-            // Resetar o preview da imagem
             resetarImagem();
         });
     }
@@ -136,58 +143,21 @@ function inicializarPublicarPreview() {
         botao.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Remover classe ativa de todos os botões
             botoesCategorias.forEach(btn => btn.classList.remove('ativo'));
-            
-            // Adicionar classe ativa ao botão clicado
             this.classList.add('ativo');
             
-            // Atualizar categoria selecionada
             categoriaAtiva = this.getAttribute('data-categoria');
             const categoriaNome = this.textContent;
             
-            // Atualizar campo hidden
             if (categoriaSelecionada) {
                 categoriaSelecionada.value = categoriaAtiva;
             }
             
-            // Atualizar preview
             if (previewCategoriaBadge) {
                 previewCategoriaBadge.textContent = categoriaNome;
             }
         });
     });
-
-    // ========================================
-    // SUBMIT DO FORMULÁRIO
-    // ========================================
-    
-    if (formulario) {
-        formulario.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validar categoria selecionada
-            if (!categoriaAtiva) {
-                mostrarNotificacao('Por favor, selecione uma categoria.', 'erro');
-                return;
-            }
-            
-            // Validar imagem selecionada
-            if (!inputImagem || !inputImagem.files.length) {
-                mostrarNotificacao('Por favor, selecione uma imagem.', 'erro');
-                return;
-            }
-
-            // Preparar dados para envio
-            const formData = new FormData();
-            formData.append('acao', 'publicar');
-            formData.append('titulo', inputTitulo.value);
-            formData.append('conteudo', inputConteudo.value);
-            formData.append('autor', inputAutor.value);
-            formData.append('categoria', categoriaAtiva);
-            formData.append('imagem', inputImagem.files[0]);
-        });
-    }
 
     // ========================================
     // FUNÇÕES AUXILIARES
@@ -209,72 +179,63 @@ function inicializarPublicarPreview() {
             previewImagem.alt = 'Preview da imagem';
         }
     }
+}
 
-    function resetarPreview() {
-        if (previewTitulo) {
-            previewTitulo.textContent = 'Título';
-            previewTitulo.classList.add('preview-text');
+// ========================================
+// INTERCEPTADOR DE SUBMIT — fetch + get_flash.php
+// ========================================
+async function handlePublicarSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+
+    try {
+        // Envia o POST com fetch — redirect do PHP é ignorado
+        await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            redirect: 'manual'
+        });
+
+        // Lê o flash que o PHP gravou na sessão
+        const flashRes = await fetch('includes/get_flash.php');
+        const flash = await flashRes.json();
+
+        if (!flash) return;
+
+        if (flash.tipo === 'erro') {
+            mostrarToastPublicar(flash.mensagem, 'erro');
+            return;
         }
-        
-        if (previewConteudo) {
-            previewConteudo.textContent = 'Conteúdo da notícia. Será exibido em até 4 linhas na visualização do card.';
-            previewConteudo.classList.add('preview-text');
-        }
-        
-        resetarImagem();
-        
-        if (previewCategoriaBadge) {
-            previewCategoriaBadge.textContent = 'Categoria';
-        }
-        
-        const fileName = document.getElementById('file-name');
-        if (fileName) {
-            fileName.textContent = 'Nenhuma imagem selecionada';
-        }
-        
-        botoesCategorias.forEach(btn => btn.classList.remove('ativo'));
-        if (categoriaSelecionada) {
-            categoriaSelecionada.value = '';
-        }
-        categoriaAtiva = null;
-        
-        atualizarDataAtual();
+
+        // Sucesso: mostra toast e redireciona
+        mostrarToastPublicar(flash.mensagem, 'sucesso');
+        setTimeout(() => {
+            window.location.href = 'index.php';
+        }, 800);
+
+    } catch (err) {
+        mostrarToastPublicar('Erro de conexão. Tente novamente.', 'erro');
     }
 }
 
-// ============================================================
-// FUNÇÃO: MOSTRAR NOTIFICAÇÃO
-// ============================================================
-
-function mostrarNotificacao(mensagem, tipo = 'info') {
-    const toast = document.getElementById('notificacao-toast');
-    if (!toast) {
-        console.warn('Elemento notificacao-toast não encontrado');
-        return;
-    }
-
+// ========================================
+// TOAST (usa o mesmo #toast da view)
+// ========================================
+function mostrarToastPublicar(mensagem, tipo = 'info') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
     toast.textContent = mensagem;
-    toast.className = `notificacao-toast ${tipo} ativo`;
-
-    setTimeout(() => {
-        toast.classList.remove('ativo');
-    }, 4000);
+    toast.className = `toast ${tipo}`;
+    setTimeout(() => { toast.className = 'toast'; }, 3000);
 }
 
 // ============================================================
 // INICIALIZAÇÃO
 // ============================================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('form-noticia')) {
+// Aguarda HTMX injetar o HTML no #publicar (igual ao login)
+document.addEventListener('htmx:afterSwap', function (e) {
+    if (e.target.id === 'publicar') {
         inicializarPublicarPreview();
-    }
-});
-
-// Reinicializar publicar preview ao carregar novo conteúdo via HTMX
-document.addEventListener('htmx:afterSwap', e => {
-    if (e.detail.target.id === 'conteudo-principal' || 
-        e.detail.target.querySelector('#form-noticia')) {
-        setTimeout(inicializarPublicarPreview, 150);
     }
 });

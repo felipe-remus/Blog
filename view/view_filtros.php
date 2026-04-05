@@ -1,5 +1,5 @@
 <div class="filtros-wrapper"
-    hx-get="model/model_noticia.php"
+    hx-get="/proxy.php?p=model_noticia"
     hx-target="#noticia"
     hx-swap="innerHTML"
     hx-trigger="input delay:400ms from:#busca-texto,

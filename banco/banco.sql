@@ -69,16 +69,16 @@ CREATE TABLE noticias (
 );
 
 INSERT INTO noticias (titulo_noticia, texto_noticia, imagem_noticia, data_noticia, categoria_id, usuario_id) VALUES
-('Max Verstappen acabou.', 'Verstappen tá um bagre nesse regulamento. kkkkkkkkkkkkk', '../img-noticia/1max-sid.jpg', '2026-03-16', 1, 1);
+('Max Verstappen acabou.', 'Verstappen tá um bagre nesse regulamento. kkkkkkkkkkkkk', 'img-noticia/1-max-sid.jpg', '2026-03-16', 1, 1);
 
 INSERT INTO noticias (titulo_noticia, texto_noticia, imagem_noticia, data_noticia, categoria_id, usuario_id) VALUES
-('Rumores: BYD estuda entrada na F1 como fornecedora de motores?', 'Especulações no paddock indicam que a gigante chinesa BYD estaria avaliando uma possível incursão na Fórmula 1. Com o novo regulamento de motores sustentáveis previsto para 2026, a marca líder em veículos elétricos vê uma oportunidade de alinhar sua tecnologia de baterias ao esporte. Embora não haja confirmação oficial, fontes próximas à diretoria sugerem que um estudo de viabilidade está em andamento para decidir se a empresa entrará como construtora completa ou apenas como fornecedora de power units.', '../img-noticia/2byd-f1.jpg', '2026-03-18', 1, 2);
+('Rumores: BYD estuda entrada na F1 como fornecedora de motores?', 'Especulações no paddock indicam que a gigante chinesa BYD estaria avaliando uma possível incursão na Fórmula 1. Com o novo regulamento de motores sustentáveis previsto para 2026, a marca líder em veículos elétricos vê uma oportunidade de alinhar sua tecnologia de baterias ao esporte. Embora não haja confirmação oficial, fontes próximas à diretoria sugerem que um estudo de viabilidade está em andamento para decidir se a empresa entrará como construtora completa ou apenas como fornecedora de power units.', 'img-noticia/2-byd-f1.jpg', '2026-03-18', 1, 2);
 
 INSERT INTO noticias (titulo_noticia, texto_noticia, imagem_noticia, data_noticia, categoria_id, usuario_id) VALUES
 (
     'Sébastien Ogier é confirmado como piloto principal do WRC em 2026',
     'Sébastien Ogier, oito vezes campeão mundial, foi oficialmente confirmado como piloto principal para a temporada de 2026. O francês continuará sua parceria com a equipe M-Sport Ford, buscando conquistar seu nono título mundial e consolidar sua posição como o piloto mais vitoriante da história do WRC. Com a mudança de regulamento técnico prevista para este ano, Ogier expressa entusiasmo em trabalhar com os novos protótipos Rally1, que prometem maior eficiência de combustível e desempenho aprimorado. Seu copiloto Julien Ingrassia permanecerá ao seu lado, mantendo uma das parcerias mais bem-sucedidas do motorsport contemporâneo. A dupla francêsa terá como adversários principais Elfyn Evans, também da M-Sport, e pilotos de outras fabricantes como Hyundai e Toyota. Ogier já venceu 57 eventos mundiais em sua carreira e continua demonstrando competitividade de alto nível. A temporada de 2026 promete ser emocionante, com diversas mudanças técnicas e novas frentes de competição entre as fabricantes. Especialistas apontam que a experiência de Ogier será crucial para o desenvolvimento do novo carro M-Sport Rally1, que sofreu significativas atualizações para se adequar às novas especificações do campeonato.',
-    '../img-noticia/3rally.jpg',
+    'img-noticia/3-rally.jpg',
     '2026-03-17',
     9,
     1
